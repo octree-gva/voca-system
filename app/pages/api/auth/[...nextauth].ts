@@ -11,19 +11,21 @@ export default NextAuth({
         identifier: {label: 'Email', type: 'text'},
         password: {label: 'Password', type: 'password'},
       },
+      /**
+       * Authorize a user to login.
+       * Will save in session the bare minimum for UI purpose,
+       * and in an encrypted cookie the essentials informations like the jwt.
+       */
       async authorize(credentials) {
-        const API_URL = process.env.STRAPI_URL;
+        const {STRAPI_URL: API_URL} = process.env;
         const STRAPI_TOKEN = process.env.STRAPI_TOKEN?.trim();
         if (!credentials) {
-          console.log('credentials are null');
+          console.log('credentials are required');
           return null;
         }
-        console.log(
-          `${API_URL}/api/auth/local`,
-          credentials.identifier,
-          credentials.password
-        );
+
         try {
+          // Login in strapi, with our machine-to-machine token.
           const {data: userData} = await axios.post(
             `${API_URL}/api/auth/local`,
             {
@@ -55,16 +57,19 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({token, account}) {
-      if (account) {
-        token.id = account.id;
-        token.accessToken = account.accessToken;
+    async jwt(props) {
+      // Set the token, accessible from NextAPIHandlers only.
+      // @see next-auth/jwt/getToken()
+      const {token, user} = props;
+      if (user) {
+        token.id = user.id;
+        token.accessToken = user.accessToken;
       }
       return token;
     },
-    async session({session, token}) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
+    async session({session}) {
+      // Send properties to the client.
+      // The client doesn't need any token, as he will pass through our APIs first.
       return session;
     },
   },

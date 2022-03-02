@@ -4,7 +4,7 @@ import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../utils/createEmotionCache';
 
-export default class MyDocument extends Document {
+class VocaCityDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -36,7 +36,7 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with static-site generation (SSG).
-MyDocument.getInitialProps = async ctx => {
+VocaCityDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -66,11 +66,13 @@ MyDocument.getInitialProps = async ctx => {
   const cache = createEmotionCache();
   const {extractCriticalToChunks} = createEmotionServer(cache);
 
+  /* eslint-disable */
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App: any) => props =>
         <App emotionCache={cache} {...props} />,
     });
+  /* eslint-enable */
 
   const initialProps = await Document.getInitialProps(ctx);
   // This is important. It prevents emotion to render invalid HTML.
@@ -94,3 +96,5 @@ MyDocument.getInitialProps = async ctx => {
     ],
   };
 };
+
+export default VocaCityDocument;

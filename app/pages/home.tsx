@@ -14,10 +14,12 @@ import {useSession} from 'next-auth/react';
 import {useMemo} from 'react';
 import LogoutButton from '../components/LogoutButton';
 import CreateFirstInstanceForm from '../forms/CreateFirstInstanceForm';
+import {useConfigurationQuery} from '../graphql/hooks';
 
 const Home = () => {
   const session = useSession();
   const status = useMemo(() => session.status, [session]);
+  const configuration = useConfigurationQuery();
   return (
     <Layout publicAccess noRedirect>
       <AppBar>
@@ -34,6 +36,7 @@ const Home = () => {
           )}
         </Toolbar>
       </AppBar>
+
       <Card>
         <CardHeader title="welcome to voca.city" />
         <CardContent>
@@ -53,6 +56,13 @@ const Home = () => {
           </Link>
         )}
       </Card>
+      <pre>
+        {JSON.stringify({
+          isLoading: configuration.loading,
+          data: configuration.data,
+          error: ('' + configuration.error).substring(0, 30),
+        })}
+      </pre>
     </Layout>
   );
 };

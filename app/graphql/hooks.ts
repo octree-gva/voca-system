@@ -1371,12 +1371,27 @@ export type ResetMutationVariables = Exact<{
 
 export type ResetMutation = { __typename?: 'Mutation', resetPassword?: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', confirmed?: boolean | null } } | null };
 
+export type ConfigurationFieldsFragment = { __typename?: 'Configuration', Backups?: { __typename?: 'ComponentConfigsBackupsConfigurations', id: string, keep_n_weekly?: number | null } | null };
+
+export type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ConfigurationQuery = { __typename?: 'Query', configuration?: { __typename?: 'ConfigurationEntityResponse', data?: { __typename?: 'ConfigurationEntity', id?: string | null, attributes?: { __typename?: 'Configuration', Backups?: { __typename?: 'ComponentConfigsBackupsConfigurations', id: string, keep_n_weekly?: number | null } | null } | null } | null } | null };
+
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UsersPermissionsMe {
   id
   username
   email
   confirmed
+}
+    `;
+export const ConfigurationFieldsFragmentDoc = gql`
+    fragment ConfigurationFields on Configuration {
+  Backups {
+    id
+    keep_n_weekly
+  }
 }
     `;
 export const RegisterDocument = gql`
@@ -1528,3 +1543,42 @@ export function useResetMutation(baseOptions?: Apollo.MutationHookOptions<ResetM
 export type ResetMutationHookResult = ReturnType<typeof useResetMutation>;
 export type ResetMutationResult = Apollo.MutationResult<ResetMutation>;
 export type ResetMutationOptions = Apollo.BaseMutationOptions<ResetMutation, ResetMutationVariables>;
+export const ConfigurationDocument = gql`
+    query Configuration {
+  configuration {
+    data {
+      id
+      attributes {
+        ...ConfigurationFields
+      }
+    }
+  }
+}
+    ${ConfigurationFieldsFragmentDoc}`;
+
+/**
+ * __useConfigurationQuery__
+ *
+ * To run a query within a React component, call `useConfigurationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useConfigurationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConfigurationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useConfigurationQuery(baseOptions?: Apollo.QueryHookOptions<ConfigurationQuery, ConfigurationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ConfigurationQuery, ConfigurationQueryVariables>(ConfigurationDocument, options);
+      }
+export function useConfigurationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ConfigurationQuery, ConfigurationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ConfigurationQuery, ConfigurationQueryVariables>(ConfigurationDocument, options);
+        }
+export type ConfigurationQueryHookResult = ReturnType<typeof useConfigurationQuery>;
+export type ConfigurationLazyQueryHookResult = ReturnType<typeof useConfigurationLazyQuery>;
+export type ConfigurationQueryResult = Apollo.QueryResult<ConfigurationQuery, ConfigurationQueryVariables>;

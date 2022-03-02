@@ -18,7 +18,6 @@
     "@strapi/plugin-i18n": "4.0.4",
     "@strapi/plugin-users-permissions": "4.0.4",
     "@strapi/strapi": "4.0.4",
-    "koa-sslify": "^5.0.0",
     "sqlite3": "5.0.2"
   },
   "author": {

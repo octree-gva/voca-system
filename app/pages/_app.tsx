@@ -20,7 +20,7 @@ interface VocaCityAppProps extends AppProps {
   session: Session | null;
 }
 const apolloClient = new ApolloClient({
-  uri: `${process.env.STRAPI_URL}/graphql`,
+  uri: `/api/graphql`,
   cache: new InMemoryCache(),
 });
 

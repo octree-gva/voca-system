@@ -1,4 +1,5 @@
 "use strict";
+const httpsBoot = require("./https-boot");
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -15,5 +16,7 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  async bootstrap({ strapi }) {},
+  async bootstrap({ strapi }) {
+    await Promise.all([httpsBoot(strapi)]);
+  },
 };

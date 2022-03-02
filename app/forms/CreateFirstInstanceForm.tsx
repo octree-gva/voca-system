@@ -31,7 +31,10 @@ const CreateFirstInstanceForm = () => {
     []
   );
   return (
-    <Formik initialValues={initialValues}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={values => console.log({values})}
+    >
       <Form>
         <Field component={TextField} name="email" type="email" label="Email" />
       </Form>
