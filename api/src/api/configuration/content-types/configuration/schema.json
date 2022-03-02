@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "configurations",
+  "info": {
+    "singularName": "configuration",
+    "pluralName": "configurations",
+    "displayName": "Configuration",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Backups": {
+      "displayName": "Backups Configurations",
+      "type": "component",
+      "repeatable": false,
+      "component": "configs.backups-configurations"
+    },
+    "S3": {
+      "displayName": "S3 Config",
+      "type": "component",
+      "repeatable": false,
+      "component": "configs.s3-config"
+    },
+    "Jelastic": {
+      "displayName": "Jelastic Config",
+      "type": "component",
+      "repeatable": false,
+      "component": "configs.jelastic-config"
+    }
+  }
+}

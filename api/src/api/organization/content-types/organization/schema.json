@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organizations",
+  "info": {
+    "singularName": "organization",
+    "pluralName": "organizations",
+    "displayName": "Organization",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "organization_members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::organization-member.organization-member",
+      "mappedBy": "organization"
+    },
+    "subscription_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "current",
+        "upcoming",
+        "expired"
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "instances",
+  "info": {
+    "singularName": "instance",
+    "pluralName": "instances",
+    "displayName": "Instance",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "ipv4": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organization.organization"
+    }
+  }
+}

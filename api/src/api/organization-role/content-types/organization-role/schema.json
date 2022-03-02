@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organization_roles",
+  "info": {
+    "singularName": "organization-role",
+    "pluralName": "organization-roles",
+    "displayName": "Organization Role",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "can_create_instance": {
+      "type": "boolean"
+    },
+    "can_add_user": {
+      "type": "boolean"
+    },
+    "can_see_instance": {
+      "type": "boolean"
+    },
+    "help_text": {
+      "type": "text"
+    },
+    "organization_member": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization-member.organization-member",
+      "inversedBy": "organization_roles"
+    }
+  }
+}

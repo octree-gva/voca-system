@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "decidim_versions",
+  "info": {
+    "singularName": "decidim-version",
+    "pluralName": "decidim-versions",
+    "displayName": "Decidim Version"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "version_number": {
+      "type": "string"
+    },
+    "registery_url": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    }
+  }
+}

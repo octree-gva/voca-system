@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stripe_webhook_logs",
+  "info": {
+    "singularName": "stripe-webhook-log",
+    "pluralName": "stripe-webhook-logs",
+    "displayName": "Stripe Webhook Log",
+    "description": "Log all the stripe incoming webhooks"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "json"
+    },
+    "received_at": {
+      "type": "datetime"
+    },
+    "parsed_at": {
+      "type": "datetime"
+    }
+  }
+}

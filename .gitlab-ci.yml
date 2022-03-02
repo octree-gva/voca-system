@@ -1,0 +1,40 @@
+include:
+  - project: o/infra/templates
+    file: /gitlab-ci/includes/StrapiBuildDeploy.yaml
+  - project: o/infra/templates
+    file: /gitlab-ci/includes/jobs.yaml
+
+tests:api:
+  stage: test
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  image: strapi/base:14-alpine
+  only:
+    - merge_requests
+    - master
+    - main
+  cache:
+    key: node_modules
+    paths:
+      - api/node_modules
+  script:
+    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
+    - cd api
+    - yarn
+    - yarn test:ci
+tests:app:
+  stage: test
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  image: strapi/base:14-alpine
+  only:
+    - merge_requests
+    - master
+    - main
+  cache:
+    key: front_node_modules
+    paths:
+      - app/node_modules
+  script:
+    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
+    - cd app
+    - yarn
+    - yarn test:ci
