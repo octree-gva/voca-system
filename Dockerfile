@@ -29,7 +29,10 @@ ENV VERSION=${VERSION:-dev} \
     SMTP_DEFAULT_FROM="noreply@voca.city"\
     SMTP_DEFAULT_REPLYTO="hello@voca.city"\
     USER=strapi\
-    GROUP=admin
+    GROUP=admin\
+    STRAPI_TOKEN=""\
+    NEXT_STRAPI_TOKEN=""\
+    NEXTAUTH_URL=""
 
 WORKDIR $ROOT
 
@@ -53,4 +56,4 @@ COPY ./docker-entrypoint.sh /usr/local/bin/
 COPY . $ROOT
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["yarn", "--name", "strapi", "--interpreter", "bash", "--restart-delay=10000", "--" "run", "start"]
+CMD ["yarn", "--name", "strapi", "--interpreter", "bash", "--no-daemon", "--restart-delay=10000", "--" "run", "start"]

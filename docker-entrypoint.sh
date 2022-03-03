@@ -27,4 +27,4 @@ cd $ROOT/backend/
 
 echo "Starting your app..."
 
-exec "pm2 start $@; pm2 logs"
+exec "pm2 start $@;"

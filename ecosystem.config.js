@@ -1,4 +1,9 @@
-const { HOST = "localhost" } = process.env;
+const { 
+  STRAPI_URL="http://localhost",
+  STRAPI_TOKEN="", 
+  NEXTAUTH_SECRET="change-me", 
+  NEXTAUTH_URL="http://localhost:3000"
+} = process.env;
 
 module.exports = {
   apps: [
@@ -23,7 +28,11 @@ module.exports = {
       restart_delay: 10000,
       env: {
         PORT: 3000,
-        STRAPI_URL: `http://${HOST}`,
+        STRAPI_URL,
+        STRAPI_TOKEN,
+        NEXT_STRAPI_TOKEN,
+        NEXTAUTH_SECRET,
+        NEXTAUTH_URL
       },
     },
   ],
