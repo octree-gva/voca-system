@@ -18,7 +18,7 @@ tests:api:
       - api/node_modules
   script:
     - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
-    - cd api
+    - cd backend
     - yarn
     - yarn test:ci
 tests:app:
@@ -35,7 +35,7 @@ tests:app:
       - app/node_modules
   script:
     - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
-    - cd app
+    - cd frontend
     - yarn
     - yarn test:ci
 
