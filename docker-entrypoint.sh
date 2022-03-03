@@ -1,6 +1,9 @@
 #!/bin/sh
 set -ea
 
+source $ROOT/.profile
+nvm use $NODE_VERSION
+
 cd $ROOT/backend/
 echo "Installing node modules..."
 yarn

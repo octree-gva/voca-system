@@ -37,12 +37,6 @@ ENV VERSION=${VERSION:-dev} \
 
 WORKDIR $ROOT
 
-RUN addgroup -S $GROUP -g 1001 && \
-    adduser -S -g '' -u 1001 -G $GROUP $USER &&\
-    echo "{\"version\":\"$VERSION\"" > $ROOT/VERSION.json
-
-
-
 # @see https://github.com/strapi/strapi-docker/issues/329
 RUN mkdir -p $NVM_DIR && \
     apk --update --no-cache add \
@@ -56,8 +50,7 @@ RUN touch $ROOT/.profile && \
     nvm install $NODE_VERSION --no-progress --default && \
     npm install --global yarn && \
     yarn global add pm2
-    
-USER $USER
+
 VOLUME $ROOT/backend/node_modules
 VOLUME $ROOT/backend/build
 VOLUME $ROOT/backend/public
