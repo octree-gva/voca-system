@@ -25,10 +25,10 @@ include:
 #   stage: test
 #   coverage: /All\sfiles.*?\s+(\d+.\d+)/
 #   image: strapi/base:14-alpine
-#   only:
-#     - merge_requests
-#     - master
-#     - main
+  # only:
+  #   - merge_requests
+  #   - master
+  #   - main
 #   cache:
 #     key: front_node_modules
 #     paths:
@@ -44,7 +44,9 @@ build:latest:
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-
+  only:
+    - merge_requests
+    - main
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
@@ -55,6 +57,9 @@ build:nginx:
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
+  only:
+    - merge_requests
+    - main
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/Dockerfile-nginx --destination $CI_REGISTRY_IMAGE/nginx:latest --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
