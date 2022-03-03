@@ -1,0 +1,10 @@
+FROM jelastic/nginxbalancer:1.20.2
+ARG JELASTIC_HOST=jcloud-ver-jpc.ik-server.com
+ENV JELASTIC_HOST=$JELASTIC_HOST
+
+# Volume to stores the public directories of strapi and next
+VOLUME /data/frontend
+VOLUME /data/backend
+
+COPY ./data /data
+COPY ./conf.d /etc/nginx/conf.d/

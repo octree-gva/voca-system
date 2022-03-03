@@ -53,7 +53,9 @@ RUN addgroup -S $GROUP -g 1001 && \
 USER $USER
 
 COPY ./docker-entrypoint.sh /usr/local/bin/
-COPY . $ROOT
+COPY ./frontend $ROOT/frontend
+COPY ./backend $ROOT/backend
+COPY ./ecosystem.config.js $ROOT/ecosystem.config.js
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["yarn", "--name", "strapi", "--interpreter", "bash", "--no-daemon", "--restart-delay=10000", "--" "run", "start"]
