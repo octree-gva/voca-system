@@ -1,10 +1,7 @@
-# Docker file for strapi/next
-FROM strapi/base:14-alpine
+FROM node:14.7.0-alpine3.12
 
 ARG VERSION
 ENV VERSION=${VERSION:-dev} \
-    NODE_VERSION=14.17.0 \
-    NVM_DIR=/usr/local/nvm \
     NODE_ENV=production \
     DATABASE_HOST=pg \
     DATABASE_PORT=5432 \
@@ -29,27 +26,15 @@ ENV VERSION=${VERSION:-dev} \
     SMTP_TIMEOUT=1\
     SMTP_DEFAULT_FROM="noreply@voca.city"\
     SMTP_DEFAULT_REPLYTO="hello@voca.city"\
-    USER=strapi\
-    GROUP=admin\
     STRAPI_TOKEN=""\
     NEXT_STRAPI_TOKEN=""\
     NEXTAUTH_URL=""
 
 WORKDIR $ROOT
 
-# @see https://github.com/strapi/strapi-docker/issues/329
-RUN mkdir -p $NVM_DIR && \
-    apk --update --no-cache add \
-        bash curl &&\
-         rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/bin/nodejs /usr/local/bin/yarn* /usr/local/lib/node_modules  
-RUN touch $ROOT/.profile && \
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash; \
-    source $NVM_DIR/nvm.sh; \
-    echo "nvm_get_arch() { nvm_echo \"x64-musl\"; }" >> $ROOT/.profile; source $ROOT/.profile;\
-    nvm install $NODE_VERSION --no-progress --default && \
-    npm install --global yarn && \
-    yarn global add pm2
+RUN apk add --upgrade --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash
+
+RUN yarn global add pm2
 
 VOLUME $ROOT/backend/node_modules
 VOLUME $ROOT/backend/build
