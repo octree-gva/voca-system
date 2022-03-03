@@ -4,7 +4,7 @@ FROM strapi/base:14-alpine
 ARG VERSION
 ENV VERSION=${VERSION:-dev} \
     NODE_VERSION=14.17.0 \
-    NPM_REGISTRY=https://npm-8ee.hidora.com\
+    NVM_DIR=/usr/local/nvm \
     NODE_ENV=production \
     DATABASE_HOST=pg \
     DATABASE_PORT=5432 \
@@ -36,30 +36,38 @@ ENV VERSION=${VERSION:-dev} \
     NEXTAUTH_URL=""
 
 WORKDIR $ROOT
-# @see https://github.com/strapi/strapi-docker/issues/329
-RUN rm -rf /usr/local/bin/nodejs  && \
-    /bin/sh -c ARCH= && dpkgArch="$(dpkg --print-architecture)"   && case "${dpkgArch##*-}" in     amd64) ARCH='x64';;     ppc64el) ARCH='ppc64le';;     s390x) ARCH='s390x';;     arm64) ARCH='arm64';;     armhf) ARCH='armv7l';;     i386) ARCH='x86';;     *) echo "unsupported architecture"; exit 1 ;;   esac   && set -ex   && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner  && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz"  && ln -s /usr/local/bin/node /usr/local/bin/nodejs   && node --version   && npm --version
-
-RUN echo "45.66.221.1 $NPM_REGISTRY" >> /etc/hosts && \
-    npm set registry $NPM_REGISTRY/ && \
-    yarn global add pm2
-
-VOLUME $ROOT/backend/node_modules
-VOLUME $ROOT/backend/build
-VOLUME $ROOT/backend/public
-VOLUME $ROOT/backend/.env
-VOLUME $ROOT/frontend/node_modules
-VOLUME $ROOT/frontend/.next
 
 RUN addgroup -S $GROUP -g 1001 && \
     adduser -S -g '' -u 1001 -G $GROUP $USER &&\
     echo "{\"version\":\"$VERSION\"" > $ROOT/VERSION.json
-USER $USER
 
+
+
+# @see https://github.com/strapi/strapi-docker/issues/329
+RUN mkdir -p $NVM_DIR && \
+    apk --update --no-cache add \
+        bash curl &&\
+         rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/bin/nodejs /usr/local/bin/yarn* /usr/local/lib/node_modules  
+RUN touch $ROOT/.profile && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash; \
+    source $NVM_DIR/nvm.sh; \
+    echo "nvm_get_arch() { nvm_echo \"x64-musl\"; }" >> $ROOT/.profile; source $ROOT/.profile;\
+    nvm install $NODE_VERSION --no-progress --default && \
+    npm install --global yarn && \
+    yarn global add pm2
+    
+USER $USER
+VOLUME $ROOT/backend/node_modules
+VOLUME $ROOT/backend/build
+VOLUME $ROOT/backend/public
+VOLUME $ROOT/frontend/node_modules
+VOLUME $ROOT/frontend/.next
+
+COPY ./ecosystem.config.js $ROOT/ecosystem.config.js
 COPY ./docker-entrypoint.sh /usr/local/bin/
 COPY ./frontend $ROOT/frontend
 COPY ./backend $ROOT/backend
-COPY ./ecosystem.config.js $ROOT/ecosystem.config.js
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["yarn", "--name", "strapi", "--interpreter", "bash", "--no-daemon", "--restart-delay=10000", "--" "run", "start"]
