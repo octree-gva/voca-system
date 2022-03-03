@@ -1,6 +1,7 @@
 #!/bin/sh
 set -ea
 
+source $NVM_DIR/nvm.sh
 source $ROOT/.profile
 nvm use $NODE_VERSION
 

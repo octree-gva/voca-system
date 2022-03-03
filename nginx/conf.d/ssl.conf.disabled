@@ -2,9 +2,7 @@
 # HTTPS server configuration
 #
 server {
-    listen       443 quic reuseport;
     listen       443 http2 ssl;
-    listen       [::]:443 quic reuseport;
     listen       [::]:443 http2 ssl;
     server_name  _;
 
