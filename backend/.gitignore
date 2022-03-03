@@ -112,4 +112,4 @@ exports
 *.cache
 build
 .strapi-updater.json
-localhost-*.pem
+localhost*.pem

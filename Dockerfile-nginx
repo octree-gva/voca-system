@@ -2,7 +2,7 @@ FROM nginx:1.20-alpine
 ARG JELASTIC_HOST=jcloud-ver-jpc.ik-server.com
 ENV JELASTIC_HOST=$JELASTIC_HOST
 
-RUN apk add certbot certbot-nginx
+RUN apk add --upgrade --no-cache certbot certbot-nginx
 
 # Volume to stores the public directories of strapi and next
 VOLUME /data/frontend
@@ -11,3 +11,4 @@ VOLUME /etc/letsencrypt
 
 COPY ./data /data
 COPY ./conf.d /etc/nginx/conf.d/
+COPY ./nginx.conf /etc/nginx/nginx.conf
