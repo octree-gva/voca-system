@@ -1,27 +1,29 @@
 #!/bin/sh
 set -ea
 
-cd /srv/app/backend/
+cd $ROOT/backend/
 echo "Installing node modules..."
 yarn
 yarn global add pm2
 
-if [ ! -f /srv/app/backend/.adminbuilt ]; then
+if [ ! -f $ROOT/backend/.adminbuilt ]; then
     echo "Building Strapi admin UI..."
+    cp $ROOT/VERSION.json public/version.json
     yarn
     yarn build
     touch .adminbuilt
 fi
 
-if [ ! -f /srv/app/frontend/.appbuilt ]; then
+if [ ! -f $ROOT/frontend/.appbuilt ]; then
     echo "Building NextJS app..."
-    cd /srv/app/frontend/
+    cd $ROOT/frontend/
+    cp $ROOT/VERSION.json public/version.json
     yarn
     yarn build
     touch .appbuilt
 fi
 
-cd /srv/app/backend/
+cd $ROOT/backend/
 
 echo "Starting your app..."
 

@@ -46,7 +46,7 @@ VOLUME $ROOT/frontend/.next
 
 RUN addgroup -S $GROUP -g 1001 && \
     adduser -S -g '' -u 1001 -G $GROUP $USER &&\
-    echo "{\"version\":\"$VERSION\"" > $ROOT/public/version.json
+    echo "{\"version\":\"$VERSION\"" > $ROOT/VERSION.json
 USER $USER
 
 COPY ./docker-entrypoint.sh /usr/local/bin/
