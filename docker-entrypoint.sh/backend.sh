@@ -9,4 +9,4 @@ if [ ! -f $ROOT/.adminbuilt ]; then
     touch .adminbuilt
 fi
 echo "🚀 Running 'yarn strapi $@'"
-exec "yarn strapi $@"
+yarn strapi $@

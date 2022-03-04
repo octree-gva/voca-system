@@ -10,4 +10,4 @@ if [ ! -f $ROOT/.appbuilt ]; then
 fi
 
 echo "🚀 Running 'yarn $@'"
-exec "yarn $@"
+yarn $@
