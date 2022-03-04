@@ -37,6 +37,7 @@ tests:frontend:
     - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
     - cd frontend
     - yarn
+    - yarn lint
     - yarn test:ci  
     - yarn test:cov
 
