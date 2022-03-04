@@ -1,4 +1,4 @@
-FROM node:14.7.0-alpine3.12
+FROM node:16.14.0-alpine3.14
 
 ARG VERSION
 ENV VERSION=${VERSION:-dev} \
@@ -34,7 +34,8 @@ WORKDIR $ROOT
 
 RUN apk add --upgrade --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash
 
-RUN yarn global add pm2
+RUN yarn global add pm2 && \
+    echo " {\"version\":\"$VERSION\"}" > $ROOT/VERSION.json
 
 VOLUME $ROOT/backend/node_modules
 VOLUME $ROOT/backend/build

@@ -19,10 +19,15 @@ settings:
       default: git.octree.ch:4567
       tooltip: "Docker Registry URL"
     - type: string
-      name: IMAGE_PATH
-      caption: Image path
-      default: decidim/decidim-quickstart/vocacity:0.24
-      tooltip: "Image path inside the registry"
+      name: DEV_IMAGE_PATH
+      caption: 🌱 Image path
+      default: decidim/vocacity/docker/dev-0.24
+      tooltip: "Dev Image path inside the registry"
+    - type: string
+      name: PROD_IMAGE_PATH
+      caption: 🚀 Image path
+      default: decidim/vocacity/docker/prod-0.24
+      tooltip: "Prod Image path inside the registry"
     - type: compositefield
       caption: Username/Password for Registry
       name: IMAGE_AUTH
@@ -358,7 +363,7 @@ nodes:
       RAILS_ROOT: /home/decidim/app
     links:
       - sqldb:psql
-    image: ${settings.IMAGE_PATH}
+    image: ${settings.DEV_IMAGE_PATH}
     registry:
       url: ${settings.IMAGE_REGISTRY}
       user: ${settings.IMAGE_USERNAME}
@@ -395,7 +400,7 @@ nodes:
       PORT: 3000
     links:
       - sqldb:psql
-    image: ${settings.IMAGE_PATH}
+    image: ${settings.DEV_IMAGE_PATH}
     registry:
       url: ${settings.IMAGE_REGISTRY}
       user: ${settings.IMAGE_USERNAME}

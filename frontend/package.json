@@ -39,6 +39,10 @@
     "gql": "graphql-codegen --config codegen.yml",
     "prepare": "cd .. && husky install frontend/.husky"
   },
+  "engines": {
+    "node": "^14.17.0",
+    "npm": ">=6.0.0"
+  },
   "devDependencies": {
     "@emotion/jest": "^11.8.0",
     "@graphql-codegen/cli": "^2.2.2",
