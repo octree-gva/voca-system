@@ -17,6 +17,10 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }) {
-    await Promise.all([httpsBoot(strapi)]);
+    await Promise.all([
+      process.env.NODE_ENV === "development"
+        ? httpsBoot(strapi)
+        : Promise.resolve(),
+    ]);
   },
 };

@@ -43,6 +43,7 @@
     "node": ">=12.22.0 <=16.x.x",
     "npm": ">=6.0.0"
   },
+  "license": "AGPLv3",
   "devDependencies": {
     "@emotion/jest": "^11.8.0",
     "@graphql-codegen/cli": "^2.2.2",

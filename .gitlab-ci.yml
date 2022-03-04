@@ -4,40 +4,40 @@ include:
   - project: o/infra/templates
     file: /gitlab-ci/includes/jobs.yaml
 
-# tests:api:
-#   stage: test
-#   coverage: /All\sfiles.*?\s+(\d+.\d+)/
-#   image: strapi/base:14-alpine
-#   only:
-#     - merge_requests
-#     - master
-#     - main
-#   cache:
-#     key: node_modules
-#     paths:
-#       - api/node_modules
-#   script:
-#     - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
-#     - cd backend
-#     - yarn
-#     - yarn test:ci
-# tests:app:
-#   stage: test
-#   coverage: /All\sfiles.*?\s+(\d+.\d+)/
-#   image: strapi/base:14-alpine
-  # only:
-  #   - merge_requests
-  #   - master
-  #   - main
-#   cache:
-#     key: front_node_modules
-#     paths:
-#       - app/node_modules
-#   script:
-#     - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
-#     - cd frontend
-#     - yarn
-#     - yarn test:ci  
+tests:api:
+  stage: test
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  image: node:16.14.0-alpine3.14
+  only:
+    - merge_requests
+    - main
+  cache:
+    key: node_modules
+    paths:
+      - api/node_modules
+  script:
+    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
+    - cd backend
+    - yarn
+    - yarn test:cov
+    - yarn test:ci
+tests:app:
+  stage: test
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  image: node:16.14.0-alpine3.14
+  only:
+    - merge_requests
+    - main
+  cache:
+    key: front_node_modules
+    paths:
+      - app/node_modules
+  script:
+    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
+    - cd frontend
+    - yarn
+    - yarn test:ci  
+    - test:cov
 
 build:latest:
   stage: build

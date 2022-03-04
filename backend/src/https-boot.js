@@ -2,7 +2,6 @@ const https = require("https");
 const fs = require("fs");
 
 module.exports = async function (strapi) {
-  if (process.env.NODE_ENV !== "development") return Promise.resolve();
   const { PORT: strapiPort = "3000" } = process.env;
   const httpsPort = Math.max(parseInt(strapiPort, 10) + 1, 1300);
   const options = {
