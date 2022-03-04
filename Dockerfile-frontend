@@ -18,7 +18,7 @@ RUN apk add --upgrade --no-cache build-base gcc autoconf automake zlib-dev libpn
 RUN echo "{\"version\":\"$VERSION\"}" > $ROOT/VERSION.json
 
 VOLUME $ROOT/node_modules
-VOLUME $ROOT/build
+VOLUME $ROOT/.next
 
 COPY ./docker-entrypoint.sh/frontend.sh /usr/local/bin/docker-entrypoint.sh
 COPY ./frontend $ROOT

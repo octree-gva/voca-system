@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ea
 
-if [ ! -f $ROOT/frontend/.appbuilt ]; then
+if [ ! -f $ROOT/.appbuilt ]; then
     echo "Building NextJS app..."
     cp $ROOT/VERSION.json public/version.json
     yarn
@@ -10,4 +10,4 @@ if [ ! -f $ROOT/frontend/.appbuilt ]; then
 fi
 
 echo "🚀 Running `next $@`"
-exec "next $@;"
+exec "yarn next $@;"
