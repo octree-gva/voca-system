@@ -12,5 +12,4 @@ module.exports = async function (strapi) {
   strapi.log.info("To access the https server ⚡️, go to:");
   strapi.log.info(`https://localhost:${httpsPort}`);
   strapi.log.info(`https://localhost:${httpsPort}/admin`);
-  return Promise.resolve();
 };

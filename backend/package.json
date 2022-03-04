@@ -9,12 +9,14 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
+    "prepare": "cd .. && husky install backend/.husky",
     "test": "jest --forceExit --detectOpenHandles --runInBand --watch",
     "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
   },
   "devDependencies": {
     "https": "^1.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "supertest": "^6.2.2"
   },
