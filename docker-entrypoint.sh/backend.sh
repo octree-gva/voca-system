@@ -7,5 +7,5 @@ if [ ! -f $ROOT/.adminbuilt ]; then
     yarn build
     touch .adminbuilt
 fi
-echo "🚀 Running `yarn strapi $@`"
-exec "yarn strapi $@;"
+echo "🚀 Running 'yarn strapi $@'"
+exec "yarn strapi $@"

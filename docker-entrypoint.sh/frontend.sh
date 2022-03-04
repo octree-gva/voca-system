@@ -11,4 +11,4 @@ if [ ! -f $ROOT/.appbuilt ]; then
 fi
 
 echo "🚀 Running 'next $@'"
-exec "yarn next $@;"
+exec "yarn next $@"
