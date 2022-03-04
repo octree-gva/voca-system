@@ -37,7 +37,7 @@ tests:app:
     - cd frontend
     - yarn
     - yarn test:ci  
-    - test:cov
+    - yarn test:cov
 
 build:latest:
   stage: build
