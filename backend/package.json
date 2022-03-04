@@ -9,7 +9,6 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "prepare": "cd .. && husky install backend/.husky",
     "test": "jest --forceExit --detectOpenHandles --runInBand --watch",
     "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
