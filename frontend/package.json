@@ -38,7 +38,7 @@
     "test:ci": "jest --ci",
     "test:cov": "jest --ci --coverage",
     "gql": "graphql-codegen --config codegen.yml",
-    "prepare": "cd .. && husky install frontend/.husky"
+    "prepare": "cd .. && husky install frontend/.husky | true"
   },
   "engines": {
     "node": ">=12.22.0 <=16.x.x",
