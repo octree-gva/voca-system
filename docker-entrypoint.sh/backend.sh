@@ -1,5 +1,6 @@
 #!/bin/sh
 set -ea
+cd $ROOT;
 if [ ! -f $ROOT/.adminbuilt ]; then
     echo "Building Strapi admin UI..."
     cp VERSION.json public/version.json

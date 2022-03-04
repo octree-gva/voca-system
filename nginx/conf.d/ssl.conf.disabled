@@ -4,10 +4,11 @@
 server {
     listen       443 http2 ssl;
     listen       [::]:443 http2 ssl;
-    server_name  _;
+	server_name app.custom-domain;
 
-    ssl_certificate      /etc/letsencrypt/vocacity/jelastic.chain;
-    ssl_certificate_key  /etc/letsencrypt/vocacity/jelastic.key;
+   
+    ssl_certificate      /etc/letsencrypt/live/custom-domain/fullchain.pem;
+    ssl_certificate_key   /etc/letsencrypt/live/custom-domain/privkey.pem;
 
 
     ssl_session_timeout  5m;
@@ -22,27 +23,78 @@ server {
     error_log /var/log/nginx/localhost.error_log info;
     proxy_temp_path /var/nginx/tmp/;
     include conf.d/error_pages.inc;
-    location / {
-        gzip_static on;
-        set $upstream_name common;
-        include conf.d/ssl.upstreams.inc;
-        add_header X-Served-By "Application Handler";
-        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-        proxy_pass http://$upstream_name;
-        proxy_next_upstream error;
+    
+    location /strapi/ {
+        rewrite ^/strapi/?(.*)$ /$1 break;
+        proxy_pass http://strapi;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Host $http_host;
-        proxy_set_header X-Forwarded-For $http_x_forwarded_for;
-        proxy_set_header X-URI $request_uri;
-        proxy_set_header X-ARGS $args;
-        proxy_set_header Refer $http_refer;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header Ssl-Offloaded "1";
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass_request_headers on;
+    }
+  location /guides/ {
+        rewrite ^/guides/?(.*)$ /$1 break;
+        proxy_pass http://guides;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass_request_headers on;
+    }
+
+    location / {
+      proxy_pass http://nextjs;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;     
     }
 
     include conf.d/error_pages_locations.inc;
 }
+
+server {
+    listen       443 http2 ssl;
+    listen       [::]:443 http2 ssl;
+	server_name ~^(?<user>[a-zA-Z0-9-]+)\.voca\.city$;
+
+   
+    ssl_certificate      /etc/letsencrypt/live/custom-domain/fullchain.pem;
+    ssl_certificate_key   /etc/letsencrypt/live/custom-domain/privkey.pem;
+
+
+    ssl_session_timeout  5m;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+
+    add_header alt-svc 'h3=":443"; ma=86400';
+
+    access_log /var/log/nginx/localhost.access_log main;
+    error_log /var/log/nginx/localhost.error_log info;
+    proxy_temp_path /var/nginx/tmp/;
+    include conf.d/error_pages.inc;
+    
+    location / {
+        resolver            8.8.8.8;
+        rewrite             ^([^.]*[^/])$ $1/ permanent;
+        proxy_pass_header   Set-Cookie;
+        proxy_pass          https://vc-lb-$user.jcloud-ver-jpc.ik-server.com/$request_uri;
+    }
+
+    include conf.d/error_pages_locations.inc;
+}
+
