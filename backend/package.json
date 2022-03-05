@@ -1,0 +1,56 @@
+{
+  "name": "backend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "dev": "yarn develop",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "test": "jest --forceExit --detectOpenHandles --runInBand --watch",
+    "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
+    "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
+  },
+  "devDependencies": {
+    "https": "^1.0.0",
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
+  },
+  "dependencies": {
+    "@strapi/plugin-graphql": "4.1.2",
+    "@strapi/plugin-i18n": "4.1.2",
+    "@strapi/plugin-users-permissions": "4.1.2",
+    "@strapi/provider-email-nodemailer": "^4.1.2",
+    "@strapi/strapi": "4.1.2",
+    "pg": "^8.7.3",
+    "sqlite3": "5.0.2"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "690c0d7f-c252-491e-a85d-b2e57c15aa54"
+  },
+  "engines": {
+    "node": ">=12.22.0 <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "AGPLv3",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      ".tmp",
+      ".cache"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ]
+  }
+}
