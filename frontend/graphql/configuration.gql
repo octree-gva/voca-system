@@ -1,0 +1,18 @@
+# Write your query or mutation here
+fragment ConfigurationFields on Configuration {
+    Backups {
+        id,
+        keep_n_weekly
+    }
+}
+
+query Configuration {
+  configuration{
+    data {
+      id
+      attributes{
+        ...ConfigurationFields
+      }
+    }
+  }
+}

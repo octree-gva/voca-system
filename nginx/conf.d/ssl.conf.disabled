@@ -1,0 +1,60 @@
+#
+# HTTPS server configuration
+#
+server {
+    listen       443 http2 ssl;
+    listen       [::]:443 http2 ssl;
+    # TODO change custom.domain by your own domain
+	server_name app.custom.domain;
+    include conf.d/ssl_config.inc;
+    include conf.d/error_pages.inc;
+    location / {
+    	include conf.d/set_location_headers.inc;
+    	proxy_pass http://nextjs;
+    }
+    include conf.d/error_pages_locations.inc;
+}
+server {
+    listen       443 http2 ssl;
+    listen       [::]:443 http2 ssl;
+    # TODO change custom.domain by your own domain
+	server_name api.custom.domain;
+    include conf.d/ssl_config.inc;
+    include conf.d/error_pages.inc;
+  	location / {
+      	include conf.d/set_location_headers.inc;
+        proxy_pass http://strapi;
+    }
+    include conf.d/error_pages_locations.inc;
+}
+server {
+    listen       443 http2 ssl;
+    listen       [::]:443 http2 ssl;
+    # TODO change custom.domain by your own domain
+	server_name guides.custom.domain;
+    include conf.d/ssl_config.inc;
+    include conf.d/error_pages.inc;
+  	location / {
+    	include conf.d/set_location_headers.inc;
+          proxy_pass http://guides;
+	}
+    include conf.d/error_pages_locations.inc;
+}
+server {
+    listen       443 http2 ssl;
+    listen       [::]:443 http2 ssl;
+	server_name ~^(?<user>[a-zA-Z0-9-]+)\.custom\.domain$;
+    include conf.d/ssl_config.inc;
+    include conf.d/error_pages.inc;
+    location / {
+        resolver            8.8.8.8;
+        rewrite             ^([^.]*[^/])$ $1/ permanent;
+        proxy_pass_header   Set-Cookie;
+    	include conf.d/error_pages.inc;
+        # TODO: change jelastic.host by your jelastic host
+        # TODO: change vc-lb by your own prefix
+        proxy_pass          https://vc-lb-$user.jelastic.host/$request_uri;
+    }
+    include conf.d/error_pages_locations.inc;
+}
+
