@@ -1,8 +1,4 @@
 include:
-  - template: SAST.gitlab-ci.yml
-    rules:
-      - if: '$CI_COMMIT_REF_NAME == "master"'
-      - if: '$CI_COMMIT_REF_NAME == "main"'
   - project: o/infra/templates
     file: /gitlab-ci/includes/jobs.yaml
 
