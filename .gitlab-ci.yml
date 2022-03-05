@@ -43,7 +43,11 @@ tests:frontend:
     - yarn test:ci  
     - yarn test:cov
 
+<<<<<<< HEAD
 build:front-back:
+=======
+build:latest:
+>>>>>>> 38f4a6b08edd7d155ad20cfed231724e594bd8af
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -68,6 +72,7 @@ build:nginx:
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/Dockerfile-nginx --destination $CI_REGISTRY_IMAGE/nginx:latest --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
+<<<<<<< HEAD
 
 release:front-back:
   stage: build
@@ -95,3 +100,5 @@ release:nginx:
 
 version:
   extends: .release
+=======
+>>>>>>> 38f4a6b08edd7d155ad20cfed231724e594bd8af
