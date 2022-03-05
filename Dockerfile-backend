@@ -18,12 +18,8 @@ ENV VERSION=${VERSION:-dev} \
     STRAPI_LOG_LEVEL=debug\
     SMTP_HOST="smtp.gmail.com"\
     SMTP_PORT="465"\
-    SMTP_SECURE=true\
     SMTP_USERNAME=""\
     SMTP_PASSWORD=""\
-    SMTP_REJECT_UNAUTHORIZED=false\
-    SMTP_REQUIRE_TLS=true\
-    SMTP_TIMEOUT=1\
     SMTP_DEFAULT_FROM="noreply@voca.city"\
     SMTP_DEFAULT_REPLYTO="hello@voca.city"
 
