@@ -9,7 +9,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "test": "jest --forceExit --detectOpenHandles --runInBand --watch",
+    "test": "jest --watch --detectOpenHandles",
     "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
   },
@@ -25,7 +25,8 @@
     "@strapi/provider-email-nodemailer": "^4.1.2",
     "@strapi/strapi": "4.1.2",
     "pg": "^8.7.3",
-    "sqlite3": "5.0.2"
+    "sqlite3": "5.0.2",
+    "yup": "^0.32.11"
   },
   "author": {
     "name": "A Strapi developer"
