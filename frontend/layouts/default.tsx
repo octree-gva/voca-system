@@ -33,6 +33,8 @@ const Wrapper = styled(Box)(() => ({
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
+  padding: 0,
+  margin: 0,
 }));
 
 export default Default;

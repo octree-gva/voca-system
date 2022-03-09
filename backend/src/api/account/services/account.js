@@ -1,3 +1,5 @@
+const { createCoreService } = require("@strapi/strapi").factories;
+
 const Yup = require("yup");
 const accountCreationSchema = () =>
   Yup.object()
@@ -6,7 +8,9 @@ const accountCreationSchema = () =>
         .required("Password is required")
         .min(10)
         .matches(
-          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/,
+          new RegExp(
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})"
+          ),
           "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
         ),
       password_confirmation: Yup.string()
@@ -27,15 +31,17 @@ const accountCreationSchema = () =>
     })
     .required("account param are required");
 
-module.exports = () => ({
-  create: async (options) => {
+module.exports = createCoreService("api::account.account", ({ strapi }) => ({
+  async create(options) {
     const createAccountSchema = accountCreationSchema();
     try {
       const validationResult = await createAccountSchema.validate(
         options || {}
       );
       const { email, password } = validationResult;
-      return await strapi.plugins["users-permissions"].services.user.add({
+      const newUser = await strapi.plugins[
+        "users-permissions"
+      ].services.user.add({
         username: email,
         email: email,
         provider: "local",
@@ -43,9 +49,18 @@ module.exports = () => ({
         confirmed: true,
         blocked: false,
       });
+      // Create and associate a new account
+      const account = await super.create({
+        data: {
+          title: `Workspace`,
+          creator: newUser,
+          administrators: [newUser],
+        },
+      });
+      return { ...account, creator: newUser, administrators: [newUser] };
     } catch (e) {
       throw e;
     }
     throw new Error("Server error");
   },
-});
+}));

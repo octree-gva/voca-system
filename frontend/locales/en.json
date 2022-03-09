@@ -1,0 +1,78 @@
+{
+  "metas": {
+    "title": "Project",
+    "description": "A beautiful project."
+  },
+  "register": {
+    "account": {
+      "heading": "About you",
+      "email": "Email",
+      "password": "Password",
+      "password_confirmation": "Password Confirmation"
+    },
+    "decidim": {
+      "heading": "About your platform",
+      "title": "Platform title",
+      "subdomain": "subdomain",
+      "acronym": "Platform acronym"
+    },
+    "errors": {
+      "decidim.title.required": "A title for your decidim instance is required",
+      "decidim.title.min_length": "At least 3 characters is required",
+      "decidim.title.max_length": "Title can not be more than 200 characters",
+      "decidim.subdomain.required": "Subdomain is required",
+      "decidim.subdomain.min_length": "Subdomain must be at least 3 characters",
+      "decidim.subdomain.format": "Subdomain is invalid. Uses lowercases, no accents",
+      "decidim.subdomain.punycode": "Punycode is not supported yet"
+    }
+  },
+  "auth": {
+    "login": {
+      "heading": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "confirm": "Connect",
+      "forgot": "Forgot your password?",
+      "alreadyIn": {
+        "content": "Already connected.",
+        "goToDashboard": "Go back to your workspace",
+        "goLogout": "Log out"
+      }
+    },
+    "forgot": {
+      "heading": "Change your password",
+      "email": "Email",
+      "confirm": "Get your link",
+      "submitted": "If your email is in our records, you will get a link.",
+      "back": "Back"
+    },
+    "reset": {
+      "title": "New password",
+      "password": "Enter your new password",
+      "confirm": "Confirm",
+      "submitted": "🎉 Your password has been updated !",
+      "back": "Back"
+    },
+    "errors": {
+      "generic": "An error occurs.",
+      "email.taken": "Cet email est déjà pris.",
+      "password.provide": "Error, please check your credentials.",
+      "invalid": "Error, please check your credentials.",
+      "confirmed": "This email is not confirmed, check your email.",
+      "blocked": "Your account has been blocked. Please contact our support.",
+      "email.format": "Check this email.",
+      "email.required": "An email is required.",
+      "password.min_length": "Your password should be at least 10 characters.",
+      "password.required": "A password is required.",
+      "password.complex": "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
+      "password_confirmation.required": "Please type again your password",
+      "password_confirmation.match": "Confirmation should match your password ",
+      "code.provide": "This new password link is not valid."
+    },
+    "unauthorized": {
+      "title": "Sorry",
+      "content": "You are not allowed to see this page.",
+      "loginAction": "Log in"
+    }
+  }
+}

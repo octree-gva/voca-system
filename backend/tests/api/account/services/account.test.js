@@ -2,7 +2,7 @@ const request = require("supertest");
 require("../../../helpers/useStrapi");
 let i = 0;
 
-describe("account.create()", () => {
+describe("service.account.account)", () => {
   let jelastic;
   let createAccount;
   const goodParams = () => ({
@@ -25,7 +25,7 @@ describe("account.create()", () => {
     }));
   });
   beforeEach(async () => {
-    jelastic = strapi?.service("api::jelastic.account");
+    jelastic = strapi?.service("api::account.account");
     createAccount = jelastic?.create;
   });
   it("is defined", () => {
@@ -108,6 +108,6 @@ describe("account.create()", () => {
       confirmed: true,
       blocked: false,
     });
-    expect(createdUser.id).toEqual(1);
+    expect(createdUser.id).toEqual(expect.any(Number));
   });
 });

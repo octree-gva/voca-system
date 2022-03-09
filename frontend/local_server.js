@@ -17,6 +17,6 @@ app.prepare().then(function () {
     handle(req, res, parsedUrl);
   }).listen(port, function (err) {
     if (err) throw err;
-    strapi.log.info('ready - started server on url: https://localhost:' + port);
+    console.log('ready - started server on url: https://localhost:' + port);
   });
 });

@@ -1,7 +1,8 @@
 const request = require("supertest");
 require("../../../helpers/useStrapi");
+const jelasticConfigFactory = require("../factories/jelastic-config");
 
-describe("environment.create()", () => {
+describe("service.jelastic.environment", () => {
   const mockUserData = {
     username: "tester",
     email: "tester@voca.city",
@@ -18,9 +19,15 @@ describe("environment.create()", () => {
     user = await strapi.plugins["users-permissions"].services.user.add({
       ...mockUserData,
     });
+    await strapi.query("api::jelastic-config.jelastic-config").create({
+      data: jelasticConfigFactory(),
+    });
   });
   beforeEach(async () => {
     jelastic = strapi?.service("api::jelastic.environment");
+    strapi.service("api::jelastic.jelastic").manifest.install = jest.fn(
+      () => true
+    );
     createEnv = jelastic?.create;
     validParams = {
       current_user: user,
@@ -30,7 +37,7 @@ describe("environment.create()", () => {
   it("is defined", () => {
     expect(createEnv).toBeDefined();
   });
-  describe("subdomain", () => {
+  describe("validates subdomain", () => {
     it("is required", async () => {
       expect(async () =>
         createEnv({ ...validParams, subdomain: undefined })
@@ -68,7 +75,7 @@ describe("environment.create()", () => {
       expect(result.ok).toEqual(true);
     });
   });
-  describe("current_user", () => {
+  describe("validates current_user", () => {
     it("is required", () => {
       expect(async () =>
         createEnv({ ...validParams, current_user: undefined })
@@ -83,4 +90,6 @@ describe("environment.create()", () => {
       ).rejects.toBeTruthy();
     });
   });
+
+  describe("deploy the jps manifest", () => {});
 });
