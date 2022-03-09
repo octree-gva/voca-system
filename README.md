@@ -4,3 +4,6 @@
 
 # Voca.city // System
 ## Manage decidim instance through a dashboard.
+
+See frontend/README.md for frontend on next-js
+See backend/README.md for backend on strapi
