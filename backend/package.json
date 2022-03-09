@@ -9,6 +9,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
+    "pre_commit": "yarn test:ci",
     "test": "jest --watch --detectOpenHandles",
     "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
