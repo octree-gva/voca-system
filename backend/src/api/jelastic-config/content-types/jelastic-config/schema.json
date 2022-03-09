@@ -1,0 +1,82 @@
+{
+  "kind": "singleType",
+  "collectionName": "jelastic_configs",
+  "info": {
+    "singularName": "jelastic-config",
+    "pluralName": "jelastic-configs",
+    "displayName": "Jelastic Config",
+    "description": "Default configuration for jelastic configuration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "manifestUrl": {
+      "type": "string"
+    },
+    "jobImageRegistry": {
+      "type": "string"
+    },
+    "jobImagePath": {
+      "type": "string"
+    },
+    "prodImageRegistry": {
+      "type": "string"
+    },
+    "prodImagePath": {
+      "type": "string"
+    },
+    "registeryUsername": {
+      "type": "string"
+    },
+    "registeryPassword": {
+      "type": "string"
+    },
+    "defaultFromEmail": {
+      "type": "string"
+    },
+    "defaultSystemPassword": {
+      "type": "string"
+    },
+    "decidimTimezone": {
+      "type": "string"
+    },
+    "webhookUrl": {
+      "type": "string"
+    },
+    "webhookUsername": {
+      "type": "string"
+    },
+    "webhookHMAC": {
+      "type": "string"
+    },
+    "smtpHost": {
+      "type": "string"
+    },
+    "smtpPort": {
+      "type": "string"
+    },
+    "smtpUsername": {
+      "type": "string"
+    },
+    "smtpPassword": {
+      "type": "string"
+    },
+    "smtpAuthentication": {
+      "type": "string"
+    },
+    "smtpOpenTimeout": {
+      "type": "string"
+    },
+    "smtpReadTimeout": {
+      "type": "string"
+    },
+    "nodeGroup": {
+      "type": "string"
+    },
+    "webhookPassword": {
+      "type": "text"
+    }
+  }
+}

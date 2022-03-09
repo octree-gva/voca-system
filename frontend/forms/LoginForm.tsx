@@ -33,7 +33,7 @@ const LoginForm = () => {
           .email(t`errors.email.format`)
           .required(t`errors.email.required`),
         password: Yup.string()
-          .min(3, t`errors.email.min_length`)
+          .min(10, t`errors.email.min_length`)
           .required(t`errors.password.required`),
       }),
     [t]
@@ -65,7 +65,7 @@ const LoginForm = () => {
             variant="overline"
             color="textSecondary"
             align="center"
-          >{t`login.title`}</Typography>
+          >{t`login.heading`}</Typography>
           {hasServerError && (
             <FormHelperText error>
               <Typography align="center">{t`errors.generic`}</Typography>

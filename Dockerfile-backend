@@ -21,7 +21,9 @@ ENV VERSION=${VERSION:-dev} \
     SMTP_USERNAME=""\
     SMTP_PASSWORD=""\
     SMTP_DEFAULT_FROM="noreply@voca.city"\
-    SMTP_DEFAULT_REPLYTO="hello@voca.city"
+    SMTP_DEFAULT_REPLYTO="hello@voca.city"\
+    JELASTIC_HOST=""\
+    JELASTIC_TOKEN=""
 
 WORKDIR $ROOT
 

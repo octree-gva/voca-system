@@ -9,6 +9,7 @@ ENV VERSION=${VERSION:-dev} \
     HOME_PATH=/srv/app/frontend\
     ROOT=/srv/app/frontend\
     STRAPI_TOKEN=""\
+    ADMIN_JWT_SECRET=""\
     NEXT_STRAPI_TOKEN=""\
     NEXTAUTH_URL=""
 

@@ -2,17 +2,26 @@ import Box from '@mui/material/Box';
 import {styled} from '@mui/material/styles';
 import Layout, {DefaultProps} from './default';
 
-export type CenteredProps = React.PropsWithChildren<DefaultProps>;
-const Centered = ({children, ...useProtectedAccessProps}: CenteredProps) => {
+export type CenteredProps = React.PropsWithChildren<
+  DefaultProps & {header?: React.ReactNode}
+>;
+const Centered = ({
+  children,
+  header,
+  ...useProtectedAccessProps
+}: CenteredProps) => {
   return (
     <Layout {...useProtectedAccessProps}>
+      {header}
       <Wrapper>{children}</Wrapper>
     </Layout>
   );
 };
 
 const Wrapper = styled(Box)(({theme}) => ({
-  padding: theme.spacing(),
+  padding: theme.spacing(1),
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(4),
   flexGrow: 1,
   display: 'flex',
   alignItems: 'center',

@@ -2,7 +2,6 @@ import {
   AppBar,
   Button,
   Card,
-  CardActionArea,
   CardContent,
   CardHeader,
   Toolbar,
@@ -19,40 +18,41 @@ const Home = () => {
   const session = useSession();
   const status = useMemo(() => session.status, [session]);
   return (
-    <Layout publicAccess noRedirect>
-      <AppBar>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-            Voca.City
-          </Typography>
-          {status === 'authenticated' ? (
-            <LogoutButton color="inherit">Log Out</LogoutButton>
-          ) : (
-            <Link href="/auth/login" passHref>
-              <Button color="inherit">Log In</Button>
-            </Link>
-          )}
-        </Toolbar>
-      </AppBar>
-
-      <Card>
-        <CardHeader title="welcome to voca.city" />
+    <Layout
+      publicAccess
+      noRedirect
+      header={
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+              Voca.City
+            </Typography>
+            {status === 'authenticated' ? (
+              <LogoutButton color="inherit">Log Out</LogoutButton>
+            ) : (
+              <Link href="/auth/login" passHref>
+                <Button color="inherit">Log In</Button>
+              </Link>
+            )}
+          </Toolbar>
+        </AppBar>
+      }
+    >
+      <Card sx={{maxWidth: 560, width: '98%'}}>
+        <CardHeader title="Discover voca.city" />
         <CardContent>
-          <CreateFirstInstanceForm />
+          <CreateFirstInstanceForm>
+            {status === 'authenticated' ? (
+              <Link href="/dashboard" passHref>
+                <Button variant="contained">Dashboard</Button>
+              </Link>
+            ) : (
+              <Button type="submit" variant="contained">
+                Register
+              </Button>
+            )}
+          </CreateFirstInstanceForm>
         </CardContent>
-        {status === 'authenticated' ? (
-          <Link href="/dashboard" passHref>
-            <CardActionArea>
-              <Button>Dashboard</Button>
-            </CardActionArea>
-          </Link>
-        ) : (
-          <Link href="/register" passHref>
-            <CardActionArea>
-              <Button>Register</Button>
-            </CardActionArea>
-          </Link>
-        )}
       </Card>
     </Layout>
   );

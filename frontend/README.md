@@ -1,43 +1,18 @@
-# Next.js with TypeScript example
+# Voca.City Next.JS
 
-## How to use
+1. `cp .env.sample .env.local` and set your envs
+2. install mkcert
+3. run `mkcert localhost`
+4. `yarn dev`
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+__Why https on localhost?__
 
-<!-- #default-branch-switch -->
+* We run into issues while calling jelastic apis in http://
+* We are nearer production environment
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs-with-typescript
-cd nextjs-with-typescript
-```
+## Envs
 
-Install it and run:
-
-```sh
-npm install
-npm run dev
-```
-
-or:
-
-<!-- #default-branch-switch -->
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/nextjs-with-typescript)
-
-## The idea behind the example
-
-The project uses [Next.js](https://github.com/zeit/next.js), which is a framework for server-rendered React apps.
-It includes `@mui/material` and its peer dependencies, including `emotion`, the default style engine in MUI v5. If you prefer, you can [use styled-components instead](https://mui.com/guides/interoperability/#styled-components).
-
-## The link component
-
-Next.js has [a custom Link component](https://nextjs.org/docs/api-reference/next/link).
-The example folder provides adapters for usage with MUI.
-More information [in the documentation](https://mui.com/guides/routing/#next-js).
-
-## What's next?
-
-<!-- #default-branch-switch -->
-
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://mui.com/getting-started/templates/) section.
+* **STRAPI_TOKEN** An api token generated from you strapi administration (full access required). This is used to create accounts only.
+* **STRAPI_URL** The internal strapi url. This url is not exposed client-side, for server only
+* **NEXTAUTH_SECRET** A secret used to encrypt http-only sessions cookies.
+* **NEXTAUTH_URL** The url where the next app is running, for crsf issues

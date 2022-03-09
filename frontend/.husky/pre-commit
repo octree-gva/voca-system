@@ -1,3 +1,4 @@
 #!/bin/bash
 . "$(dirname "$0")/_/husky.sh"
-cd frontend && yarn && yarn lint && yarn test:ci ;
+cd frontend && yarn pre_commit;
+cd ../backend && yarn pre_commit;
