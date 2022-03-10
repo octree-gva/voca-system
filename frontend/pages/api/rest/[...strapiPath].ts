@@ -18,7 +18,6 @@ const RestRoute: NextApiHandler = async (req, res) => {
     // Signed in
     config.headers = {Authorization: 'Bearer ' + token.accessToken};
   }
-  console.log('axios request', config);
   try {
     const response = await axios(config);
     return res.status(response?.status || 200).send(response.data);
