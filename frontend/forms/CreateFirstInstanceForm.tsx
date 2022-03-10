@@ -83,7 +83,7 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
             'uniq-subdomain',
             'Subdomain ${value} is already taken.',
             async value => {
-              return !!(await axios.get(`/api/rest/first-install/${value}`))
+              return !value || !!(await axios.get(`/api/rest/first-install/${value}`))
                 .data?.ok;
             }
           ),
