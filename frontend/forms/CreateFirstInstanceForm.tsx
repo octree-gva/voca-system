@@ -110,7 +110,7 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
         await axios.post('/api/rest/first-install', {...values});
       }}
     >
-      {props => (
+      {() => (
         <Form>
           <FieldSet>
             <Typography
