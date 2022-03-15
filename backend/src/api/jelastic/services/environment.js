@@ -4,7 +4,7 @@ const fs = require("fs");
 const yaml = require("js-yaml");
 
 const MANIFEST = yaml.load(
-  fs.readFileSync(__dirname + "/jps/decidim-install.yml", "utf8")
+  fs.readFileSync("src/manifests/decidim-install.yml", "utf8")
 );
 
 const createEnvSchema = Yup.object().shape({
@@ -19,6 +19,7 @@ const createEnvSchema = Yup.object().shape({
       "Punycodes are not yet supported",
       (value) => !`${value}`.startsWith("xn--")
     ),
+  instanceUUID: Yup.string().required("instanceUUID is required"),
   current_user: Yup.object()
     .required("can not create anonymous instance.")
     .shape({
@@ -30,7 +31,7 @@ const createEnvSchema = Yup.object().shape({
 module.exports = () => ({
   create: async (options) => {
     await createEnvSchema.validate(options || {});
-    const { JELASTIC_INSTANCE_PREFIX = "ief6Se" } = process.env;
+    const { JELASTIC_INSTANCE_PREFIX = "v---" } = process.env;
     const conf = await strapi
       .query("api::jelastic-config.jelastic-config")
       .findOne();
@@ -48,6 +49,7 @@ module.exports = () => ({
           PROD_IMAGE_PATH: conf.prodImagePath,
           IMAGE_USERNAME: conf.registeryUsername,
           IMAGE_PASSWORD: conf.registeryPassword,
+          INSTANCE_UUID: options.instanceUUID,
           DECIDIM_DEFAULT_SYSTEM_EMAIL: conf.defaultFromEmail,
           DECIDIM_DEFAULT_SYSTEM_PASSWORD: conf.defaultSystemPassword,
           DECIDIM_NAME: "Voca.city",

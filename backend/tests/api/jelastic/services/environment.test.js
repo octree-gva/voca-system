@@ -32,6 +32,7 @@ describe("service.jelastic.environment", () => {
     validParams = {
       current_user: user,
       subdomain: "participate.bp",
+      instanceUUID: "73wghf c hncgtcr",
     };
   });
   it("is defined", () => {

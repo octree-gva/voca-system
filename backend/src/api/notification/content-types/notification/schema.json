@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "content": {
+      "type": "json"
+    },
+    "instance": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::instance.instance",
+      "inversedBy": "notifications"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "info",
+        "warn",
+        "error"
+      ]
+    }
+  }
+}

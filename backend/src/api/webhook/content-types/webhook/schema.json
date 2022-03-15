@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "webhooks",
+  "info": {
+    "singularName": "webhook",
+    "pluralName": "webhooks",
+    "displayName": "Webhook",
+    "description": "Webhook call from decidim instances"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "eventType": {
+      "type": "string"
+    },
+    "content": {
+      "type": "json"
+    },
+    "instance": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::instance.instance",
+      "inversedBy": "webhooks"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["waiting", "completed"]
+    }
+  }
+}

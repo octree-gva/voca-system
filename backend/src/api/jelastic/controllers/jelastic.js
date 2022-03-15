@@ -13,7 +13,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
-  environment: async (ctx, next) => {
+  environment: async (ctx) => {
     try {
       return await strapi
         .service("api::jelastic.jelastic")
@@ -22,6 +22,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
+
   apps: async (ctx, next) => {
     try {
       return await strapi
@@ -31,6 +32,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
+
   stop: async (ctx, next) => {
     try {
       const {
@@ -49,6 +51,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
+
   start: async (ctx, next) => {
     try {
       const {
@@ -66,6 +69,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
+
   nodes: async (ctx, next) => {
     try {
       return await strapi
@@ -75,6 +79,7 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
+
   createInstance: async (ctx, next) => {
     try {
       if (!ctx.is("json")) {

@@ -28,6 +28,9 @@
     "acronym": {
       "type": "string"
     },
+    "instanceUUID": {
+      "type": "string"
+    },
     "envName": {
       "type": "uid",
       "targetField": "title",
@@ -36,7 +39,23 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["pending", "started", "stopped"]
+      "enum": [
+        "pending",
+        "started",
+        "stopped"
+      ]
+    },
+    "webhooks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::webhook.webhook",
+      "mappedBy": "instance"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "instance"
     }
   }
 }
