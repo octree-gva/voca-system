@@ -70,7 +70,9 @@ module.exports = () => ({
     const conf = await strapi
       .query("api::jelastic-config.jelastic-config")
       .findOne();
+
     if (!conf) throw new Error("No config found");
+
     const ok = await strapi.service("api::jelastic.jelastic").manifest.install(
       INSTALL_MANIFEST,
       {

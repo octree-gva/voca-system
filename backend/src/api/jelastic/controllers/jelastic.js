@@ -13,11 +13,12 @@ module.exports = {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }
   },
-  environment: async (ctx) => {
+  environment: async (args) => {
+    const { envName } = args;
     try {
       return await strapi
         .service("api::jelastic.jelastic")
-        .environment.getOne(`${ctx.params.envName}`);
+        .environment.getOne(envName);
     } catch (e) {
       return ctx.throw(axios.isAxiosError(e) ? 400 : 500, `${e}`);
     }

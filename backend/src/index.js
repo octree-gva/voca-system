@@ -1,7 +1,10 @@
 "use strict";
-const httpsBoot = require("./https-boot");
-const jelasticTypes = require("./api/jelastic/config/graphql.types");
-const jelasticResolvers = require("./api/jelastic/config/graphql.resolvers");
+
+const graphqlExtends = require("./graphql");
+const bootstrapActions = require("./bootstrap");
+
+const { NODE_ENV } = process.env;
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -9,24 +12,8 @@ module.exports = {
    *
    * This gives you an opportunity to extend code.
    */
-  register({ strapi }) {
-    // Register custom Graphql types
-    const extension = ({ nexus }) => {
-      const {
-        Query: jelasticQueries = {},
-        Mutation: jelasticMutations = {},
-        resolversConfig: jelasticConfig = {},
-      } = jelasticResolvers({ strapi, nexus });
-      return {
-        types: [...jelasticTypes({ strapi, nexus })],
-        resolvers: {
-          Query: { ...jelasticQueries },
-          Mutation: { ...jelasticMutations },
-        },
-        resolversConfig: { ...jelasticConfig },
-      };
-    };
-    strapi.plugin("graphql").service("extension").use(extension);
+  register(context) {
+    graphqlExtends(context);
   },
 
   /**
@@ -36,17 +23,18 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  async bootstrap({ strapi }) {
-    await Promise.all([
-      process.env.NODE_ENV === "development"
-        ? httpsBoot(strapi)
-        : Promise.resolve(),
-    ]);
+  async bootstrap(context) {
+    const { strapi } = context;
     strapi
       .service("api::webhook.webhook")
       .register(
         /^decidim\.[.]*/,
         strapi.service("api::decidim.webhook").handleWebhook
       );
+
+    if (NODE_ENV !== "test")
+      for (let action of bootstrapActions) {
+        await action(context);
+      }
   },
 };
