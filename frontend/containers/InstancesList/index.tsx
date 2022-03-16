@@ -5,17 +5,14 @@ import useToastStore from '../../stores/useToastStore';
 import InstanceCard from './InstanceCard';
 
 const InstancesList = () => {
-  const {
-    data: {instances: {data} = {data: []}} = {},
-    loading,
-    error,
-  } = useInstancesQuery();
+  const {data: {instances} = {}, loading, error} = useInstancesQuery();
   const addToast = useToastStore(s => s.addToast);
 
   if (loading) return <Loader />;
   if (error) {
     addToast(error.message);
   }
+  const {data} = instances ?? {data: []};
 
   return (
     <Grid
