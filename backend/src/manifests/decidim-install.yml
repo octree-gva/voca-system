@@ -257,6 +257,10 @@ nodes:
   volumes:
   - /data
 onInstall: 
+  - setupRedisPassword
+  - prepareDB
+  - webhook
+onAfterStartService:
   - replaceInFile:
       nodeType: nosqldb
       path: /etc/redis.conf
@@ -265,14 +269,12 @@ onInstall:
         replacement: masterauth ${globals.REDIS_PASSWORD}
       - pattern: "# masteruser <username>"
         replacement: masteruser ${globals.REDIS_USER}
-      - pattern: "databases 16"
-        replacement: databases 5
   - restartNodes:
       nodeType: nosqldb
-  - prepareDB
-  - webhook
 
 actions:
+  setupRedisPassword:
+    cmd[nosqldb]: jem passwd set -p ${globals.REDIS_PASSWORD} -u ${globals.REDIS_USER}
   prepareDB:
     cmd[vocacity]: cd $RAILS_ROOT && bundle exec rails db:migrate
   webhook:
@@ -288,16 +290,17 @@ actions:
             success: 1,
             instanceUUID: ENV.fetch("INSTANCE_UUID")
         }
+        hmac_key = ENV.fetch("WEBHOOK_HMAC")
         payload = {
           event_type: "decidim.install",
           content: content,
           content_hmac: OpenSSL::HMAC.hexdigest(
             OpenSSL::Digest.new("sha256"),
-            "${settings.WEBHOOK_HMAC}",
+            hmac_key,
             content.to_json
           )
         }
-        webhook_url = "#{ENV.fetch("WEBHOOK_URL")}/#{ENV.fetch("INSTANCE_UUID")}"
+        webhook_url = ENV.fetch("WEBHOOK_URL")+ "/" + ENV.fetch("INSTANCE_UUID")
         uri = URI.parse(webhook_url)
         header = {"Content-Type": "text/json"}
         http = Net::HTTP.new(uri.host, uri.port)
@@ -307,7 +310,6 @@ actions:
         response = http.request(request)
         ''' > lib/setup_decidim.rb
         bin/rails runner lib/setup_decidim.rb
-        rm lib/setup_decidim.rb
         echo "Vanilla decidim is mounted, waiting for seeding"
 
 success: |

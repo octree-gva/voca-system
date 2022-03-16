@@ -1,12 +1,15 @@
 module.exports = () => {
   const service = {
-    async onDecidimInstall(instance, payload) {
-      if (!instance) {
+    async onDecidimInstall(inst, payload) {
+      if (!inst) {
         strapi.log.warn("webhook fired without instances.");
         return;
       }
+      const instance = await strapi
+        .query("api::instance.instance")
+        .findOne({ where: { id: inst.id }, populate: ["creator"] });
       // Add a notification
-      strapi.query("api::notification.notification").create({
+      await strapi.query("api::notification.notification").create({
         type: "install",
         instance,
         content: {
