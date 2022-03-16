@@ -35,11 +35,11 @@ settings:
     type: string
 
 onInstall: 
-  - seedDecidim
   - restartNodes:
       nodeType: vocacity
   - restartNodes:
       nodeType: cb
+  - seedDecidim
 
 actions:
   seedDecidim:

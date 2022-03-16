@@ -9,7 +9,7 @@ module.exports = {
   webhook: async (ctx, next) => {
     const { instanceUUID } = ctx.params;
     const { event_type, content, content_hmac } = ctx.request.body;
-    const instance = strapi
+    const instance = await strapi
       .query("api::instance.instance")
       .findOne({ where: { instanceUUID } });
     await strapi.query("api::webhook.webhook").create({

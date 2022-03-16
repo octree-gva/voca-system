@@ -259,6 +259,8 @@ nodes:
 onInstall: 
   - setupRedisPassword
   - prepareDB
+  - restartNodes:
+    nodeType: vocacity
   - webhook
 onAfterStartService:
   - replaceInFile:
