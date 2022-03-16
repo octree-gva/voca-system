@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-const ActionButton = ({children}) => (
+const ActionButton: React.FC = ({children}) => (
   <Button
     sx={{
       fontWeight: 'bold',

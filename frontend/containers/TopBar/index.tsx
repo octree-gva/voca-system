@@ -16,10 +16,10 @@ import {useTranslation} from 'react-i18next';
 const TopBar = ({children}: {children?: React.ReactNode}) => {
   const session = useSession();
   const {t} = useTranslation();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLAnchorElement | null>(null);
   const open = Boolean(anchorEl);
-  const handleOpen = event => {
-    setAnchorEl(event.currentTarget);
+  const handleOpen: React.MouseEventHandler<HTMLButtonElement> = event => {
+    setAnchorEl(event.currentTarget as unknown as HTMLAnchorElement);
   };
   const handleClose = () => {
     setAnchorEl(null);
