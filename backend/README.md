@@ -1,9 +1,8 @@
 # Voca.City Strapi
 
 1. `cp .env.sample .env.local` and set your envs
-2. [install mkcert](https://github.com/FiloSottile/mkcert)
-3. run `mkcert localhost`
-4. `yarn dev`
+2. `yarn`
+3. `yarn develop`
 
 ## Envs
 

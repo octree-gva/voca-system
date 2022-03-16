@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useRouter} from 'next/router';
 import {Formik, Form, Field} from 'formik';
@@ -22,10 +23,12 @@ export type CreateFirstInstanceFormProps = React.PropsWithChildren<{}>;
 const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
   const {t} = useTranslation(undefined, {keyPrefix: 'register'});
   const router = useRouter();
+  const [errCode, setErrCode] = useState();
   const RegisterSchema = useValidationSchema();
   const [createFirstInstall] = useFirstInstallMutation();
 
   const onSubmit = async (values: typeof INITIAL_VALUES) => {
+    setErrCode(null);
     try {
       const {
         email,
@@ -37,8 +40,12 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
       } = values;
       const user = {email, password, password_confirmation};
       const instance = {title, acronym, subdomain};
-      await createFirstInstall({variables: {user, instance}});
-      router.push('/auth/login');
+      const {data: {firstInstall: response} = {}} = await createFirstInstall({
+        variables: {user, instance},
+      });
+
+      if (response.ok) router.push('/auth/login');
+      else setErrCode(response.errCode);
     } catch (error) {
       console.error(error);
     }
@@ -102,6 +109,11 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
               required
             />
           </FieldSet>
+          {errCode && (
+            <Typography color="error" sx={{mb: 2}}>
+              {t(`errors.${errCode}`)}
+            </Typography>
+          )}
           {children}
         </Form>
       )}

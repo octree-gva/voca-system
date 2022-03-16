@@ -8,14 +8,6 @@ import {TextField} from 'formik-mui';
 import * as Yup from 'yup';
 import {useRouter} from 'next/router';
 
-const AuthForm = styled(Form)(({theme}) => ({
-  padding: theme.spacing(0, 2),
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-}));
-
 export type SignInPayload = {
   identifier: string;
   password: string;
@@ -99,4 +91,13 @@ const LoginForm = () => {
     </Formik>
   );
 };
+
+const AuthForm = styled(Form)(({theme}) => ({
+  padding: theme.spacing(0, 2),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+}));
+
 export default LoginForm;

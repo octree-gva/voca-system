@@ -23,7 +23,10 @@
       "decidim.subdomain.required": "Subdomain is required",
       "decidim.subdomain.min_length": "Subdomain must be at least 3 characters",
       "decidim.subdomain.format": "Subdomain is invalid. Uses lowercases, no accents",
-      "decidim.subdomain.punycode": "Punycode is not supported yet"
+      "decidim.subdomain.punycode": "Punycode is not supported yet",
+      "ENV_NAME_UNAVAILABLE": "Subdomain is already used",
+      "EMAIL_UNAVAILABLE": "Email is already used",
+      "SERVER_ERROR": "Server error occurred"
     }
   },
   "support": "Need support ?",

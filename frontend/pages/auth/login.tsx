@@ -7,14 +7,6 @@ import {useMemo} from 'react';
 import Link from 'next/link';
 import LoginForm from '../../containers/forms/LoginForm';
 
-const AlreadyLoggedIn = styled('div')(({theme}) => ({
-  padding: theme.spacing(0, 2),
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-}));
-
 export type SignInProps = {csrfToken: string};
 export type SignInPayload = {
   identifier: string;
@@ -59,3 +51,11 @@ export default function SignIn() {
     </Layout>
   );
 }
+
+const AlreadyLoggedIn = styled('div')(({theme}) => ({
+  padding: theme.spacing(0, 2),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+}));

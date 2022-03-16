@@ -1,17 +1,6 @@
 module.exports = ({ nexus, strapi }) => ({
   types: [
     nexus.extendType({
-      type: "Query",
-      definition(t) {
-        t.field("isSubdomainAvailable", {
-          type: "Boolean",
-          args: {
-            subdomain: nexus.nonNull("String"),
-          },
-        });
-      },
-    }),
-    nexus.extendType({
       type: "Mutation",
       definition(t) {
         t.field("firstInstall", {
@@ -25,16 +14,7 @@ module.exports = ({ nexus, strapi }) => ({
     }),
   ],
   resolvers: {
-    Query: {
-      isSubdomainAvailable: {
-        description: "Check if a subdomain is available",
-        async resolve(root, args) {
-          return strapi
-            .controller("api::instance.instance")
-            .isSubdomainAvailable(args);
-        },
-      },
-    },
+    Query: {},
     Mutation: {
       firstInstall: {
         description: "Create user account and install first instance",
@@ -45,11 +25,6 @@ module.exports = ({ nexus, strapi }) => ({
     },
   },
   resolversConfig: {
-    "Query.isSubdomainAvailable": {
-      auth: {
-        scope: ["api::instance.instance.isSubdomainAvailable"],
-      },
-    },
     "Mutation.firstInstall": {
       auth: {
         scope: ["api::instance.instance.firstInstall"],

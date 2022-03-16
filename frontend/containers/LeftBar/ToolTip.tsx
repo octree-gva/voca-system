@@ -1,5 +1,5 @@
 import Fab from '@mui/material/Fab';
-import ToolTip from '@mui/material/ToolTip';
+import ToolTip from '@mui/material/Tooltip';
 import {OverridableComponent} from '@mui/material/OverridableComponent';
 import {SvgIconTypeMap} from '@mui/material/SvgIcon';
 import useStyles from './styles';

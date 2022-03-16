@@ -835,7 +835,8 @@ export type NotificationRelationResponseCollection = {
 
 export type OkayResponse = {
   __typename?: 'OkayResponse';
-  ok: Scalars['String'];
+  errCode?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
 };
 
 export type Pagination = {
@@ -862,8 +863,6 @@ export type Query = {
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   instance?: Maybe<InstanceEntityResponse>;
   instances?: Maybe<InstanceEntityResponseCollection>;
-  /** Check if a subdomain is available */
-  isSubdomainAvailable?: Maybe<Scalars['Boolean']>;
   jelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
   notification?: Maybe<NotificationEntityResponse>;
@@ -917,11 +916,6 @@ export type QueryInstancesArgs = {
   filters?: InputMaybe<InstanceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryIsSubdomainAvailableArgs = {
-  subdomain: Scalars['String'];
 };
 
 
@@ -1413,7 +1407,7 @@ export type FirstInstallMutationVariables = Exact<{
 }>;
 
 
-export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: string } | null };
+export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: boolean, errCode?: string | null } | null };
 
 export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1581,6 +1575,7 @@ export const FirstInstallDocument = gql`
     mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
   firstInstall(user: $user, instance: $instance) {
     ok
+    errCode
   }
 }
     `;

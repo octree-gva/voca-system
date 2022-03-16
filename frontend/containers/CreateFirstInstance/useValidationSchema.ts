@@ -40,16 +40,6 @@ const useValidationSchema = () => {
             t`errors.decidim.subdomain.punycode`,
             value => !`${value}`.startsWith('xn--')
           ),
-        //   .test(
-        //     'uniq-subdomain',
-        //     'Subdomain ${value} is already taken.',
-        //     async value => {
-        //       return (
-        //         !value ||
-        //         !!(await axios.get(`/api/rest/first-install/${value}`)).data?.ok
-        //       );
-        //     }
-        //   ),
       }),
     [t, et]
   );

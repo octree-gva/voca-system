@@ -19,7 +19,8 @@ module.exports = ({ nexus, strapi }) => ({
     nexus.objectType({
       name: "OkayResponse",
       definition(t) {
-        t.nonNull.string("ok");
+        t.nonNull.boolean("ok");
+        t.string("errCode");
       },
     }),
   ],
