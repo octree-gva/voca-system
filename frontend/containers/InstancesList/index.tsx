@@ -12,7 +12,7 @@ const InstancesList = () => {
   if (error) {
     addToast(error.message);
   }
-  const {data = []} = instances
+  const {data} = instances ?? {data: []};
 
   return (
     <Grid
