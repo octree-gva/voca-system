@@ -1,10 +1,9 @@
 import {Typography, Button} from '@mui/material';
-import {useSession} from 'next-auth/react';
+import {signOut, useSession} from 'next-auth/react';
 import {useTranslation} from 'react-i18next';
 import Layout from '../../layouts/auth';
 import {styled} from '@mui/material/styles';
 import {useMemo} from 'react';
-import LogoutButton from '../../components/LogoutButton';
 import Link from 'next/link';
 import {LoginForm} from '../../forms';
 
@@ -42,10 +41,11 @@ export default function SignIn() {
             align="center"
           >{t`login.title`}</Typography>
           <Typography>{t`login.alreadyIn.content`}</Typography>
-          <LogoutButton
+          <Button
             variant="outlined"
             color="primary"
-          >{t`login.alreadyIn.goLogout`}</LogoutButton>
+            onClick={() => signOut()}
+          >{t`login.alreadyIn.goLogout`}</Button>
           <Link href="/dashboard" passHref>
             <Button
               variant="contained"

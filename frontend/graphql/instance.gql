@@ -3,3 +3,15 @@ mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
     ok
   }
 }
+query Instances {
+  instances {
+    data {
+      id
+      attributes {
+        title
+        envName
+        status
+      }
+    }
+  }
+}
