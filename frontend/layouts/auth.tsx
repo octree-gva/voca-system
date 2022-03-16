@@ -1,8 +1,8 @@
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import {styled} from '@mui/material/styles';
-import Logo from '../components/Logo';
 import Layout from './centered';
 
 import {DefaultProps} from './default';
@@ -13,9 +13,11 @@ const Auth = ({children, ...layoutProps}: AuthProps) => {
   return (
     <Layout {...layoutProps}>
       <Container maxWidth="xs">
-        <Paper elevation={4}>
+        <Paper elevation={4} sx={{p: 2}}>
           <AuthForm>
-            <Logo width={240} height={64} />
+            <Typography variant="h3" align="center">
+              VocaCity
+            </Typography>
             {children}
           </AuthForm>
         </Paper>

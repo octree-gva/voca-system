@@ -1,14 +1,9 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-} from '@mui/material';
+import {Button, Card, CardContent, CardHeader} from '@mui/material';
 import Link from 'next/link';
 import Layout from '../layouts/centered';
 import {useSession} from 'next-auth/react';
 import {useMemo} from 'react';
-import CreateFirstInstanceForm from '../forms/CreateFirstInstanceForm';
+import CreateFirstInstanceForm from '../containers/CreateFirstInstance';
 import TopBar from '../containers/TopBar';
 
 const Home = () => {

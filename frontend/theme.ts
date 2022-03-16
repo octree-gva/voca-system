@@ -4,7 +4,7 @@ export const themeOptions: ThemeOptions = {
   palette: {
     primary: {
       main: '#243551',
-      light: '#2c88d9'
+      light: '#2c88d9',
     },
     secondary: {
       main: '#f8f894',
@@ -13,22 +13,22 @@ export const themeOptions: ThemeOptions = {
   typography: {
     fontFamily: 'Inter',
     h1: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
     h2: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
     h3: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
     h4: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
     h5: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
     h6: {
-      fontFamily: 'Open Sans',
+      fontFamily: 'Inter',
     },
   },
   spacing: 8,

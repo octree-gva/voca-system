@@ -1,8 +1,7 @@
-import {Typography} from '@mui/material';
 import {render} from 'test-utils';
 import Home from '../../pages/home';
 jest.mock(
-  '../../forms/CreateFirstInstanceForm',
+  '../../containers/CreateFirstInstance',
   () => () => '<CreateFirstInstanceForm />'
 );
 describe('Home page as disconnected', () => {

@@ -86,7 +86,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
 
 .emotion-4 {
   margin: 0;
-  font-family: Open Sans;
+  font-family: Inter;
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.6;
@@ -244,7 +244,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
 
 .emotion-11 {
   margin: 0;
-  font-family: Open Sans;
+  font-family: Inter;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.334;

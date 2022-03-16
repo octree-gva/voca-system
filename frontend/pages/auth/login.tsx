@@ -5,7 +5,7 @@ import Layout from '../../layouts/auth';
 import {styled} from '@mui/material/styles';
 import {useMemo} from 'react';
 import Link from 'next/link';
-import {LoginForm} from '../../forms';
+import LoginForm from '../../containers/forms/LoginForm';
 
 const AlreadyLoggedIn = styled('div')(({theme}) => ({
   padding: theme.spacing(0, 2),
