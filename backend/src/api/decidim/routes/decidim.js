@@ -18,5 +18,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: "POST",
+      path: "/decidim/webhooks/:instanceUUID",
+      handler: "decidim.webhook",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

@@ -18,7 +18,6 @@ export default NextAuth({
        */
       async authorize(credentials) {
         const {STRAPI_URL: API_URL} = process.env;
-        const STRAPI_TOKEN = process.env.STRAPI_TOKEN?.trim();
         if (!credentials) {
           console.log('credentials are required');
           return null;
@@ -31,11 +30,6 @@ export default NextAuth({
             {
               identifier: credentials.identifier,
               password: credentials.password,
-            },
-            {
-              headers: {
-                Authorization: 'Bearer ' + STRAPI_TOKEN,
-              },
             }
           );
           if (!!userData?.user?.blocked) return null;

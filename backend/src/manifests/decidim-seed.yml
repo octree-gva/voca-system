@@ -1,0 +1,127 @@
+jpsType: update
+jpsVersion: '1.7.4'
+
+name: Task install
+id: decidim-vanilla
+description:
+  short: Decidim Saas
+categories:
+  - apps/platforms
+baseUrl: https://git.octree.ch/decidim/vocacity/docker/-/raw/main
+logo: /overrides/0.24.3/app/assets/images/decidim_logo.png?inline=false
+globals:
+  ADMIN_PASSWORD: "ChangeMe_${fn.password(12)}"
+
+settings:
+  fields:
+  - name: ADMIN_EMAIL
+    type: string
+    caption: ADMIN_EMAIL
+
+  - name: DECIDIM_DEFAULT_SYSTEM_EMAIL
+    caption: DECIDIM_DEFAULT_SYSTEM_EMAIL
+    type: string
+
+  - name: DECIDIM_DEFAULT_SYSTEM_PASSWORD
+    caption: DECIDIM_DEFAULT_SYSTEM_PASSWORD
+    type: string
+
+  - name: DECIDIM_NAME
+    caption: DECIDIM_NAME
+    type: string
+
+  - name: DECIDIM_SHORTNAME
+    caption: DECIDIM_SHORTNAME
+    type: string
+
+onInstall: 
+  - restartNodes:
+      nodeType: vocacity
+  - restartNodes:
+      nodeType: cb
+  - seedDecidim
+
+actions:
+  seedDecidim:
+    cmd[vocacity]: |
+      echo '''
+      # TODO: Add a custom Logger to log the operation
+      require 'net/http'
+      require 'uri'
+      require 'json'
+
+      Decidim::System::Admin.create!(
+        email: "${settings.DECIDIM_DEFAULT_SYSTEM_EMAIL}",
+        password: "${settings.DECIDIM_DEFAULT_SYSTEM_PASSWORD}",
+        password_confirmation: "${settings.DECIDIM_DEFAULT_SYSTEM_PASSWORD}"
+      )
+      organization = Decidim::Organization.create!(
+          host: "${env.displayName}", 
+          external_domain_whitelist: ["voca.city"],
+          default_locale: :en,
+          available_locales: [:en],
+          reference_prefix; "${settings.DECIDIM_SHORTNAME}",
+          available_authorizations: [],
+          users_registration_mode: :enabled,
+          tos_version: Time.current,
+          badges_enabled: true,
+          user_groups_enabled: true,
+          send_welcome_notification: true,
+          file_upload_settings: Decidim::OrganizationSettings.default(:upload)
+        )
+        Decidim::System::CreateDefaultContentBlocks.call(organization)
+        Decidim::System::PopulateHelp.call(organization)
+        admin_email="${settings.ADMIN_EMAIL}"
+        nickname = admin_email.split("@").first.gsub!(/[^[:alnum:]]/, '')
+
+        Decidim::User.create!(
+            email: "${settings.ADMIN_EMAIL}",
+            name: nickname,
+            nickname: nickname,
+            password: "${globals.ADMIN_PASSWORD}",
+            password_confirmation: "${globals.ADMIN_PASSWORD}",
+            organization: organization,
+            confirmed_at: Time.current,
+            locale: I18n.default_locale,
+            admin: true,
+            tos_agreement: true,
+            accepted_tos_version: organization.tos_version,
+            admin_terms_accepted_at: Time.current
+        )
+        # Make the webhook payload
+        new_org = Decidim::Organization.first
+        content = {
+            success: Decidim::Organization.count == 1,
+            instanceUUID: ENV.fetch("INSTANCE_UUID"),
+            default_locale: new_org.default_locale,
+            available_locales: new_org.available_locales,
+            nickname: nickname,
+            password: "${globals.ADMIN_PASSWORD}",
+            email: "${settings.ADMIN_EMAIL}"
+          }
+        payload = {
+          event_type: "decidim.seed",
+          content: content,
+          content_hmac: OpenSSL::HMAC.hexdigest(
+            OpenSSL::Digest.new('sha256'),
+            "${settings.WEBHOOK_HMAC}",
+            content.to_json
+          )
+        }
+        webhook_url = "#{ENV.fetch("WEBHOOK_URL")}/#{ENV.fetch("INSTANCE_UUID")}"
+        uri = URI.parse(webhook_url)
+        header = {"Content-Type": "text/json"}
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Post.new(uri.request_uri, header)
+        request.body = payload.to_json
+        puts "POST #{webhook_url} #{request.body}"
+      ''' > lib/seed_decidim.rb
+      bin/rails runner lib/seed_decidim.rb
+      rm lib/seed_decidim.rb
+      echo "Vanilla decidim is ready"
+      # TODO: Fetch logs here and remove the logger.
+
+success: |
+  ## Your Decidim is ready !
+  See it on ${env.url}
+startPage: https://${env.envName}.voca.city/

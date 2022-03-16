@@ -20,4 +20,5 @@ module.exports = () => ({
   smtpReadTimeout: "smtpReadTimeout",
   nodeGroup: "nodeGroup",
   webhookPassword: "webhookPassword",
+  instanceUUID: "instanceUUID",
 });

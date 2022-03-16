@@ -1,11 +1,26 @@
 "use strict";
 const axios = require("axios");
-
+const { v4: uuid } = require("uuid");
 /**
  * A set of functions called "actions" for `decidim`
  */
 
 module.exports = {
+  webhook: async (ctx, next) => {
+    const { instanceUUID } = ctx.params;
+    const { event_type, content, content_hmac } = ctx.request.body;
+    const instance = await strapi
+      .query("api::instance.instance")
+      .findOne({ where: { instanceUUID } });
+    await strapi.query("api::webhook.webhook").create({
+      data: {
+        eventType: event_type,
+        instance: instance,
+        content: content,
+        status: "completed",
+      },
+    });
+  },
   checkSubdomain: async (ctx, next) => {
     const { subdomain } = ctx.params;
     const [_result, matchCount] = await strapi
@@ -26,7 +41,6 @@ module.exports = {
         acronym,
         subdomain,
       } = ctx.request.body;
-      console.log("BOD", ctx.request.body);
       const account = await strapi.service("api::account.account").create({
         email,
         password,
@@ -41,12 +55,25 @@ module.exports = {
           account: account,
           creator: account.creator,
           status: "pending",
+          instanceUUID: uuid(),
         },
         populate: ["creator"],
+      });
+      await strapi.query("api::notification.notification").create({
+        data: {
+          type: "first_install",
+          instance: instanceData.id,
+          content: {
+            domain: `${subdomain}.voca.city`,
+            status: "pending",
+          },
+          level: "info",
+        },
       });
       await strapi.service("api::jelastic.environment").create({
         subdomain: instanceData.envName,
         current_user: account.creator,
+        instanceUUID: instanceData.instanceUUID,
       });
       ctx.send({ ok: true }, 201);
     } catch (err) {
