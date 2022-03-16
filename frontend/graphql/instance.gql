@@ -1,0 +1,5 @@
+mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
+  firstInstall(user: $user, instance: $instance) {
+    ok
+  }
+}

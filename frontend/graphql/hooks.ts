@@ -21,6 +21,62 @@ export type Scalars = {
   Upload: any;
 };
 
+export type Account = {
+  __typename?: 'Account';
+  administrators?: Maybe<UsersPermissionsUserRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  creator?: Maybe<UsersPermissionsUserEntityResponse>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type AccountAdministratorsArgs = {
+  filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type AccountEntity = {
+  __typename?: 'AccountEntity';
+  attributes?: Maybe<Account>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type AccountEntityResponse = {
+  __typename?: 'AccountEntityResponse';
+  data?: Maybe<AccountEntity>;
+};
+
+export type AccountEntityResponseCollection = {
+  __typename?: 'AccountEntityResponseCollection';
+  data: Array<AccountEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AccountFiltersInput = {
+  administrators?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<AccountFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<AccountFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AccountFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AccountInput = {
+  administrators?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  creator?: InputMaybe<Scalars['ID']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type AccountRelationResponseCollection = {
+  __typename?: 'AccountRelationResponseCollection';
+  data: Array<AccountEntity>;
+};
+
 export type BooleanFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
@@ -42,79 +98,6 @@ export type BooleanFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   startsWith?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type ComponentConfigsBackupsConfigurations = {
-  __typename?: 'ComponentConfigsBackupsConfigurations';
-  id: Scalars['ID'];
-  keep_n_daily?: Maybe<Scalars['Int']>;
-  keep_n_weekly?: Maybe<Scalars['Int']>;
-  keep_n_yearly?: Maybe<Scalars['Int']>;
-};
-
-export type ComponentConfigsBackupsConfigurationsInput = {
-  id?: InputMaybe<Scalars['ID']>;
-  keep_n_daily?: InputMaybe<Scalars['Int']>;
-  keep_n_weekly?: InputMaybe<Scalars['Int']>;
-  keep_n_yearly?: InputMaybe<Scalars['Int']>;
-};
-
-export type ComponentConfigsJelasticConfig = {
-  __typename?: 'ComponentConfigsJelasticConfig';
-  default_version?: Maybe<DecidimVersionEntityResponse>;
-  id: Scalars['ID'];
-  identifier?: Maybe<Scalars['String']>;
-  password_enc?: Maybe<Scalars['String']>;
-};
-
-export type ComponentConfigsJelasticConfigInput = {
-  default_version?: InputMaybe<Scalars['ID']>;
-  id?: InputMaybe<Scalars['ID']>;
-  identifier?: InputMaybe<Scalars['String']>;
-  password_enc?: InputMaybe<Scalars['String']>;
-};
-
-export type ComponentConfigsS3Config = {
-  __typename?: 'ComponentConfigsS3Config';
-  api_key_enc?: Maybe<Scalars['String']>;
-  api_sec_enc?: Maybe<Scalars['String']>;
-  bucket?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  url?: Maybe<Scalars['String']>;
-};
-
-export type ComponentConfigsS3ConfigInput = {
-  api_key_enc?: InputMaybe<Scalars['String']>;
-  api_sec_enc?: InputMaybe<Scalars['String']>;
-  bucket?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  url?: InputMaybe<Scalars['String']>;
-};
-
-export type Configuration = {
-  __typename?: 'Configuration';
-  Backups?: Maybe<ComponentConfigsBackupsConfigurations>;
-  Jelastic?: Maybe<ComponentConfigsJelasticConfig>;
-  S3?: Maybe<ComponentConfigsS3Config>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type ConfigurationEntity = {
-  __typename?: 'ConfigurationEntity';
-  attributes?: Maybe<Configuration>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type ConfigurationEntityResponse = {
-  __typename?: 'ConfigurationEntityResponse';
-  data?: Maybe<ConfigurationEntity>;
-};
-
-export type ConfigurationInput = {
-  Backups?: InputMaybe<ComponentConfigsBackupsConfigurationsInput>;
-  Jelastic?: InputMaybe<ComponentConfigsJelasticConfigInput>;
-  S3?: InputMaybe<ComponentConfigsS3ConfigInput>;
 };
 
 export type DateTimeFilterInput = {
@@ -140,55 +123,10 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type DecidimVersion = {
-  __typename?: 'DecidimVersion';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  image_url?: Maybe<Scalars['String']>;
-  registery_url?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  version_number?: Maybe<Scalars['String']>;
-};
-
-export type DecidimVersionEntity = {
-  __typename?: 'DecidimVersionEntity';
-  attributes?: Maybe<DecidimVersion>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type DecidimVersionEntityResponse = {
-  __typename?: 'DecidimVersionEntityResponse';
-  data?: Maybe<DecidimVersionEntity>;
-};
-
-export type DecidimVersionEntityResponseCollection = {
-  __typename?: 'DecidimVersionEntityResponseCollection';
-  data: Array<DecidimVersionEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type DecidimVersionFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<DecidimVersionFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  image_url?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<DecidimVersionFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<DecidimVersionFiltersInput>>>;
-  registery_url?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-  version_number?: InputMaybe<StringFilterInput>;
-};
-
-export type DecidimVersionInput = {
-  image_url?: InputMaybe<Scalars['String']>;
-  registery_url?: InputMaybe<Scalars['String']>;
-  version_number?: InputMaybe<Scalars['String']>;
-};
-
-export enum Enum_Organization_Subscription_Status {
-  Current = 'current',
-  Expired = 'expired',
+export enum Enum_Instance_Status {
   Pending = 'pending',
-  Upcoming = 'upcoming'
+  Started = 'started',
+  Stopped = 'stopped'
 }
 
 export type FileInfoInput = {
@@ -220,7 +158,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = ComponentConfigsBackupsConfigurations | ComponentConfigsJelasticConfig | ComponentConfigsS3Config | Configuration | DecidimVersion | I18NLocale | Instance | Organization | OrganizationMember | OrganizationRole | StripeWebhookLog | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Account | I18NLocale | Instance | JelasticConfig | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -283,12 +221,14 @@ export type IdFilterInput = {
 
 export type Instance = {
   __typename?: 'Instance';
-  Name?: Maybe<Scalars['String']>;
+  account?: Maybe<AccountEntityResponse>;
+  acronym?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  ipv4?: Maybe<Scalars['String']>;
-  organization?: Maybe<OrganizationEntityResponse>;
+  creator?: Maybe<UsersPermissionsUserEntityResponse>;
+  envName?: Maybe<Scalars['String']>;
+  status?: Maybe<Enum_Instance_Status>;
+  title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  url?: Maybe<Scalars['String']>;
 };
 
 export type InstanceEntity = {
@@ -309,23 +249,33 @@ export type InstanceEntityResponseCollection = {
 };
 
 export type InstanceFiltersInput = {
-  Name?: InputMaybe<StringFilterInput>;
+  account?: InputMaybe<AccountFiltersInput>;
+  acronym?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  envName?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  ipv4?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<InstanceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
-  organization?: InputMaybe<OrganizationFiltersInput>;
+  status?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  url?: InputMaybe<StringFilterInput>;
 };
 
 export type InstanceInput = {
-  Name?: InputMaybe<Scalars['String']>;
-  ipv4?: InputMaybe<Scalars['String']>;
-  organization?: InputMaybe<Scalars['ID']>;
-  url?: InputMaybe<Scalars['String']>;
+  account?: InputMaybe<Scalars['ID']>;
+  acronym?: InputMaybe<Scalars['String']>;
+  creator?: InputMaybe<Scalars['ID']>;
+  envName?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Enum_Instance_Status>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type InstanceInstallInput = {
+  acronym: Scalars['String'];
+  subdomain: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type IntFilterInput = {
@@ -374,26 +324,82 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type JelasticConfig = {
+  __typename?: 'JelasticConfig';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  decidimTimezone?: Maybe<Scalars['String']>;
+  defaultFromEmail?: Maybe<Scalars['String']>;
+  defaultSystemPassword?: Maybe<Scalars['String']>;
+  jobImagePath?: Maybe<Scalars['String']>;
+  jobImageRegistry?: Maybe<Scalars['String']>;
+  manifestUrl?: Maybe<Scalars['String']>;
+  nodeGroup?: Maybe<Scalars['String']>;
+  prodImagePath?: Maybe<Scalars['String']>;
+  prodImageRegistry?: Maybe<Scalars['String']>;
+  registeryPassword?: Maybe<Scalars['String']>;
+  registeryUsername?: Maybe<Scalars['String']>;
+  smtpAuthentication?: Maybe<Scalars['String']>;
+  smtpHost?: Maybe<Scalars['String']>;
+  smtpOpenTimeout?: Maybe<Scalars['String']>;
+  smtpPassword?: Maybe<Scalars['String']>;
+  smtpPort?: Maybe<Scalars['String']>;
+  smtpReadTimeout?: Maybe<Scalars['String']>;
+  smtpUsername?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  webhookHMAC?: Maybe<Scalars['String']>;
+  webhookPassword?: Maybe<Scalars['String']>;
+  webhookUrl?: Maybe<Scalars['String']>;
+  webhookUsername?: Maybe<Scalars['String']>;
+};
+
+export type JelasticConfigEntity = {
+  __typename?: 'JelasticConfigEntity';
+  attributes?: Maybe<JelasticConfig>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type JelasticConfigEntityResponse = {
+  __typename?: 'JelasticConfigEntityResponse';
+  data?: Maybe<JelasticConfigEntity>;
+};
+
+export type JelasticConfigInput = {
+  decidimTimezone?: InputMaybe<Scalars['String']>;
+  defaultFromEmail?: InputMaybe<Scalars['String']>;
+  defaultSystemPassword?: InputMaybe<Scalars['String']>;
+  jobImagePath?: InputMaybe<Scalars['String']>;
+  jobImageRegistry?: InputMaybe<Scalars['String']>;
+  manifestUrl?: InputMaybe<Scalars['String']>;
+  nodeGroup?: InputMaybe<Scalars['String']>;
+  prodImagePath?: InputMaybe<Scalars['String']>;
+  prodImageRegistry?: InputMaybe<Scalars['String']>;
+  registeryPassword?: InputMaybe<Scalars['String']>;
+  registeryUsername?: InputMaybe<Scalars['String']>;
+  smtpAuthentication?: InputMaybe<Scalars['String']>;
+  smtpHost?: InputMaybe<Scalars['String']>;
+  smtpOpenTimeout?: InputMaybe<Scalars['String']>;
+  smtpPassword?: InputMaybe<Scalars['String']>;
+  smtpPort?: InputMaybe<Scalars['String']>;
+  smtpReadTimeout?: InputMaybe<Scalars['String']>;
+  smtpUsername?: InputMaybe<Scalars['String']>;
+  webhookHMAC?: InputMaybe<Scalars['String']>;
+  webhookPassword?: InputMaybe<Scalars['String']>;
+  webhookUrl?: InputMaybe<Scalars['String']>;
+  webhookUsername?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  createDecidimVersion?: Maybe<DecidimVersionEntityResponse>;
+  createAccount?: Maybe<AccountEntityResponse>;
   createInstance?: Maybe<InstanceEntityResponse>;
-  createOrganization?: Maybe<OrganizationEntityResponse>;
-  createOrganizationMember?: Maybe<OrganizationMemberEntityResponse>;
-  createOrganizationRole?: Maybe<OrganizationRoleEntityResponse>;
-  createStripeWebhookLog?: Maybe<StripeWebhookLogEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deleteConfiguration?: Maybe<ConfigurationEntityResponse>;
-  deleteDecidimVersion?: Maybe<DecidimVersionEntityResponse>;
+  deleteAccount?: Maybe<AccountEntityResponse>;
   deleteInstance?: Maybe<InstanceEntityResponse>;
-  deleteOrganization?: Maybe<OrganizationEntityResponse>;
-  deleteOrganizationMember?: Maybe<OrganizationMemberEntityResponse>;
-  deleteOrganizationRole?: Maybe<OrganizationRoleEntityResponse>;
-  deleteStripeWebhookLog?: Maybe<StripeWebhookLogEntityResponse>;
+  deleteJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
@@ -401,6 +407,8 @@ export type Mutation = {
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
+  /** Create user account and install first instance */
+  firstInstall?: Maybe<OkayResponse>;
   /** Request a reset password token */
   forgotPassword?: Maybe<UsersPermissionsPasswordPayload>;
   login: UsersPermissionsLoginPayload;
@@ -410,14 +418,10 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
-  updateConfiguration?: Maybe<ConfigurationEntityResponse>;
-  updateDecidimVersion?: Maybe<DecidimVersionEntityResponse>;
+  updateAccount?: Maybe<AccountEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateInstance?: Maybe<InstanceEntityResponse>;
-  updateOrganization?: Maybe<OrganizationEntityResponse>;
-  updateOrganizationMember?: Maybe<OrganizationMemberEntityResponse>;
-  updateOrganizationRole?: Maybe<OrganizationRoleEntityResponse>;
-  updateStripeWebhookLog?: Maybe<StripeWebhookLogEntityResponse>;
+  updateJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
@@ -427,33 +431,13 @@ export type Mutation = {
 };
 
 
-export type MutationCreateDecidimVersionArgs = {
-  data: DecidimVersionInput;
+export type MutationCreateAccountArgs = {
+  data: AccountInput;
 };
 
 
 export type MutationCreateInstanceArgs = {
   data: InstanceInput;
-};
-
-
-export type MutationCreateOrganizationArgs = {
-  data: OrganizationInput;
-};
-
-
-export type MutationCreateOrganizationMemberArgs = {
-  data: OrganizationMemberInput;
-};
-
-
-export type MutationCreateOrganizationRoleArgs = {
-  data: OrganizationRoleInput;
-};
-
-
-export type MutationCreateStripeWebhookLogArgs = {
-  data: StripeWebhookLogInput;
 };
 
 
@@ -472,32 +456,12 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
-export type MutationDeleteDecidimVersionArgs = {
+export type MutationDeleteAccountArgs = {
   id: Scalars['ID'];
 };
 
 
 export type MutationDeleteInstanceArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteOrganizationArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteOrganizationMemberArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteOrganizationRoleArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteStripeWebhookLogArgs = {
   id: Scalars['ID'];
 };
 
@@ -519,6 +483,12 @@ export type MutationDeleteUsersPermissionsUserArgs = {
 
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String'];
+};
+
+
+export type MutationFirstInstallArgs = {
+  instance: InstanceInstallInput;
+  user: UserInput;
 };
 
 
@@ -557,13 +527,8 @@ export type MutationResetPasswordArgs = {
 };
 
 
-export type MutationUpdateConfigurationArgs = {
-  data: ConfigurationInput;
-};
-
-
-export type MutationUpdateDecidimVersionArgs = {
-  data: DecidimVersionInput;
+export type MutationUpdateAccountArgs = {
+  data: AccountInput;
   id: Scalars['ID'];
 };
 
@@ -580,27 +545,8 @@ export type MutationUpdateInstanceArgs = {
 };
 
 
-export type MutationUpdateOrganizationArgs = {
-  data: OrganizationInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateOrganizationMemberArgs = {
-  data: OrganizationMemberInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateOrganizationRoleArgs = {
-  data: OrganizationRoleInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateStripeWebhookLogArgs = {
-  data: StripeWebhookLogInput;
-  id: Scalars['ID'];
+export type MutationUpdateJelasticConfigArgs = {
+  data: JelasticConfigInput;
 };
 
 
@@ -630,172 +576,9 @@ export type MutationUploadArgs = {
   refId?: InputMaybe<Scalars['ID']>;
 };
 
-export type Organization = {
-  __typename?: 'Organization';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  organization_members?: Maybe<OrganizationMemberRelationResponseCollection>;
-  stripe_customer_id?: Maybe<Scalars['String']>;
-  subscription_status?: Maybe<Enum_Organization_Subscription_Status>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-
-export type OrganizationOrganization_MembersArgs = {
-  filters?: InputMaybe<OrganizationMemberFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type OrganizationEntity = {
-  __typename?: 'OrganizationEntity';
-  attributes?: Maybe<Organization>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type OrganizationEntityResponse = {
-  __typename?: 'OrganizationEntityResponse';
-  data?: Maybe<OrganizationEntity>;
-};
-
-export type OrganizationEntityResponseCollection = {
-  __typename?: 'OrganizationEntityResponseCollection';
-  data: Array<OrganizationEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type OrganizationFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<OrganizationFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<OrganizationFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<OrganizationFiltersInput>>>;
-  organization_members?: InputMaybe<OrganizationMemberFiltersInput>;
-  stripe_customer_id?: InputMaybe<StringFilterInput>;
-  subscription_status?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type OrganizationInput = {
-  organization_members?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  stripe_customer_id?: InputMaybe<Scalars['String']>;
-  subscription_status?: InputMaybe<Enum_Organization_Subscription_Status>;
-  title?: InputMaybe<Scalars['String']>;
-};
-
-export type OrganizationMember = {
-  __typename?: 'OrganizationMember';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  organization?: Maybe<OrganizationEntityResponse>;
-  organization_roles?: Maybe<OrganizationRoleRelationResponseCollection>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  users_permissions_user?: Maybe<UsersPermissionsUserEntityResponse>;
-};
-
-
-export type OrganizationMemberOrganization_RolesArgs = {
-  filters?: InputMaybe<OrganizationRoleFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type OrganizationMemberEntity = {
-  __typename?: 'OrganizationMemberEntity';
-  attributes?: Maybe<OrganizationMember>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type OrganizationMemberEntityResponse = {
-  __typename?: 'OrganizationMemberEntityResponse';
-  data?: Maybe<OrganizationMemberEntity>;
-};
-
-export type OrganizationMemberEntityResponseCollection = {
-  __typename?: 'OrganizationMemberEntityResponseCollection';
-  data: Array<OrganizationMemberEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type OrganizationMemberFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<OrganizationMemberFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<OrganizationMemberFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<OrganizationMemberFiltersInput>>>;
-  organization?: InputMaybe<OrganizationFiltersInput>;
-  organization_roles?: InputMaybe<OrganizationRoleFiltersInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-  users_permissions_user?: InputMaybe<UsersPermissionsUserFiltersInput>;
-};
-
-export type OrganizationMemberInput = {
-  organization?: InputMaybe<Scalars['ID']>;
-  organization_roles?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  users_permissions_user?: InputMaybe<Scalars['ID']>;
-};
-
-export type OrganizationMemberRelationResponseCollection = {
-  __typename?: 'OrganizationMemberRelationResponseCollection';
-  data: Array<OrganizationMemberEntity>;
-};
-
-export type OrganizationRole = {
-  __typename?: 'OrganizationRole';
-  can_add_user?: Maybe<Scalars['Boolean']>;
-  can_create_instance?: Maybe<Scalars['Boolean']>;
-  can_see_instance?: Maybe<Scalars['Boolean']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  help_text?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  organization_member?: Maybe<OrganizationMemberEntityResponse>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type OrganizationRoleEntity = {
-  __typename?: 'OrganizationRoleEntity';
-  attributes?: Maybe<OrganizationRole>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type OrganizationRoleEntityResponse = {
-  __typename?: 'OrganizationRoleEntityResponse';
-  data?: Maybe<OrganizationRoleEntity>;
-};
-
-export type OrganizationRoleEntityResponseCollection = {
-  __typename?: 'OrganizationRoleEntityResponseCollection';
-  data: Array<OrganizationRoleEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type OrganizationRoleFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<OrganizationRoleFiltersInput>>>;
-  can_add_user?: InputMaybe<BooleanFilterInput>;
-  can_create_instance?: InputMaybe<BooleanFilterInput>;
-  can_see_instance?: InputMaybe<BooleanFilterInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  help_text?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<OrganizationRoleFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<OrganizationRoleFiltersInput>>>;
-  organization_member?: InputMaybe<OrganizationMemberFiltersInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type OrganizationRoleInput = {
-  can_add_user?: InputMaybe<Scalars['Boolean']>;
-  can_create_instance?: InputMaybe<Scalars['Boolean']>;
-  can_see_instance?: InputMaybe<Scalars['Boolean']>;
-  help_text?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  organization_member?: InputMaybe<Scalars['ID']>;
-};
-
-export type OrganizationRoleRelationResponseCollection = {
-  __typename?: 'OrganizationRoleRelationResponseCollection';
-  data: Array<OrganizationRoleEntity>;
+export type OkayResponse = {
+  __typename?: 'OkayResponse';
+  ok: Scalars['String'];
 };
 
 export type Pagination = {
@@ -815,22 +598,14 @@ export type PaginationArg = {
 
 export type Query = {
   __typename?: 'Query';
-  configuration?: Maybe<ConfigurationEntityResponse>;
-  decidimVersion?: Maybe<DecidimVersionEntityResponse>;
-  decidimVersions?: Maybe<DecidimVersionEntityResponseCollection>;
+  account?: Maybe<AccountEntityResponse>;
+  accounts?: Maybe<AccountEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   instance?: Maybe<InstanceEntityResponse>;
   instances?: Maybe<InstanceEntityResponseCollection>;
+  jelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
-  organization?: Maybe<OrganizationEntityResponse>;
-  organizationMember?: Maybe<OrganizationMemberEntityResponse>;
-  organizationMembers?: Maybe<OrganizationMemberEntityResponseCollection>;
-  organizationRole?: Maybe<OrganizationRoleEntityResponse>;
-  organizationRoles?: Maybe<OrganizationRoleEntityResponseCollection>;
-  organizations?: Maybe<OrganizationEntityResponseCollection>;
-  stripeWebhookLog?: Maybe<StripeWebhookLogEntityResponse>;
-  stripeWebhookLogs?: Maybe<StripeWebhookLogEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
@@ -840,13 +615,13 @@ export type Query = {
 };
 
 
-export type QueryDecidimVersionArgs = {
+export type QueryAccountArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
 
-export type QueryDecidimVersionsArgs = {
-  filters?: InputMaybe<DecidimVersionFiltersInput>;
+export type QueryAccountsArgs = {
+  filters?: InputMaybe<AccountFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -871,54 +646,6 @@ export type QueryInstanceArgs = {
 
 export type QueryInstancesArgs = {
   filters?: InputMaybe<InstanceFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryOrganizationArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryOrganizationMemberArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryOrganizationMembersArgs = {
-  filters?: InputMaybe<OrganizationMemberFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryOrganizationRoleArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryOrganizationRolesArgs = {
-  filters?: InputMaybe<OrganizationRoleFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryOrganizationsArgs = {
-  filters?: InputMaybe<OrganizationFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryStripeWebhookLogArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryStripeWebhookLogsArgs = {
-  filters?: InputMaybe<StripeWebhookLogFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -985,53 +712,6 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   startsWith?: InputMaybe<Scalars['String']>;
-};
-
-export type StripeWebhookLog = {
-  __typename?: 'StripeWebhookLog';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  parsed_at?: Maybe<Scalars['DateTime']>;
-  payload?: Maybe<Scalars['JSON']>;
-  received_at?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type StripeWebhookLogEntity = {
-  __typename?: 'StripeWebhookLogEntity';
-  attributes?: Maybe<StripeWebhookLog>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type StripeWebhookLogEntityResponse = {
-  __typename?: 'StripeWebhookLogEntityResponse';
-  data?: Maybe<StripeWebhookLogEntity>;
-};
-
-export type StripeWebhookLogEntityResponseCollection = {
-  __typename?: 'StripeWebhookLogEntityResponseCollection';
-  data: Array<StripeWebhookLogEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type StripeWebhookLogFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<StripeWebhookLogFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<StripeWebhookLogFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<StripeWebhookLogFiltersInput>>>;
-  parsed_at?: InputMaybe<DateTimeFilterInput>;
-  payload?: InputMaybe<JsonFilterInput>;
-  received_at?: InputMaybe<DateTimeFilterInput>;
-  type?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type StripeWebhookLogInput = {
-  parsed_at?: InputMaybe<Scalars['DateTime']>;
-  payload?: InputMaybe<Scalars['JSON']>;
-  received_at?: InputMaybe<Scalars['DateTime']>;
-  type?: InputMaybe<Scalars['String']>;
 };
 
 export type UploadFile = {
@@ -1110,6 +790,12 @@ export type UploadFileInput = {
   size?: InputMaybe<Scalars['Float']>;
   url?: InputMaybe<Scalars['String']>;
   width?: InputMaybe<Scalars['Int']>;
+};
+
+export type UserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  password_confirmation: Scalars['String'];
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -1264,11 +950,11 @@ export type UsersPermissionsUpdateRolePayload = {
 
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
+  administrator_accounts?: Maybe<AccountRelationResponseCollection>;
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
-  organization_members?: Maybe<OrganizationMemberRelationResponseCollection>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1276,8 +962,8 @@ export type UsersPermissionsUser = {
 };
 
 
-export type UsersPermissionsUserOrganization_MembersArgs = {
-  filters?: InputMaybe<OrganizationMemberFiltersInput>;
+export type UsersPermissionsUserAdministrator_AccountsArgs = {
+  filters?: InputMaybe<AccountFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -1300,6 +986,7 @@ export type UsersPermissionsUserEntityResponseCollection = {
 };
 
 export type UsersPermissionsUserFiltersInput = {
+  administrator_accounts?: InputMaybe<AccountFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   blocked?: InputMaybe<BooleanFilterInput>;
   confirmationToken?: InputMaybe<StringFilterInput>;
@@ -1309,7 +996,6 @@ export type UsersPermissionsUserFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
-  organization_members?: InputMaybe<OrganizationMemberFiltersInput>;
   password?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
@@ -1319,11 +1005,11 @@ export type UsersPermissionsUserFiltersInput = {
 };
 
 export type UsersPermissionsUserInput = {
+  administrator_accounts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   blocked?: InputMaybe<Scalars['Boolean']>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
-  organization_members?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   password?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
@@ -1371,12 +1057,13 @@ export type ResetMutationVariables = Exact<{
 
 export type ResetMutation = { __typename?: 'Mutation', resetPassword?: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', confirmed?: boolean | null } } | null };
 
-export type ConfigurationFieldsFragment = { __typename?: 'Configuration', Backups?: { __typename?: 'ComponentConfigsBackupsConfigurations', id: string, keep_n_weekly?: number | null } | null };
+export type FirstInstallMutationVariables = Exact<{
+  user: UserInput;
+  instance: InstanceInstallInput;
+}>;
 
-export type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
-
-export type ConfigurationQuery = { __typename?: 'Query', configuration?: { __typename?: 'ConfigurationEntityResponse', data?: { __typename?: 'ConfigurationEntity', id?: string | null, attributes?: { __typename?: 'Configuration', Backups?: { __typename?: 'ComponentConfigsBackupsConfigurations', id: string, keep_n_weekly?: number | null } | null } | null } | null } | null };
+export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: string } | null };
 
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UsersPermissionsMe {
@@ -1384,14 +1071,6 @@ export const UserFieldsFragmentDoc = gql`
   username
   email
   confirmed
-}
-    `;
-export const ConfigurationFieldsFragmentDoc = gql`
-    fragment ConfigurationFields on Configuration {
-  Backups {
-    id
-    keep_n_weekly
-  }
 }
     `;
 export const RegisterDocument = gql`
@@ -1543,42 +1222,37 @@ export function useResetMutation(baseOptions?: Apollo.MutationHookOptions<ResetM
 export type ResetMutationHookResult = ReturnType<typeof useResetMutation>;
 export type ResetMutationResult = Apollo.MutationResult<ResetMutation>;
 export type ResetMutationOptions = Apollo.BaseMutationOptions<ResetMutation, ResetMutationVariables>;
-export const ConfigurationDocument = gql`
-    query Configuration {
-  configuration {
-    data {
-      id
-      attributes {
-        ...ConfigurationFields
-      }
-    }
+export const FirstInstallDocument = gql`
+    mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
+  firstInstall(user: $user, instance: $instance) {
+    ok
   }
 }
-    ${ConfigurationFieldsFragmentDoc}`;
+    `;
+export type FirstInstallMutationFn = Apollo.MutationFunction<FirstInstallMutation, FirstInstallMutationVariables>;
 
 /**
- * __useConfigurationQuery__
+ * __useFirstInstallMutation__
  *
- * To run a query within a React component, call `useConfigurationQuery` and pass it any options that fit your needs.
- * When your component renders, `useConfigurationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useFirstInstallMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFirstInstallMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useConfigurationQuery({
+ * const [firstInstallMutation, { data, loading, error }] = useFirstInstallMutation({
  *   variables: {
+ *      user: // value for 'user'
+ *      instance: // value for 'instance'
  *   },
  * });
  */
-export function useConfigurationQuery(baseOptions?: Apollo.QueryHookOptions<ConfigurationQuery, ConfigurationQueryVariables>) {
+export function useFirstInstallMutation(baseOptions?: Apollo.MutationHookOptions<FirstInstallMutation, FirstInstallMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ConfigurationQuery, ConfigurationQueryVariables>(ConfigurationDocument, options);
+        return Apollo.useMutation<FirstInstallMutation, FirstInstallMutationVariables>(FirstInstallDocument, options);
       }
-export function useConfigurationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ConfigurationQuery, ConfigurationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ConfigurationQuery, ConfigurationQueryVariables>(ConfigurationDocument, options);
-        }
-export type ConfigurationQueryHookResult = ReturnType<typeof useConfigurationQuery>;
-export type ConfigurationLazyQueryHookResult = ReturnType<typeof useConfigurationLazyQuery>;
-export type ConfigurationQueryResult = Apollo.QueryResult<ConfigurationQuery, ConfigurationQueryVariables>;
+export type FirstInstallMutationHookResult = ReturnType<typeof useFirstInstallMutation>;
+export type FirstInstallMutationResult = Apollo.MutationResult<FirstInstallMutation>;
+export type FirstInstallMutationOptions = Apollo.BaseMutationOptions<FirstInstallMutation, FirstInstallMutationVariables>;

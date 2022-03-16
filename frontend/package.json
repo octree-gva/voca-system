@@ -16,7 +16,6 @@
     "formik-mui": "^4.0.0-alpha.3",
     "formik-mui-lab": "^1.0.0-alpha.3",
     "graphql": "^16.3.0",
-    "https": "^1.0.0",
     "i18next": "^21.4.0",
     "lodash": "^4.17.21",
     "luxon": "^2.0.2",
@@ -30,7 +29,7 @@
     "zustand": "^3.6.4"
   },
   "scripts": {
-    "dev": "PORT=3000 NODE_ENV=development node local_server.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "pre_commit": "yarn lint && yarn test:ci",

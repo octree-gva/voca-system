@@ -15,7 +15,6 @@
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
   },
   "devDependencies": {
-    "https": "^1.0.0",
     "jest": "^27.5.1",
     "supertest": "^6.2.2"
   },
