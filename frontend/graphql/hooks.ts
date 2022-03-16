@@ -123,11 +123,74 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type DockerManifest = {
+  __typename?: 'DockerManifest';
+  cmd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  created?: Maybe<Scalars['String']>;
+  entrypoint?: Maybe<Array<Maybe<Scalars['String']>>>;
+  env?: Maybe<Array<Maybe<Scalars['String']>>>;
+  id?: Maybe<Scalars['String']>;
+  imageId?: Maybe<Scalars['String']>;
+  os?: Maybe<Scalars['String']>;
+  volumes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  workdir?: Maybe<Scalars['String']>;
+};
+
 export enum Enum_Instance_Status {
   Pending = 'pending',
   Started = 'started',
   Stopped = 'stopped'
 }
+
+export enum Enum_Notification_Level {
+  Error = 'error',
+  Info = 'info',
+  Warn = 'warn'
+}
+
+export enum Enum_Webhook_Status {
+  Completed = 'completed',
+  Waiting = 'waiting'
+}
+
+export type Environment = {
+  __typename?: 'Environment';
+  attributes?: Maybe<EnvironmentAttributes>;
+  envGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nodeGroups?: Maybe<Array<Maybe<NodeGroup>>>;
+  nodes?: Maybe<Array<Maybe<Node>>>;
+  nodesData?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nodesInternalDomains?: Maybe<Array<Maybe<Scalars['String']>>>;
+  result?: Maybe<Scalars['Int']>;
+  right?: Maybe<Scalars['String']>;
+};
+
+export type EnvironmentAttributes = {
+  __typename?: 'EnvironmentAttributes';
+  appid?: Maybe<Scalars['String']>;
+  contexts?: Maybe<Array<Maybe<Scalars['String']>>>;
+  createdOn?: Maybe<Scalars['String']>;
+  creatorUid?: Maybe<Scalars['Int']>;
+  displayName?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  envName?: Maybe<Scalars['String']>;
+  extdomains?: Maybe<Array<Maybe<Scalars['String']>>>;
+  hardwareNodeGroup?: Maybe<Scalars['String']>;
+  hostGroup?: Maybe<HostGroup>;
+  isFirewallEnabled?: Maybe<Scalars['Boolean']>;
+  isTransferring?: Maybe<Scalars['Boolean']>;
+  ishaenabled?: Maybe<Scalars['Boolean']>;
+  shortdomain?: Maybe<Scalars['String']>;
+  sslstate?: Maybe<Scalars['Boolean']>;
+  status?: Maybe<Scalars['Int']>;
+  uid?: Maybe<Scalars['Int']>;
+};
+
+export type EnvironmentPayload = {
+  __typename?: 'EnvironmentPayload';
+  data?: Maybe<Environment>;
+  error?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
 
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
@@ -158,7 +221,13 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = Account | I18NLocale | Instance | JelasticConfig | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Account | I18NLocale | Instance | JelasticConfig | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
+
+export type HostGroup = {
+  __typename?: 'HostGroup';
+  displayName?: Maybe<Scalars['String']>;
+  uniqueName?: Maybe<Scalars['String']>;
+};
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -226,9 +295,26 @@ export type Instance = {
   createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<UsersPermissionsUserEntityResponse>;
   envName?: Maybe<Scalars['String']>;
+  instanceUUID?: Maybe<Scalars['String']>;
+  notifications?: Maybe<NotificationRelationResponseCollection>;
   status?: Maybe<Enum_Instance_Status>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  webhooks?: Maybe<WebhookRelationResponseCollection>;
+};
+
+
+export type InstanceNotificationsArgs = {
+  filters?: InputMaybe<NotificationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type InstanceWebhooksArgs = {
+  filters?: InputMaybe<WebhookFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type InstanceEntity = {
@@ -256,11 +342,14 @@ export type InstanceFiltersInput = {
   creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
   envName?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  instanceUUID?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<InstanceFiltersInput>;
+  notifications?: InputMaybe<NotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
   status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  webhooks?: InputMaybe<WebhookFiltersInput>;
 };
 
 export type InstanceInput = {
@@ -268,8 +357,11 @@ export type InstanceInput = {
   acronym?: InputMaybe<Scalars['String']>;
   creator?: InputMaybe<Scalars['ID']>;
   envName?: InputMaybe<Scalars['String']>;
+  instanceUUID?: InputMaybe<Scalars['String']>;
+  notifications?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   status?: InputMaybe<Enum_Instance_Status>;
   title?: InputMaybe<Scalars['String']>;
+  webhooks?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
 export type InstanceInstallInput = {
@@ -392,19 +484,23 @@ export type Mutation = {
   __typename?: 'Mutation';
   createAccount?: Maybe<AccountEntityResponse>;
   createInstance?: Maybe<InstanceEntityResponse>;
+  createNotification?: Maybe<NotificationEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  createWebhook?: Maybe<WebhookEntityResponse>;
   deleteAccount?: Maybe<AccountEntityResponse>;
   deleteInstance?: Maybe<InstanceEntityResponse>;
   deleteJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
+  deleteNotification?: Maybe<NotificationEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Update an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteWebhook?: Maybe<WebhookEntityResponse>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
   /** Create user account and install first instance */
@@ -422,11 +518,13 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateInstance?: Maybe<InstanceEntityResponse>;
   updateJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
+  updateNotification?: Maybe<NotificationEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  updateWebhook?: Maybe<WebhookEntityResponse>;
   upload: UploadFileEntityResponse;
 };
 
@@ -438,6 +536,11 @@ export type MutationCreateAccountArgs = {
 
 export type MutationCreateInstanceArgs = {
   data: InstanceInput;
+};
+
+
+export type MutationCreateNotificationArgs = {
+  data: NotificationInput;
 };
 
 
@@ -456,12 +559,22 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationCreateWebhookArgs = {
+  data: WebhookInput;
+};
+
+
 export type MutationDeleteAccountArgs = {
   id: Scalars['ID'];
 };
 
 
 export type MutationDeleteInstanceArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteNotificationArgs = {
   id: Scalars['ID'];
 };
 
@@ -477,6 +590,11 @@ export type MutationDeleteUsersPermissionsRoleArgs = {
 
 
 export type MutationDeleteUsersPermissionsUserArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteWebhookArgs = {
   id: Scalars['ID'];
 };
 
@@ -550,6 +668,12 @@ export type MutationUpdateJelasticConfigArgs = {
 };
 
 
+export type MutationUpdateNotificationArgs = {
+  data: NotificationInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID'];
@@ -568,12 +692,145 @@ export type MutationUpdateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationUpdateWebhookArgs = {
+  data: WebhookInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUploadArgs = {
   field?: InputMaybe<Scalars['String']>;
   file: Scalars['Upload'];
   info?: InputMaybe<FileInfoInput>;
   ref?: InputMaybe<Scalars['String']>;
   refId?: InputMaybe<Scalars['ID']>;
+};
+
+export type Node = {
+  __typename?: 'Node';
+  addons?: Maybe<Array<Maybe<Scalars['String']>>>;
+  address?: Maybe<Scalars['String']>;
+  adminUrl?: Maybe<Scalars['String']>;
+  bandwidthLimit?: Maybe<Scalars['Int']>;
+  canBeExported?: Maybe<Scalars['Boolean']>;
+  contextValidatorRegex?: Maybe<Scalars['String']>;
+  ctid?: Maybe<Scalars['Int']>;
+  customitem?: Maybe<NodeCustomItem>;
+  diskIoLimit?: Maybe<Scalars['Int']>;
+  diskIopsLimit?: Maybe<Scalars['Int']>;
+  diskLimit?: Maybe<Scalars['Int']>;
+  endpoints?: Maybe<Array<Maybe<Scalars['String']>>>;
+  features?: Maybe<Array<Maybe<Scalars['String']>>>;
+  fixedCloudlets?: Maybe<Scalars['Int']>;
+  flexibleCloudlets?: Maybe<Scalars['Int']>;
+  guestOSType?: Maybe<Scalars['String']>;
+  hasPackages?: Maybe<Scalars['Boolean']>;
+  hostOSType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  intIP?: Maybe<Scalars['String']>;
+  isClusterSupport?: Maybe<Scalars['Boolean']>;
+  isCustomSslSupport?: Maybe<Scalars['Boolean']>;
+  isExternalIpRequired?: Maybe<Scalars['Boolean']>;
+  isHighAvailability?: Maybe<Scalars['Boolean']>;
+  isResetPassword?: Maybe<Scalars['Boolean']>;
+  isVcsSupport?: Maybe<Scalars['Boolean']>;
+  isWebAccess?: Maybe<Scalars['Boolean']>;
+  ismaster?: Maybe<Scalars['Boolean']>;
+  maxchanks?: Maybe<Scalars['Int']>;
+  messages?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name?: Maybe<Scalars['String']>;
+  nodeGroup?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+  nodemission?: Maybe<Scalars['String']>;
+  osType?: Maybe<Scalars['String']>;
+  packages?: Maybe<Array<Maybe<Scalars['String']>>>;
+  port?: Maybe<Scalars['Int']>;
+  singleContext?: Maybe<Scalars['Boolean']>;
+  status?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  user?: Maybe<Scalars['String']>;
+  vType?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type NodeCustomItem = {
+  __typename?: 'NodeCustomItem';
+  dockerManifest?: Maybe<DockerManifest>;
+  dockerName?: Maybe<Scalars['String']>;
+  dockerOs?: Maybe<Scalars['String']>;
+  dockerTag?: Maybe<Scalars['String']>;
+  dockerVolumes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  dockerVolumesFrom?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nodeVersion?: Maybe<Scalars['String']>;
+};
+
+export type NodeGroup = {
+  __typename?: 'NodeGroup';
+  deployments?: Maybe<Array<Maybe<Scalars['String']>>>;
+  features?: Maybe<Array<Maybe<Scalars['String']>>>;
+  isSLBAccessEnabled?: Maybe<Scalars['Boolean']>;
+  isSequentialDeploy?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  redeployContainerDelay?: Maybe<Scalars['Int']>;
+  redeployContextDelay?: Maybe<Scalars['Int']>;
+  restartContainerDelay?: Maybe<Scalars['Int']>;
+  restartNodeDelay?: Maybe<Scalars['Int']>;
+  scalingMode?: Maybe<Scalars['String']>;
+  templateType?: Maybe<Scalars['String']>;
+  vType?: Maybe<Scalars['String']>;
+};
+
+export type Notification = {
+  __typename?: 'Notification';
+  content?: Maybe<Scalars['JSON']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  instance?: Maybe<InstanceEntityResponse>;
+  level?: Maybe<Enum_Notification_Level>;
+  type?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type NotificationEntity = {
+  __typename?: 'NotificationEntity';
+  attributes?: Maybe<Notification>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type NotificationEntityResponse = {
+  __typename?: 'NotificationEntityResponse';
+  data?: Maybe<NotificationEntity>;
+};
+
+export type NotificationEntityResponseCollection = {
+  __typename?: 'NotificationEntityResponseCollection';
+  data: Array<NotificationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type NotificationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<NotificationFiltersInput>>>;
+  content?: InputMaybe<JsonFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  instance?: InputMaybe<InstanceFiltersInput>;
+  level?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<NotificationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<NotificationFiltersInput>>>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type NotificationInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  instance?: InputMaybe<Scalars['ID']>;
+  level?: InputMaybe<Enum_Notification_Level>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type NotificationRelationResponseCollection = {
+  __typename?: 'NotificationRelationResponseCollection';
+  data: Array<NotificationEntity>;
 };
 
 export type OkayResponse = {
@@ -600,18 +857,25 @@ export type Query = {
   __typename?: 'Query';
   account?: Maybe<AccountEntityResponse>;
   accounts?: Maybe<AccountEntityResponseCollection>;
+  environment?: Maybe<EnvironmentPayload>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   instance?: Maybe<InstanceEntityResponse>;
   instances?: Maybe<InstanceEntityResponseCollection>;
+  /** Check if a subdomain is available */
+  isSubdomainAvailable?: Maybe<Scalars['Boolean']>;
   jelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
+  notification?: Maybe<NotificationEntityResponse>;
+  notifications?: Maybe<NotificationEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+  webhook?: Maybe<WebhookEntityResponse>;
+  webhooks?: Maybe<WebhookEntityResponseCollection>;
 };
 
 
@@ -624,6 +888,11 @@ export type QueryAccountsArgs = {
   filters?: InputMaybe<AccountFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryEnvironmentArgs = {
+  envName: Scalars['String'];
 };
 
 
@@ -646,6 +915,23 @@ export type QueryInstanceArgs = {
 
 export type QueryInstancesArgs = {
   filters?: InputMaybe<InstanceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryIsSubdomainAvailableArgs = {
+  subdomain: Scalars['String'];
+};
+
+
+export type QueryNotificationArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryNotificationsArgs = {
+  filters?: InputMaybe<NotificationFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -682,6 +968,18 @@ export type QueryUsersPermissionsUserArgs = {
 
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryWebhookArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryWebhooksArgs = {
+  filters?: InputMaybe<WebhookFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -1022,6 +1320,58 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type Webhook = {
+  __typename?: 'Webhook';
+  content?: Maybe<Scalars['JSON']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  eventType?: Maybe<Scalars['String']>;
+  instance?: Maybe<InstanceEntityResponse>;
+  status?: Maybe<Enum_Webhook_Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type WebhookEntity = {
+  __typename?: 'WebhookEntity';
+  attributes?: Maybe<Webhook>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type WebhookEntityResponse = {
+  __typename?: 'WebhookEntityResponse';
+  data?: Maybe<WebhookEntity>;
+};
+
+export type WebhookEntityResponseCollection = {
+  __typename?: 'WebhookEntityResponseCollection';
+  data: Array<WebhookEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type WebhookFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<WebhookFiltersInput>>>;
+  content?: InputMaybe<JsonFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  eventType?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  instance?: InputMaybe<InstanceFiltersInput>;
+  not?: InputMaybe<WebhookFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<WebhookFiltersInput>>>;
+  status?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type WebhookInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  eventType?: InputMaybe<Scalars['String']>;
+  instance?: InputMaybe<Scalars['ID']>;
+  status?: InputMaybe<Enum_Webhook_Status>;
+};
+
+export type WebhookRelationResponseCollection = {
+  __typename?: 'WebhookRelationResponseCollection';
+  data: Array<WebhookEntity>;
+};
+
 export type UserFieldsFragment = { __typename?: 'UsersPermissionsMe', id: string, username: string, email?: string | null, confirmed?: boolean | null };
 
 export type RegisterMutationVariables = Exact<{
@@ -1064,6 +1414,11 @@ export type FirstInstallMutationVariables = Exact<{
 
 
 export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: string } | null };
+
+export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title?: string | null, envName?: string | null, status?: Enum_Instance_Status | null } | null }> } | null };
 
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UsersPermissionsMe {
@@ -1256,3 +1611,44 @@ export function useFirstInstallMutation(baseOptions?: Apollo.MutationHookOptions
 export type FirstInstallMutationHookResult = ReturnType<typeof useFirstInstallMutation>;
 export type FirstInstallMutationResult = Apollo.MutationResult<FirstInstallMutation>;
 export type FirstInstallMutationOptions = Apollo.BaseMutationOptions<FirstInstallMutation, FirstInstallMutationVariables>;
+export const InstancesDocument = gql`
+    query Instances {
+  instances {
+    data {
+      id
+      attributes {
+        title
+        envName
+        status
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useInstancesQuery__
+ *
+ * To run a query within a React component, call `useInstancesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInstancesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInstancesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useInstancesQuery(baseOptions?: Apollo.QueryHookOptions<InstancesQuery, InstancesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InstancesQuery, InstancesQueryVariables>(InstancesDocument, options);
+      }
+export function useInstancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InstancesQuery, InstancesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InstancesQuery, InstancesQueryVariables>(InstancesDocument, options);
+        }
+export type InstancesQueryHookResult = ReturnType<typeof useInstancesQuery>;
+export type InstancesLazyQueryHookResult = ReturnType<typeof useInstancesLazyQuery>;
+export type InstancesQueryResult = Apollo.QueryResult<InstancesQuery, InstancesQueryVariables>;

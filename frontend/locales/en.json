@@ -26,6 +26,26 @@
       "decidim.subdomain.punycode": "Punycode is not supported yet"
     }
   },
+  "support": "Need support ?",
+  "instance": {
+    "stopped": "Stopped",
+    "pending": "Ongoing operation..."
+  },
+  "TopBar": {
+    "login": "Log in",
+    "logout": "Log out",
+    "account": "Account",
+    "notifications": "Notifications"
+  },
+  "LeftBar": {
+    "knowledgeBase": "Knowledge base",
+    "community": "Community",
+    "roadmap": "Roadmap"
+  },
+  "InstanceCard": {
+    "upgrade": "upgrade",
+    "settings": "settings"
+  },
   "auth": {
     "login": {
       "heading": "Log in",

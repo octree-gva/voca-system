@@ -43,7 +43,7 @@ export default NextAuth({
         } catch (err) {
           if (!!err && !!(err as any)?.isAxiosError) {
             const axiosError = err as AxiosError;
-            console.error('POST api/auth/local fails: ', axiosError.toJSON());
+            console.error('POST api/auth/local fails: ', axiosError.message);
           }
           return null;
         }
