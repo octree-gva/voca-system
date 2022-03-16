@@ -14,7 +14,14 @@ module.exports = createCoreService("api::webhook.webhook", ({ strapi }) => ({
     await Promise.all(
       listeners
         .filter(async ([matcher]) => matcher.test(eventType))
-        .map(([_, listener]) => listener(instance, eventType, payload))
+        .map(([_, listener]) => {
+          try {
+            return listener(instance, eventType, payload);
+          } catch (err) {
+            strapi.log.warn(`listener fails to handle ${eventType}`);
+            return Promise.resolve();
+          }
+        })
     );
   },
 }));
