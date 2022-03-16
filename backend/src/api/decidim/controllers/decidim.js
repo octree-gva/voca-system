@@ -12,7 +12,7 @@ module.exports = {
     const instance = await strapi
       .query("api::instance.instance")
       .findOne({ where: { instanceUUID } });
-    await strapi.query("api::webhook.webhook").update({
+    await strapi.query("api::webhook.webhook").create({
       data: {
         eventType: event_type,
         instance: instance,

@@ -1,6 +1,9 @@
 module.exports = {
-  afterCreate(event) {
+  async afterCreate(event) {
     const { result, params } = event;
-    // Switch over webhook type and trigger
+    const { content, eventType, instance } = result;
+    return strapi
+      .service("api::webhook.webhook")
+      .fire(instance, eventType, content);
   },
 };

@@ -9,6 +9,10 @@ categories:
   - apps/platforms
 baseUrl: https://git.octree.ch/decidim/vocacity/docker/-/raw/main
 logo: /overrides/0.24.3/app/assets/images/decidim_logo.png?inline=false
+ssl: true
+ha: false
+envGroups: "vocacity"
+
 globals:
   DB_PASSWORD: "${fn.password(32)}"
   DB_USER: "decidim_${fn.password(6)}"
@@ -16,7 +20,7 @@ globals:
   SECRET_KEY_BASE: "${fn.password(128)}"
   MASTER_KEY: "${fn.password(32)}"
   REDIS_USER: "admin_${fn.password(6)}"
-  REDIS_PASSWORD: "${fn.password(20)}"
+  REDIS_PASSWORD: "${fn.password(64)}"
 settings:
   fields:
   - name: JOB_IMAGE_REGISTRY
@@ -41,22 +45,6 @@ settings:
 
   - name: IMAGE_PASSWORD
     caption: IMAGE_PASSWORD
-    type: string
-
-  - name: DECIDIM_DEFAULT_SYSTEM_EMAIL
-    caption: DECIDIM_DEFAULT_SYSTEM_EMAIL
-    type: string
-
-  - name: DECIDIM_DEFAULT_SYSTEM_PASSWORD
-    caption: DECIDIM_DEFAULT_SYSTEM_PASSWORD
-    type: string
-
-  - name: DECIDIM_NAME
-    caption: DECIDIM_NAME
-    type: string
-
-  - name: DECIDIM_SHORTNAME
-    caption: DECIDIM_SHORTNAME
     type: string
 
   - type: string
@@ -141,7 +129,7 @@ nodes:
   fixedCloudlets: 3
   flexibleCloudlets: 8
   diskLimit: 100G
-  count: 2
+  count: 1
   env:
     APP_SESSION_KEY: "${globals.APP_SESSION_KEY}"
     INSTANCE_UUID: "${settings.INSTANCE_UUID}"
@@ -269,13 +257,22 @@ nodes:
   volumes:
   - /data
 onInstall: 
-  - setupRedisPassword
+  - replaceInFile:
+      nodeType: nosqldb
+      path: /etc/redis.conf
+      replacements:
+      - pattern: "# masterauth <master-password>"
+        replacement: masterauth ${globals.REDIS_PASSWORD}
+      - pattern: "# masteruser <username>"
+        replacement: masteruser ${globals.REDIS_USER}
+      - pattern: "databases 16"
+        replacement: databases 5
+  - restartNodes:
+      nodeType: nosqldb
   - prepareDB
   - webhook
 
 actions:
-  setupRedisPassword:
-    cmd[nosqldb]: jem passwd set -p ${globals.REDIS_PASSWORD} -u ${globals.REDIS_USER}
   prepareDB:
     cmd[vocacity]: cd $RAILS_ROOT && bundle exec rails db:migrate
   webhook:
@@ -289,6 +286,7 @@ actions:
         require "json"
         content = {
             success: 1,
+            instanceUUID: ENV.fetch("INSTANCE_UUID")
         }
         payload = {
           event_type: "decidim.install",
@@ -299,13 +297,13 @@ actions:
             content.to_json
           )
         }
-
-        uri = URI.parse(ENV.fetch("WEBHOOK_URL"))
+        webhook_url = "#{ENV.fetch("WEBHOOK_URL")}/#{ENV.fetch("INSTANCE_UUID")}"
+        uri = URI.parse(webhook_url)
         header = {"Content-Type": "text/json"}
         http = Net::HTTP.new(uri.host, uri.port)
         request = Net::HTTP::Post.new(uri.request_uri, header)
         request.body = payload.to_json
-        puts "POST #{ENV.fetch("WEBHOOK_URL")} #{request.body}"
+        puts "POST #{webhook_url} #{request.body}"
         response = http.request(request)
         ''' > lib/setup_decidim.rb
         bin/rails runner lib/setup_decidim.rb

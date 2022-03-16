@@ -42,5 +42,11 @@ module.exports = {
         ? httpsBoot(strapi)
         : Promise.resolve(),
     ]);
+    strapi
+      .service("api::webhook.webhook")
+      .register(
+        /^decidim\.[.]*/,
+        strapi.service("api::decidim.webhook").handleWebhook
+      );
   },
 };

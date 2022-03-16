@@ -10,7 +10,7 @@ categories:
 baseUrl: https://git.octree.ch/decidim/vocacity/docker/-/raw/main
 logo: /overrides/0.24.3/app/assets/images/decidim_logo.png?inline=false
 globals:
-  ADMIN_PASSWORD: "${fn.password(32)}"
+  ADMIN_PASSWORD: "ChangeMe_${fn.password(12)}"
 
 settings:
   fields:
@@ -18,8 +18,28 @@ settings:
     type: string
     caption: ADMIN_EMAIL
 
+  - name: DECIDIM_DEFAULT_SYSTEM_EMAIL
+    caption: DECIDIM_DEFAULT_SYSTEM_EMAIL
+    type: string
+
+  - name: DECIDIM_DEFAULT_SYSTEM_PASSWORD
+    caption: DECIDIM_DEFAULT_SYSTEM_PASSWORD
+    type: string
+
+  - name: DECIDIM_NAME
+    caption: DECIDIM_NAME
+    type: string
+
+  - name: DECIDIM_SHORTNAME
+    caption: DECIDIM_SHORTNAME
+    type: string
+
 onInstall: 
   - seedDecidim
+  - restartNodes:
+      nodeType: vocacity
+  - restartNodes:
+      nodeType: cb
 
 actions:
   seedDecidim:
@@ -72,6 +92,7 @@ actions:
         new_org = Decidim::Organization.first
         content = {
             success: Decidim::Organization.count == 1,
+            instanceUUID: ENV.fetch("INSTANCE_UUID"),
             default_locale: new_org.default_locale,
             available_locales: new_org.available_locales,
             nickname: nickname,

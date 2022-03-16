@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -26,11 +26,7 @@
     },
     "level": {
       "type": "enumeration",
-      "enum": [
-        "info",
-        "warn",
-        "error"
-      ]
+      "enum": ["info", "warn", "error"]
     }
   }
 }

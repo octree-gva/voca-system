@@ -1,9 +1,20 @@
-'use strict';
+"use strict";
 
 /**
  * webhook service.
  */
 
-const { createCoreService } = require('@strapi/strapi').factories;
-
-module.exports = createCoreService('api::webhook.webhook');
+const { createCoreService } = require("@strapi/strapi").factories;
+const listeners = [];
+module.exports = createCoreService("api::webhook.webhook", ({ strapi }) => ({
+  async register(pattern, listener) {
+    listeners.push([new RegExp(pattern, "ig"), listener]);
+  },
+  async fire(instance, eventType, payload) {
+    await Promise.all(
+      listeners
+        .filter(async ([matcher]) => matcher.test(eventType))
+        .map(([_, listener]) => listener(instance, eventType, payload))
+    );
+  },
+}));
