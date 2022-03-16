@@ -1,10 +1,6 @@
 import Button from '@mui/material/Button';
 
-interface Props {
-  children: React.ReactChildren
-}
-
-const ActionButton = ({children} : Props) => (
+const ActionButton: React.FC = ({children}) => (
   <Button
     sx={{
       fontWeight: 'bold',
