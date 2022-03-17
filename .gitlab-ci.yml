@@ -41,6 +41,7 @@ tests:frontend:
 
 build:backend:
   stage: build
+  needs: ["tests:backend"]
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -54,6 +55,7 @@ build:backend:
 
 build:frontend:
   stage: build
+  needs: ["tests:frontend"]
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -80,6 +82,7 @@ build:nginx:
 
 deploy:backend:
   extends: .deployHidora
+  needs: ["build:backend"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
     - if: "$CI_COMMIT_TAG =~ /v.*$/"
@@ -89,7 +92,7 @@ deploy:backend:
 
 deploy:frontend:
   extends: .deployHidora
-  needs: ["deploy:backend"]
+  needs: ["build:frontend", "deploy:backend"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
     - if: "$CI_COMMIT_TAG =~ /v.*$/"
@@ -99,13 +102,13 @@ deploy:frontend:
 
 deploy:nginx:
   extends: .deployHidora
-  needs: ["deploy:frontend"]
+  needs: ["build:nginx", "deploy:frontend"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
     - if: "$CI_COMMIT_TAG =~ /v.*$/"
   environment:
     name: Prod NGINX
-    url: "https://*.voca.city"
+    url: "https://wildcard.voca.city"
 
 version:
   extends: .release
