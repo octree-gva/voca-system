@@ -21,8 +21,8 @@ RUN echo "{\"version\":\"$VERSION\"}" > $ROOT/VERSION.json
 VOLUME $ROOT/node_modules
 VOLUME $ROOT/.next
 
-COPY ./docker-entrypoint.sh/frontend.sh /usr/local/bin/docker-entrypoint.sh
-COPY ./frontend $ROOT
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY . $ROOT
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start"]
