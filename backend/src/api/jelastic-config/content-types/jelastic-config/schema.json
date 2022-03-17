@@ -15,6 +15,15 @@
     "manifestUrl": {
       "type": "string"
     },
+    "jelasticHost": {
+      "type": "string"
+    },
+    "jelasticToken": {
+      "type": "string"
+    },
+    "jelasticInstancePrefix": {
+      "type": "string"
+    },
     "jobImageRegistry": {
       "type": "string"
     },
@@ -76,7 +85,7 @@
       "type": "string"
     },
     "webhookPassword": {
-      "type": "text"
+      "type": "string"
     }
   }
 }
