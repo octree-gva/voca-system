@@ -10,7 +10,7 @@
     "build": "strapi build",
     "strapi": "strapi",
     "console": "PORT=1336 yarn strapi console",
-    "pre_commit": "yarn test:ci",
+    "pre_commit": "yarn test:ci --onlyChanged",
     "test": "jest --watch --detectOpenHandles",
     "test:cov": "jest --ci --coverage --forceExit --runInBand || true",
     "test:ci": "jest --ci --runInBand --forceExit --detectOpenHandles"
