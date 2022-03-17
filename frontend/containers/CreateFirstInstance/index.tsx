@@ -23,7 +23,7 @@ export type CreateFirstInstanceFormProps = React.PropsWithChildren<{}>;
 const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
   const {t} = useTranslation(undefined, {keyPrefix: 'register'});
   const router = useRouter();
-  const [errCode, setErrCode] = useState();
+  const [errCode, setErrCode] = useState<null | string>();
   const RegisterSchema = useValidationSchema();
   const [createFirstInstall] = useFirstInstallMutation();
 
@@ -40,10 +40,13 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
       } = values;
       const user = {email, password, password_confirmation};
       const instance = {title, acronym, subdomain};
-      const {data: {firstInstall: response} = {}} = await createFirstInstall({
+      const {data: firstInstallData} = await createFirstInstall({
         variables: {user, instance},
       });
-
+      const response = firstInstallData?.firstInstall || {
+        ok: false,
+        errCode: 'SERVER_ERROR',
+      };
       if (response.ok) router.push('/auth/login');
       else setErrCode(response.errCode);
     } catch (error) {

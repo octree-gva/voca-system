@@ -7,6 +7,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": true,
@@ -25,5 +28,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "mui.d.ts", "**/*.ts", "**/*.tsx"]
 }
