@@ -34,7 +34,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pre_commit": "yarn lint && yarn test:ci",
+    "pre_commit": "yarn lint && yarn test:ci --onlyChanged",
     "lint": "next lint",
     "test": "jest --watch",
     "test:ci": "jest --ci",
