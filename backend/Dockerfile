@@ -1,6 +1,8 @@
 FROM node:16.14.0-alpine3.14
 
 ARG VERSION
+
+# TODO Set this in Strapi config as default (except $ROOT)
 ENV VERSION=${VERSION:-dev} \
     NODE_ENV=production \
     DATABASE_HOST=pg \
@@ -33,8 +35,8 @@ RUN echo " {\"version\":\"$VERSION\"}" > $ROOT/VERSION.json
 VOLUME $ROOT/node_modules
 VOLUME $ROOT/build
 
-COPY ./docker-entrypoint.sh/backend.sh /usr/local/bin/docker-entrypoint.sh
-COPY ./backend $ROOT
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY . $ROOT
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start"]

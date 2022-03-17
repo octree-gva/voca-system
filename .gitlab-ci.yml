@@ -36,58 +36,76 @@ tests:frontend:
     - cd frontend
     - yarn
     - yarn lint
-    - yarn test:ci  
+    - yarn test:ci
     - yarn test:cov
 
-build:front-back:
+build:backend:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-  only:
-    - merge_requests
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile-backend --destination $CI_REGISTRY_IMAGE/backend:latest --build-arg VERSION=$VERSION
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile-frontend --destination $CI_REGISTRY_IMAGE/frontend:latest --build-arg VERSION=$VERSION
+    - /kaniko/executor --context $CI_PROJECT_DIR/backend --dockerfile $CI_PROJECT_DIR/backend/Dockerfile --destination $CI_REGISTRY_IMAGE/backend:$VERSION --build-arg VERSION=$VERSION
+
+build:frontend:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
+    - /kaniko/executor --context $CI_PROJECT_DIR/frontend --dockerfile $CI_PROJECT_DIR/frontend/Dockerfile --destination $CI_REGISTRY_IMAGE/frontend:$VERSION --build-arg VERSION=$VERSION
 
 build:nginx:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-  only:
-    - merge_requests
-    - main
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/Dockerfile-nginx --destination $CI_REGISTRY_IMAGE/nginx:latest --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
-
-release:front-back:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  only:
-    - tags
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile-backend --destination $CI_REGISTRY_IMAGE/backend:$VERSION --build-arg VERSION=$VERSION
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile-frontend --destination $CI_REGISTRY_IMAGE/frontend:$VERSION --build-arg VERSION=$VERSION
+    - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/nginx/Dockerfile --destination $CI_REGISTRY_IMAGE/nginx:$VERSION --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
 
-release:nginx:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  only:
-    - tags
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/Dockerfile-nginx --destination $CI_REGISTRY_IMAGE/nginx:$VERSION --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
+deploy:backend:
+  extends: .deployHidora
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
+  environment:
+    name: Prod Backend
+    url: "https://api.voca.city"
+
+deploy:frontend:
+  extends: .deployHidora
+  needs: ["deploy:backend"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
+  environment:
+    name: Prod Frontend
+    url: "https://app.voca.city"
+
+deploy:nginx:
+  extends: .deployHidora
+  needs: ["deploy:frontend"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: "$CI_COMMIT_TAG =~ /v.*$/"
+  environment:
+    name: Prod NGINX
+    url: "https://*.voca.city"
 
 version:
   extends: .release
