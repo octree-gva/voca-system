@@ -38,7 +38,7 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
         level: "info",
       },
     });
-    await strapi.service("api::jelastic.environment").create({
+    await strapi.service("api::decidim.instance").create({
       subdomain: instanceEntity.envName,
       current_user: creator,
       instanceUUID: instanceEntity.instanceUUID,
