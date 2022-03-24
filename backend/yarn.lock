@@ -1649,6 +1649,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@octree/strapi-timescale-logger@^0.1.0":
+  version "0.1.0"
+  resolved "https://npm-8ee.hidora.com/@octree%2fstrapi-timescale-logger/-/strapi-timescale-logger-0.1.0.tgz#cc67ddf1ba081f4956684fe3024cb72d36d460ce"
+  integrity sha512-Gl6tZCA40xhV1yBZR2G8AzybK9822KPiEpGnwu9vlImu+x4Diybw/S0/d7fHgU5d2LzHOZtNtZ/ds/TesKmJHA==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
