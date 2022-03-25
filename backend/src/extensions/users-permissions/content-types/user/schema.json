@@ -21,6 +21,14 @@
       "configurable": false,
       "required": true
     },
+    "firstName": {
+      "type": "string",
+      "configurable": false
+    },
+    "lastName": {
+      "type": "string",
+      "configurable": false
+    },
     "email": {
       "type": "email",
       "minLength": 6,
