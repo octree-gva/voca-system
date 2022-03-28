@@ -1,6 +1,7 @@
 const instance = require("../api/instance/graphql");
+const usersPermissions = require("../extensions/users-permissions/graphql");
 
-const extensions = [instance];
+const extensions = [instance, usersPermissions];
 
 module.exports = ({ strapi }) => {
   const extensionService = strapi.plugin("graphql").service("extension");
