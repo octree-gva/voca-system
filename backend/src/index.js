@@ -2,7 +2,6 @@
 
 const graphqlExtends = require("./graphql");
 const bootstrapActions = require("./bootstrap");
-
 const { NODE_ENV } = process.env;
 
 module.exports = {
