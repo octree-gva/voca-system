@@ -1,2 +1,2 @@
-const getFirstLetter = (text: string) => `${text}`.chartAt(0);
+const getFirstLetter = (text: string) => `${text}`.charAt(0);
 export default getFirstLetter;
