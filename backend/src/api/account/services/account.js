@@ -39,6 +39,13 @@ module.exports = createCoreService("api::account.account", ({ strapi }) => ({
         options || {}
       );
       const { email, password } = validationResult;
+      console.log(
+        "roles",
+        await strapi.plugins["users-permissions"].services.role.getRoles()
+      );
+      const authenticatedRole = await strapi
+        .query("plugin::users-permissions.role")
+        .findOne({ where: { type: "authenticated" }, populate: [] });
       const newUser = await strapi.plugins[
         "users-permissions"
       ].services.user.add({
@@ -48,6 +55,7 @@ module.exports = createCoreService("api::account.account", ({ strapi }) => ({
         password: password,
         confirmed: true,
         blocked: false,
+        role: authenticatedRole.id,
       });
       // Create and associate a new account
       const account = await super.create({

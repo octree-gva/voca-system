@@ -3,6 +3,38 @@
     "title": "Voca.city",
     "description": "Your Decidim with one click"
   },
+  "generic": {
+    "coming_soon": "coming soon"
+  },
+  "account": {
+    "title": "Account",
+    "back": "Back",
+    "upload_picture": "upload",
+    "delete_picture": "delete",
+    "change": "change",
+    "password": "Password",
+    "forgot_password": "Forgot your password?",
+    "plan": "plan",
+    "change_plan": "Change plan",
+    "firstname": "First name",
+    "lastname": "Last name",
+    "email": "Email",
+    "save": "save",
+    "cancel": "cancel",
+    "updated": "Account updated",
+    "errors": {
+      "firstname.min_length": "Your first name should be at least 1 character.",
+      "firstname.required": "A first name is required.",
+      "lastname.min_length": "Your last name should be at least 1 character.",
+      "lastname.required": "A last name is required.",
+      "email.required": "An email is required.",
+      "email.min_length": "Your email should be at least 10 characters.",
+      "submit": "An error occured."
+    }
+  },
+  "plans": {
+    "standard": "standard"
+  },
   "register": {
     "account": {
       "heading": "About you",
@@ -67,7 +99,8 @@
       "email": "Email",
       "confirm": "Get your link",
       "submitted": "If your email is in our records, you will get a link.",
-      "back": "Back"
+      "back": "Back",
+      "goLogin": "Try to login"
     },
     "reset": {
       "title": "New password",

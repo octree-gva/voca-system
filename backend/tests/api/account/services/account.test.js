@@ -107,6 +107,7 @@ describe("service.account.account)", () => {
       password: payload.password,
       confirmed: true,
       blocked: false,
+      role: 1,
     });
     expect(createdUser.id).toEqual(expect.any(Number));
   });

@@ -1639,7 +1639,7 @@
     jss-plugin-vendor-prefixer "^10.8.2"
     prop-types "^15.7.2"
 
-"@mui/system@^5.5.0":
+"@mui/system@5.5.0", "@mui/system@^5.5.0":
   version "5.5.0"
   resolved "https://npm-8ee.hidora.com/@mui%2fsystem/-/system-5.5.0.tgz#df7e540b12218db21a5edb16a6fa1d571d26455b"
   integrity sha512-zFOfERv3Y4m5ehwTRR9cGaPuMvlD2qVXmFKC60P0Gte3aD6vYObyNriZv+mDVGlhDxZTZhxBrNPH3ns25xSFtQ==
