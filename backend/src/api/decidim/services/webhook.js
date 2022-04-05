@@ -18,12 +18,6 @@ module.exports = () => {
           msg: "Decidim instance almost ready, seeding",
         },
       });
-      // Fire the seed manifest
-      await strapi.service("api::jelastic.environment").seed({
-        acronym: instance.acronym,
-        adminEmail: instance.creator.email,
-        subdomain: instance.envName,
-      });
     },
 
     async handleWebhook(instance, eventType, payload) {

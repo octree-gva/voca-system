@@ -12,16 +12,10 @@ const subdomainSchema = Yup.string()
     (value) => !`${value}`.startsWith("xn--")
   );
 
-const seedEnvSchema = Yup.object().shape({
-  adminEmail: Yup.string()
-    .required("admin email is required")
-    .email("admin email should be an email"),
-  subdomain: subdomainSchema,
-  acronym: Yup.string().required("acronym is required"),
-});
-
 const createEnvSchema = Yup.object().shape({
   subdomain: subdomainSchema,
+  title: Yup.string().required("title is required"),
+  acronym: Yup.string().required("acronym is required"),
   instanceUUID: Yup.string().required("instanceUUID is required"),
   current_user: Yup.object()
     .required("can not create anonymous instance.")
@@ -31,4 +25,4 @@ const createEnvSchema = Yup.object().shape({
     }),
 });
 
-module.exports = { subdomainSchema, seedEnvSchema, createEnvSchema };
+module.exports = { subdomainSchema, createEnvSchema };

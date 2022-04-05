@@ -39,11 +39,12 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
       },
     });
     await strapi.service("api::decidim.instance").create({
+      title: instanceEntity.title,
+      acronym: instanceEntity.acronym,
       subdomain: instanceEntity.envName,
       current_user: creator,
       instanceUUID: instanceEntity.instanceUUID,
     });
-
     return instanceEntity;
   },
 }));

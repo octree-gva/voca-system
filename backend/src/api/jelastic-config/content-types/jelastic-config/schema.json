@@ -54,9 +54,6 @@
     "webhookUrl": {
       "type": "string"
     },
-    "webhookUsername": {
-      "type": "string"
-    },
     "webhookHMAC": {
       "type": "string"
     },
@@ -82,9 +79,6 @@
       "type": "string"
     },
     "nodeGroup": {
-      "type": "string"
-    },
-    "webhookPassword": {
       "type": "string"
     }
   }
