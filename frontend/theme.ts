@@ -1,14 +1,30 @@
 import {createTheme, ThemeOptions} from '@mui/material/styles';
 
+const {palette} = createTheme();
 export const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#243551',
-      light: '#2c88d9',
+      dark: '#192538',
+      main: '#253550',
+      light: '#505d73',
     },
     secondary: {
-      main: '#f8f894',
+      dark: '#1c4741',
+      main: '#28665D',
+      light: '#53847d',
     },
+    accent: {
+      dark: '#934400',
+      main: '#D26200',
+      light: '#db8133',
+    },
+    altAccent: {
+      dark: '#938300',
+      main: '#D2BC00',
+      light: '#dbc933',
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
   },
   typography: {
     fontFamily: 'Inter',
@@ -33,7 +49,7 @@ export const themeOptions: ThemeOptions = {
   },
   spacing: 8,
   shape: {
-    borderRadius: 2,
+    borderRadius: 4,
   },
   components: {
     MuiAppBar: {
@@ -44,6 +60,7 @@ export const themeOptions: ThemeOptions = {
     MuiButton: {
       defaultProps: {
         size: 'large',
+        variant: 'outlined',
       },
     },
     MuiButtonGroup: {
@@ -88,6 +105,7 @@ export const themeOptions: ThemeOptions = {
     },
   },
 };
+
 // Create a theme instance.
 const theme = createTheme(themeOptions);
 
