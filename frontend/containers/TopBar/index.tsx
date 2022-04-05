@@ -9,14 +9,18 @@ import Fab from '@mui/material/Fab';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
-import InsertEmoticonRoundedIcon from '@mui/icons-material/InsertEmoticonRounded';
 import {useSession, signOut} from 'next-auth/react';
 import {useTranslation} from 'react-i18next';
+import {useRouter} from 'next/router';
+import UserPicture from './UserPicture';
 
 const TopBar = ({children}: {children?: React.ReactNode}) => {
   const session = useSession();
   const {t} = useTranslation();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLAnchorElement | null>(null);
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLAnchorElement | null>(
+    null
+  );
   const open = Boolean(anchorEl);
   const handleOpen: React.MouseEventHandler<HTMLButtonElement> = event => {
     setAnchorEl(event.currentTarget as unknown as HTMLAnchorElement);
@@ -27,7 +31,10 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
 
   return (
     <Box flexGrow={1}>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, paddingLeft: '40px' }}>
+      <AppBar
+        position="fixed"
+        sx={{zIndex: theme => theme.zIndex.drawer + 1, paddingLeft: '40px'}}
+      >
         <Toolbar disableGutters>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
             Voca.City
@@ -43,7 +50,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpen}
             >
-              <InsertEmoticonRoundedIcon />
+              <UserPicture />
             </Fab>
           ) : (
             <Link href="/auth/login" passHref>
@@ -65,12 +72,17 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
               horizontal: 'left',
             }}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => router.push('/account')}>
               {t('TopBar.account')}
-              <Chip label="Pro" size="small" color="success" sx={{marginLeft: '6em'}}/>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               {t('TopBar.notifications')}
+              <Chip
+                label={t('generic.coming_soon')}
+                size="small"
+                color="success"
+                sx={{marginLeft: '2em'}}
+              />
             </MenuItem>
             <MenuItem
               onClick={() => {

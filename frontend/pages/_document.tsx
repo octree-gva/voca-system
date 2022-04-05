@@ -3,6 +3,7 @@ import Document, {Html, Head, Main, NextScript} from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../utils/createEmotionCache';
+import {ServerStyleSheets} from '@mui/styles';
 
 class VocaCityDocument extends Document {
   render() {
@@ -60,6 +61,7 @@ VocaCityDocument.getInitialProps = async ctx => {
   // 4. page.render
 
   const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets();
 
   // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
   // However, be aware that it can have global side effects.
@@ -70,7 +72,7 @@ VocaCityDocument.getInitialProps = async ctx => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App: any) => props =>
-        <App emotionCache={cache} {...props} />,
+        sheets.collect(<App emotionCache={cache} {...props} />),
     });
   /* eslint-enable */
 

@@ -13,7 +13,7 @@ const GraphqlRoute: NextApiHandler = async (req, res) => {
     const response = await axios.post(
       `${process.env.STRAPI_URL}/graphql`,
       req.body,
-      headers
+      {headers}
     );
     return res.status(response?.status || 200).send(response.data);
   } catch (e: any) {

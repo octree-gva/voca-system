@@ -123,19 +123,6 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type DockerManifest = {
-  __typename?: 'DockerManifest';
-  cmd?: Maybe<Array<Maybe<Scalars['String']>>>;
-  created?: Maybe<Scalars['String']>;
-  entrypoint?: Maybe<Array<Maybe<Scalars['String']>>>;
-  env?: Maybe<Array<Maybe<Scalars['String']>>>;
-  id?: Maybe<Scalars['String']>;
-  imageId?: Maybe<Scalars['String']>;
-  os?: Maybe<Scalars['String']>;
-  volumes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  workdir?: Maybe<Scalars['String']>;
-};
-
 export enum Enum_Instance_Status {
   Pending = 'pending',
   Started = 'started',
@@ -152,45 +139,6 @@ export enum Enum_Webhook_Status {
   Completed = 'completed',
   Waiting = 'waiting'
 }
-
-export type Environment = {
-  __typename?: 'Environment';
-  attributes?: Maybe<EnvironmentAttributes>;
-  envGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
-  nodeGroups?: Maybe<Array<Maybe<NodeGroup>>>;
-  nodes?: Maybe<Array<Maybe<Node>>>;
-  nodesData?: Maybe<Array<Maybe<Scalars['String']>>>;
-  nodesInternalDomains?: Maybe<Array<Maybe<Scalars['String']>>>;
-  result?: Maybe<Scalars['Int']>;
-  right?: Maybe<Scalars['String']>;
-};
-
-export type EnvironmentAttributes = {
-  __typename?: 'EnvironmentAttributes';
-  appid?: Maybe<Scalars['String']>;
-  contexts?: Maybe<Array<Maybe<Scalars['String']>>>;
-  createdOn?: Maybe<Scalars['String']>;
-  creatorUid?: Maybe<Scalars['Int']>;
-  displayName?: Maybe<Scalars['String']>;
-  domain?: Maybe<Scalars['String']>;
-  envName?: Maybe<Scalars['String']>;
-  extdomains?: Maybe<Array<Maybe<Scalars['String']>>>;
-  hardwareNodeGroup?: Maybe<Scalars['String']>;
-  hostGroup?: Maybe<HostGroup>;
-  isFirewallEnabled?: Maybe<Scalars['Boolean']>;
-  isTransferring?: Maybe<Scalars['Boolean']>;
-  ishaenabled?: Maybe<Scalars['Boolean']>;
-  shortdomain?: Maybe<Scalars['String']>;
-  sslstate?: Maybe<Scalars['Boolean']>;
-  status?: Maybe<Scalars['Int']>;
-  uid?: Maybe<Scalars['Int']>;
-};
-
-export type EnvironmentPayload = {
-  __typename?: 'EnvironmentPayload';
-  data?: Maybe<Environment>;
-  error?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
@@ -222,12 +170,6 @@ export type FloatFilterInput = {
 };
 
 export type GenericMorph = Account | I18NLocale | Instance | JelasticConfig | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
-
-export type HostGroup = {
-  __typename?: 'HostGroup';
-  displayName?: Maybe<Scalars['String']>;
-  uniqueName?: Maybe<Scalars['String']>;
-};
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -422,6 +364,9 @@ export type JelasticConfig = {
   decidimTimezone?: Maybe<Scalars['String']>;
   defaultFromEmail?: Maybe<Scalars['String']>;
   defaultSystemPassword?: Maybe<Scalars['String']>;
+  jelasticHost?: Maybe<Scalars['String']>;
+  jelasticInstancePrefix?: Maybe<Scalars['String']>;
+  jelasticToken?: Maybe<Scalars['String']>;
   jobImagePath?: Maybe<Scalars['String']>;
   jobImageRegistry?: Maybe<Scalars['String']>;
   manifestUrl?: Maybe<Scalars['String']>;
@@ -459,6 +404,9 @@ export type JelasticConfigInput = {
   decidimTimezone?: InputMaybe<Scalars['String']>;
   defaultFromEmail?: InputMaybe<Scalars['String']>;
   defaultSystemPassword?: InputMaybe<Scalars['String']>;
+  jelasticHost?: InputMaybe<Scalars['String']>;
+  jelasticInstancePrefix?: InputMaybe<Scalars['String']>;
+  jelasticToken?: InputMaybe<Scalars['String']>;
   jobImagePath?: InputMaybe<Scalars['String']>;
   jobImageRegistry?: InputMaybe<Scalars['String']>;
   manifestUrl?: InputMaybe<Scalars['String']>;
@@ -706,81 +654,6 @@ export type MutationUploadArgs = {
   refId?: InputMaybe<Scalars['ID']>;
 };
 
-export type Node = {
-  __typename?: 'Node';
-  addons?: Maybe<Array<Maybe<Scalars['String']>>>;
-  address?: Maybe<Scalars['String']>;
-  adminUrl?: Maybe<Scalars['String']>;
-  bandwidthLimit?: Maybe<Scalars['Int']>;
-  canBeExported?: Maybe<Scalars['Boolean']>;
-  contextValidatorRegex?: Maybe<Scalars['String']>;
-  ctid?: Maybe<Scalars['Int']>;
-  customitem?: Maybe<NodeCustomItem>;
-  diskIoLimit?: Maybe<Scalars['Int']>;
-  diskIopsLimit?: Maybe<Scalars['Int']>;
-  diskLimit?: Maybe<Scalars['Int']>;
-  endpoints?: Maybe<Array<Maybe<Scalars['String']>>>;
-  features?: Maybe<Array<Maybe<Scalars['String']>>>;
-  fixedCloudlets?: Maybe<Scalars['Int']>;
-  flexibleCloudlets?: Maybe<Scalars['Int']>;
-  guestOSType?: Maybe<Scalars['String']>;
-  hasPackages?: Maybe<Scalars['Boolean']>;
-  hostOSType?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  intIP?: Maybe<Scalars['String']>;
-  isClusterSupport?: Maybe<Scalars['Boolean']>;
-  isCustomSslSupport?: Maybe<Scalars['Boolean']>;
-  isExternalIpRequired?: Maybe<Scalars['Boolean']>;
-  isHighAvailability?: Maybe<Scalars['Boolean']>;
-  isResetPassword?: Maybe<Scalars['Boolean']>;
-  isVcsSupport?: Maybe<Scalars['Boolean']>;
-  isWebAccess?: Maybe<Scalars['Boolean']>;
-  ismaster?: Maybe<Scalars['Boolean']>;
-  maxchanks?: Maybe<Scalars['Int']>;
-  messages?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name?: Maybe<Scalars['String']>;
-  nodeGroup?: Maybe<Scalars['String']>;
-  nodeType?: Maybe<Scalars['String']>;
-  nodemission?: Maybe<Scalars['String']>;
-  osType?: Maybe<Scalars['String']>;
-  packages?: Maybe<Array<Maybe<Scalars['String']>>>;
-  port?: Maybe<Scalars['Int']>;
-  singleContext?: Maybe<Scalars['Boolean']>;
-  status?: Maybe<Scalars['Int']>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  user?: Maybe<Scalars['String']>;
-  vType?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type NodeCustomItem = {
-  __typename?: 'NodeCustomItem';
-  dockerManifest?: Maybe<DockerManifest>;
-  dockerName?: Maybe<Scalars['String']>;
-  dockerOs?: Maybe<Scalars['String']>;
-  dockerTag?: Maybe<Scalars['String']>;
-  dockerVolumes?: Maybe<Array<Maybe<Scalars['String']>>>;
-  dockerVolumesFrom?: Maybe<Array<Maybe<Scalars['String']>>>;
-  nodeVersion?: Maybe<Scalars['String']>;
-};
-
-export type NodeGroup = {
-  __typename?: 'NodeGroup';
-  deployments?: Maybe<Array<Maybe<Scalars['String']>>>;
-  features?: Maybe<Array<Maybe<Scalars['String']>>>;
-  isSLBAccessEnabled?: Maybe<Scalars['Boolean']>;
-  isSequentialDeploy?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  redeployContainerDelay?: Maybe<Scalars['Int']>;
-  redeployContextDelay?: Maybe<Scalars['Int']>;
-  restartContainerDelay?: Maybe<Scalars['Int']>;
-  restartNodeDelay?: Maybe<Scalars['Int']>;
-  scalingMode?: Maybe<Scalars['String']>;
-  templateType?: Maybe<Scalars['String']>;
-  vType?: Maybe<Scalars['String']>;
-};
-
 export type Notification = {
   __typename?: 'Notification';
   content?: Maybe<Scalars['JSON']>;
@@ -858,7 +731,6 @@ export type Query = {
   __typename?: 'Query';
   account?: Maybe<AccountEntityResponse>;
   accounts?: Maybe<AccountEntityResponseCollection>;
-  environment?: Maybe<EnvironmentPayload>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   instance?: Maybe<InstanceEntityResponse>;
@@ -887,11 +759,6 @@ export type QueryAccountsArgs = {
   filters?: InputMaybe<AccountFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryEnvironmentArgs = {
-  envName: Scalars['String'];
 };
 
 
@@ -1117,7 +984,9 @@ export type UsersPermissionsMe = {
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  lastName?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsMeRole>;
   username: Scalars['String'];
 };
@@ -1247,6 +1116,8 @@ export type UsersPermissionsUser = {
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1285,7 +1156,9 @@ export type UsersPermissionsUserFiltersInput = {
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   email?: InputMaybe<StringFilterInput>;
+  firstName?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  lastName?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   password?: InputMaybe<StringFilterInput>;
@@ -1302,6 +1175,8 @@ export type UsersPermissionsUserInput = {
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
@@ -1414,12 +1289,36 @@ export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title?: string | null, envName?: string | null, status?: Enum_Instance_Status | null } | null }> } | null };
 
+export type ProfileFieldsFragment = { __typename?: 'UsersPermissionsMe', id: string, username: string, email?: string | null, lastName?: string | null, firstName?: string | null };
+
+export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProfileQuery = { __typename?: 'Query', me?: { __typename?: 'UsersPermissionsMe', id: string, username: string, email?: string | null, lastName?: string | null, firstName?: string | null } | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  userUpdate: UsersPermissionsUserInput;
+  id: Scalars['ID'];
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUsersPermissionsUser: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, email: string, lastName?: string | null, firstName?: string | null } | null } | null } };
+
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UsersPermissionsMe {
   id
   username
   email
   confirmed
+}
+    `;
+export const ProfileFieldsFragmentDoc = gql`
+    fragment ProfileFields on UsersPermissionsMe {
+  id
+  username
+  email
+  lastName
+  firstName
 }
     `;
 export const RegisterDocument = gql`
@@ -1647,3 +1546,78 @@ export function useInstancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type InstancesQueryHookResult = ReturnType<typeof useInstancesQuery>;
 export type InstancesLazyQueryHookResult = ReturnType<typeof useInstancesLazyQuery>;
 export type InstancesQueryResult = Apollo.QueryResult<InstancesQuery, InstancesQueryVariables>;
+export const ProfileDocument = gql`
+    query profile {
+  me {
+    ...ProfileFields
+  }
+}
+    ${ProfileFieldsFragmentDoc}`;
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileQuery(baseOptions?: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+      }
+export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        }
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
+export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
+export const UpdateUserDocument = gql`
+    mutation updateUser($userUpdate: UsersPermissionsUserInput!, $id: ID!) {
+  updateUsersPermissionsUser(id: $id, data: $userUpdate) {
+    data {
+      attributes {
+        username
+        email
+        lastName
+        firstName
+      }
+    }
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userUpdate: // value for 'userUpdate'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;

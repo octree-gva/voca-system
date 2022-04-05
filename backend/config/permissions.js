@@ -5,7 +5,11 @@ const publicPerms = [
   "api::instance.instance.find",
 ];
 
-const authenticated = [];
+const authenticated = [
+  ...publicPerms,
+  "plugin::users-permissions.user.me",
+  "plugin::users-permissions.user.update",
+];
 
 module.exports = {
   roles: {
