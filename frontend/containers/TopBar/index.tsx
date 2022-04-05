@@ -33,10 +33,14 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
     <Box flexGrow={1}>
       <AppBar
         position="fixed"
-        sx={{zIndex: theme => theme.zIndex.drawer + 1, paddingLeft: '40px'}}
+        sx={{
+          zIndex: theme => theme.zIndex.drawer + 1,
+          paddingLeft: '40px',
+          bgcolor: theme => theme.palette.background.paper,
+        }}
       >
-        <Toolbar disableGutters>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}} color='primary'>
             Voca.City
           </Typography>
           {children}

@@ -22,6 +22,10 @@ export const themeOptions: ThemeOptions = {
       main: '#D2BC00',
       light: '#dbc933',
     },
+    background: {
+      paper: '#ffffff',
+      default: '#ffffff'
+    },
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
@@ -56,10 +60,16 @@ export const themeOptions: ThemeOptions = {
         color: 'primary',
       },
     },
+    MuiToolbar: {
+      defaultProps: {
+        disableGutters: true,
+      }
+    },
     MuiButton: {
       defaultProps: {
-        size: 'large',
+        size: 'small',
         variant: 'outlined',
+        color: 'primary'
       },
     },
     MuiButtonGroup: {
