@@ -72,37 +72,12 @@ export const themeOptions: ThemeOptions = {
         color: 'primary'
       },
     },
-    MuiButtonGroup: {
-      defaultProps: {
-        size: 'large',
-      },
-    },
-    MuiCheckbox: {
-      defaultProps: {
-        size: 'small',
-      },
-    },
     MuiFab: {
       defaultProps: {
         size: 'small',
       },
     },
-    MuiFormControl: {
-      defaultProps: {
-        size: 'small',
-      },
-    },
     MuiIconButton: {
-      defaultProps: {
-        size: 'small',
-      },
-    },
-    MuiRadio: {
-      defaultProps: {
-        size: 'small',
-      },
-    },
-    MuiSwitch: {
       defaultProps: {
         size: 'small',
       },
