@@ -75,6 +75,8 @@ export const themeOptions: ThemeOptions = {
     MuiFab: {
       defaultProps: {
         size: 'small',
+        variant: 'circular',
+        color: 'primary'
       },
     },
     MuiIconButton: {
@@ -90,7 +92,6 @@ export const themeOptions: ThemeOptions = {
   },
 };
 
-// Create a theme instance.
 const theme = createTheme(themeOptions);
 
 export default theme;

@@ -11,3 +11,17 @@ declare module '@mui/material/styles' {
     altAccent: PaletteColor;
   }
 }
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    accent: true;
+    altAccent: true;
+  }
+}
+
+declare module "@mui/material/Fab" {
+  interface FabPropsColorOverrides {
+    accent: true;
+    altAccent: true;
+  }
+}
