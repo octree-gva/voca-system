@@ -62,20 +62,17 @@ const jelasticClientFactory = (jelasticRequest) => {
         skipEmails = false
       ) => {
         try {
-          jelasticRequest.post(
-            "/marketplace/jps/rest/install",
-            qs.stringify({ jps: JSON.stringify(manifest) }),
-            {
-              params: {
-                envName,
-                displayName,
-                nodeGroup,
-                settings: JSON.stringify(manifestSettings),
-                skipNodeEmails: !!skipEmails,
-              },
-              timeout: 1200, // don't wait the installation, 1200ms is enough to make the command
-            }
-          );
+          jelasticRequest.post("/marketplace/jps/rest/install", "", {
+            params: {
+              envName,
+              jps: manifest,
+              displayName,
+              nodeGroup,
+              settings: JSON.stringify(manifestSettings),
+              skipNodeEmails: !!skipEmails,
+            },
+            timeout: 1200, // don't wait the installation, 1200ms is enough to make the command
+          });
         } catch (e) {
           if (!axios.isAxiosError(e)) throw e;
         }

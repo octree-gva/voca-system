@@ -18,6 +18,6 @@ module.exports = async ({ strapi }) => {
     strapi.jelasticClient = jelasticClient;
     strapi.log.info(`Jelastic client ready.`);
   } else {
-    strapi.log.warn(`No config for Jelastic API`);
+    strapi.log.error(`No config for Jelastic API. can not create instances`);
   }
 };
