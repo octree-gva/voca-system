@@ -11,6 +11,7 @@ interface Props {
 const Logo = (props: Props) => {
   const {width, height} = props;
   const {t} = useTranslation();
+  const seqNumber = Math.floor(Math.random() * 5) + 1
 
   return (
     <Link href="/" passHref>
@@ -18,7 +19,7 @@ const Logo = (props: Props) => {
         <Image
           width={width}
           height={height}
-          src="/logo.png"
+          src={`/Logo_seq${seqNumber}.svg`}
           alt={t`metas.title`}
           unoptimized
           priority
