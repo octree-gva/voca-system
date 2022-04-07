@@ -21,7 +21,6 @@ const AccountInfo = () => {
           <Typography
             variant="h6"
             sx={{
-              color: 'ThreeDDarkShadow',
               fontWeight: 'bold',
               fontSize: '.875rem',
             }}
@@ -49,12 +48,11 @@ const AccountInfo = () => {
           <Chip
             label={t('generic.coming_soon')}
             color="success"
-            variant="outlined"
             sx={{marginRight: '1em'}}
           />
           <Button
             size="small"
-            sx={{color: 'ThreeDDarkShadow', fontWeight: 'bold'}}
+            sx={{fontWeight: 'bold'}}
           >
             {t('account.change_plan')}
           </Button>

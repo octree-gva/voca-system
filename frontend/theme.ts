@@ -24,7 +24,7 @@ export const themeOptions: ThemeOptions = {
     },
     background: {
       paper: '#ffffff',
-      default: '#ffffff'
+      default: '#ffffff',
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -58,20 +58,20 @@ export const themeOptions: ThemeOptions = {
     MuiToolbar: {
       defaultProps: {
         disableGutters: true,
-      }
+      },
     },
     MuiButton: {
       defaultProps: {
         size: 'small',
         variant: 'outlined',
-        color: 'primary'
+        color: 'primary',
       },
     },
     MuiFab: {
       defaultProps: {
         size: 'small',
         variant: 'circular',
-        color: 'primary'
+        color: 'primary',
       },
     },
     MuiIconButton: {
@@ -81,8 +81,9 @@ export const themeOptions: ThemeOptions = {
     },
     MuiChip: {
       defaultProps: {
-        size:"small"
-      }
+        size: 'small',
+        variant: 'outlined',
+      },
     },
     MuiTextField: {
       defaultProps: {

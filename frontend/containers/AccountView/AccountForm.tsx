@@ -101,7 +101,6 @@ const UserFields = ({setEditing}: Props) => {
             >
               <Button
                 disabled={props.isSubmitting}
-                size="small"
                 color="info"
                 type="submit"
               >

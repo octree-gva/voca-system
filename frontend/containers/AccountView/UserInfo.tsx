@@ -30,7 +30,7 @@ const UserInfo = ({setEditing}) => {
             verticalAlign: 'top',
           }}
         >
-          <Button size="small" color="info" onClick={() => setEditing(true)}>
+          <Button color="primary" sx={{fontWeight: 'bold'}} onClick={() => setEditing(true)}>
             {t('account.change')}
           </Button>
         </Box>
@@ -40,7 +40,6 @@ const UserInfo = ({setEditing}) => {
           <Typography
             variant="h6"
             sx={{
-              color: 'ThreeDDarkShadow',
               fontWeight: 'bold',
               fontSize: '.875rem',
             }}
@@ -65,7 +64,7 @@ const UserInfo = ({setEditing}) => {
           <Button
             size="small"
             href="/auth/lost-password"
-            sx={{color: 'ThreeDDarkShadow', fontWeight: 'bold'}}
+            sx={{fontWeight: 'bold'}}
           >
             {t('account.forgot_password')}
           </Button>
