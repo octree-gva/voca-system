@@ -5,6 +5,7 @@ import {useSession} from 'next-auth/react';
 import {useMemo} from 'react';
 import CreateFirstInstanceForm from '../containers/CreateFirstInstance';
 import TopBar from '../containers/TopBar';
+import SupportButton from '../containers/SupportButton';
 
 const Home = () => {
   const session = useSession();
@@ -27,6 +28,7 @@ const Home = () => {
           </CreateFirstInstanceForm>
         </CardContent>
       </Card>
+      <SupportButton/>
     </Layout>
   );
 };

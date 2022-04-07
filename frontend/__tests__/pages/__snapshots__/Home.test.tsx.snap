@@ -301,6 +301,115 @@ exports[`Home page as disconnected screenshots match 1`] = `
   padding-bottom: 24px;
 }
 
+.emotion-15 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  text-transform: uppercase;
+  min-height: auto;
+  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 20px;
+  padding: 0 16px;
+  min-width: 40px;
+  width: auto;
+  height: 40px;
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #e0e0e0;
+  color: #fff;
+  background-color: #253550;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  text-transform: initial;
+}
+
+.emotion-15::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-15.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-15 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-15:active {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+}
+
+.emotion-15:hover {
+  background-color: #f5f5f5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover: none) {
+  .emotion-15:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.emotion-15.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+
+.emotion-15.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.emotion-15:hover {
+  background-color: #192538;
+}
+
+@media (hover: none) {
+  .emotion-15:hover {
+    background-color: #253550;
+  }
+}
+
 <div
     class="MuiBox-root emotion-0"
   >
@@ -338,7 +447,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
                   alt="metas.title"
                   data-nimg="intrinsic"
                   decoding="async"
-                  src="/Logo_seq2.svg"
+                  src="/Logo_seq3.svg"
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
@@ -386,6 +495,17 @@ exports[`Home page as disconnected screenshots match 1`] = `
           &lt;CreateFirstInstanceForm /&gt;
         </div>
       </div>
+      <a
+        aria-label="support"
+        class="MuiButtonBase-root MuiFab-root MuiFab-extended MuiFab-sizeMedium MuiFab-primary emotion-15"
+        href="mailto:support@octree.ch"
+        tabindex="0"
+      >
+        support
+        <span
+          class="MuiTouchRipple-root emotion-6"
+        />
+      </a>
     </div>
   </div>
 </DocumentFragment>

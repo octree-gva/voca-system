@@ -22,7 +22,8 @@ const InstanceStatus = ({status, envName}: Instance) => {
           sx={{
             textTransform: 'initial',
             textDecoration: 'none',
-            color: ({palette: {primary}}) => primary.light,
+            color: ({palette: {primary}}) => primary.main,
+            fontWeight: 'bold'
           }}
           variant="overline"
         >
