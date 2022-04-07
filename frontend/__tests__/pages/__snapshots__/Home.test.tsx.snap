@@ -447,7 +447,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
                   alt="metas.title"
                   data-nimg="intrinsic"
                   decoding="async"
-                  src="/Logo_seq3.svg"
+                  src="/logo.png"
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
