@@ -55,11 +55,6 @@ export const themeOptions: ThemeOptions = {
     borderRadius: 4,
   },
   components: {
-    MuiAppBar: {
-      defaultProps: {
-        color: 'primary',
-      },
-    },
     MuiToolbar: {
       defaultProps: {
         disableGutters: true,
