@@ -79,6 +79,11 @@ export const themeOptions: ThemeOptions = {
         size: 'small',
       },
     },
+    MuiChip: {
+      defaultProps: {
+        size:"small"
+      }
+    },
     MuiTextField: {
       defaultProps: {
         size: 'small',

@@ -83,7 +83,6 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
               {t('TopBar.notifications')}
               <Chip
                 label={t('generic.coming_soon')}
-                size="small"
                 color="success"
                 sx={{marginLeft: '2em'}}
               />

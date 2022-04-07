@@ -48,7 +48,6 @@ const AccountInfo = () => {
         >
           <Chip
             label={t('generic.coming_soon')}
-            size="small"
             color="success"
             variant="outlined"
             sx={{marginRight: '1em'}}
