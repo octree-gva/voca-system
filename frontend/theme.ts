@@ -88,6 +88,7 @@ export const themeOptions: ThemeOptions = {
     MuiTextField: {
       defaultProps: {
         size: 'small',
+        variant: 'outlined',
       },
     },
   },
