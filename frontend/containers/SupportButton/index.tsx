@@ -7,7 +7,6 @@ const SupportButton = () => {
     <Fab
       variant="extended"
       size="medium"
-      color="primary"
       sx={{position: 'fixed', right: 16, bottom: 16, textTransform: 'initial'}}
       aria-label={t('support')}
       href="mailto:support@octree.ch"

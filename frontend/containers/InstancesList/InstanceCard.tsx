@@ -26,8 +26,6 @@ const InstanceCard = (instance: Instance) => {
             color="success"
             icon={<CheckIcon />}
             label="0.24"
-            size="small"
-            variant="outlined"
           />
         </Box>
         <InstanceStatus {...instance} />

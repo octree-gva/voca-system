@@ -56,7 +56,7 @@ const ForgotPassPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Button variant="contained" color="primary" onClick={onClick}>
+              <Button variant="contained" onClick={onClick}>
                 {t`auth.forgot.confirm`}
               </Button>
             </Box>

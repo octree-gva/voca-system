@@ -12,16 +12,23 @@ const Dashboard = () => {
   return (
     <Drawer variant="permanent" className={classes.drawer}>
       <ToolTip
+        color="secondary"
         title={t('LeftBar.knowledgeBase')}
         href="https://guides.voca.city/docs/intro"
         Icon={MenuBookRoundedIcon}
       />
       <ToolTip
+        color="accent"
         title={t('LeftBar.community')}
         href="https://decidim.org/community/"
         Icon={HandshakeRoundedIcon}
       />
-      <ToolTip title={t('LeftBar.roadmap')} href="/" Icon={HikingRoundedIcon} />
+      <ToolTip
+        color="altAccent"
+        title={t('LeftBar.roadmap')}
+        href="/"
+        Icon={HikingRoundedIcon}
+      />
     </Drawer>
   );
 };

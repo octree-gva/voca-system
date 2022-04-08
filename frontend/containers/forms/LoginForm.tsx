@@ -81,7 +81,6 @@ const LoginForm = () => {
           <Button
             disabled={props.isSubmitting}
             variant="contained"
-            color="primary"
             type="submit"
           >
             {t`login.confirm`}

@@ -34,14 +34,11 @@ export default function SignIn() {
           >{t`login.title`}</Typography>
           <Typography>{t`login.alreadyIn.content`}</Typography>
           <Button
-            variant="outlined"
-            color="primary"
             onClick={() => signOut()}
           >{t`login.alreadyIn.goLogout`}</Button>
           <Link href="/dashboard" passHref>
             <Button
               variant="contained"
-              color="primary"
             >{t`login.alreadyIn.goToDashboard`}</Button>
           </Link>
         </AlreadyLoggedIn>

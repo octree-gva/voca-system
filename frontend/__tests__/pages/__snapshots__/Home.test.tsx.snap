@@ -25,7 +25,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
 }
 
 .emotion-2 {
-  background-color: #fff;
+  background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -47,10 +47,11 @@ exports[`Home page as disconnected screenshots match 1`] = `
   top: 0;
   left: auto;
   right: 0;
-  background-color: #243551;
+  background-color: #253550;
   color: #fff;
   z-index: 1201;
   padding-left: 40px;
+  background-color: #ffffff;
 }
 
 @media print {
@@ -82,18 +83,6 @@ exports[`Home page as disconnected screenshots match 1`] = `
   .emotion-3 {
     min-height: 64px;
   }
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 .emotion-5 {
@@ -129,18 +118,6 @@ exports[`Home page as disconnected screenshots match 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   color: inherit;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 0.9375rem;
-  line-height: 1.75;
-  text-transform: uppercase;
-  min-width: 64px;
-  padding: 8px 11px;
-  border-radius: 2px;
-  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: inherit;
-  border-color: currentColor;
 }
 
 .emotion-5::-moz-focus-inner {
@@ -159,22 +136,6 @@ exports[`Home page as disconnected screenshots match 1`] = `
   }
 }
 
-.emotion-5:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-@media (hover: none) {
-  .emotion-5:hover {
-    background-color: transparent;
-  }
-}
-
-.emotion-5.Mui-disabled {
-  color: rgba(0, 0, 0, 0.26);
-}
-
 .emotion-6 {
   overflow: hidden;
   pointer-events: none;
@@ -188,6 +149,87 @@ exports[`Home page as disconnected screenshots match 1`] = `
 }
 
 .emotion-7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  color: inherit;
+  border-color: currentColor;
+}
+
+.emotion-7::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-7.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-7 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-7:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@media (hover: none) {
+  .emotion-7:hover {
+    background-color: transparent;
+  }
+}
+
+.emotion-7.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.emotion-9 {
   padding: 8px;
   margin-top: 16px;
   margin-bottom: 32px;
@@ -212,19 +254,19 @@ exports[`Home page as disconnected screenshots match 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
-  background-color: #fff;
+.emotion-10 {
+  background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 2px;
+  border-radius: 4px;
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   max-width: 560px;
   width: 98%;
 }
 
-.emotion-9 {
+.emotion-11 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -236,13 +278,13 @@ exports[`Home page as disconnected screenshots match 1`] = `
   padding: 16px;
 }
 
-.emotion-10 {
+.emotion-12 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
 
-.emotion-11 {
+.emotion-13 {
   margin: 0;
   font-family: Inter;
   font-weight: 400;
@@ -251,12 +293,121 @@ exports[`Home page as disconnected screenshots match 1`] = `
   display: block;
 }
 
-.emotion-12 {
+.emotion-14 {
   padding: 16px;
 }
 
-.emotion-12:last-child {
+.emotion-14:last-child {
   padding-bottom: 24px;
+}
+
+.emotion-15 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  text-transform: uppercase;
+  min-height: auto;
+  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 20px;
+  padding: 0 16px;
+  min-width: 40px;
+  width: auto;
+  height: 40px;
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #e0e0e0;
+  color: #fff;
+  background-color: #253550;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  text-transform: initial;
+}
+
+.emotion-15::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-15.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-15 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-15:active {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+}
+
+.emotion-15:hover {
+  background-color: #f5f5f5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover: none) {
+  .emotion-15:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.emotion-15.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+
+.emotion-15.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.emotion-15:hover {
+  background-color: #192538;
+}
+
+@media (hover: none) {
+  .emotion-15:hover {
+    background-color: #253550;
+  }
 }
 
 <div
@@ -272,12 +423,42 @@ exports[`Home page as disconnected screenshots match 1`] = `
           class="MuiToolbar-root MuiToolbar-regular emotion-3"
         >
           <div
-            class="MuiTypography-root MuiTypography-h6 emotion-4"
+            class="MuiBox-root emotion-1"
           >
-            Voca.City
+            <a
+              class="MuiButtonBase-root emotion-5"
+              href="/"
+              tabindex="0"
+            >
+              <span
+                style="box-sizing: border-box; display: inline-block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"
+              >
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"
+                >
+                  <img
+                    alt=""
+                    aria-hidden="true"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIvPg=="
+                    style="display: block; max-width: 100%; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"
+                  />
+                </span>
+                <img
+                  alt="metas.title"
+                  data-nimg="intrinsic"
+                  decoding="async"
+                  src="/logo.png"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </span>
+              <span
+                class="MuiTouchRipple-root emotion-6"
+              />
+            </a>
           </div>
           <a
-            class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-colorInherit MuiButtonBase-root  emotion-5"
+            class="MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButton-colorInherit MuiButtonBase-root  emotion-7"
             href="/auth/login"
             tabindex="0"
           >
@@ -290,30 +471,41 @@ exports[`Home page as disconnected screenshots match 1`] = `
       </header>
     </div>
     <div
-      class="MuiBox-root emotion-7"
+      class="MuiBox-root emotion-9"
     >
       <div
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-8"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-10"
       >
         <div
-          class="MuiCardHeader-root emotion-9"
+          class="MuiCardHeader-root emotion-11"
         >
           <div
-            class="MuiCardHeader-content emotion-10"
+            class="MuiCardHeader-content emotion-12"
           >
             <span
-              class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-11"
+              class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-13"
             >
               Discover voca.city
             </span>
           </div>
         </div>
         <div
-          class="MuiCardContent-root emotion-12"
+          class="MuiCardContent-root emotion-14"
         >
           &lt;CreateFirstInstanceForm /&gt;
         </div>
       </div>
+      <a
+        aria-label="support"
+        class="MuiButtonBase-root MuiFab-root MuiFab-extended MuiFab-sizeMedium MuiFab-primary emotion-15"
+        href="mailto:support@octree.ch"
+        tabindex="0"
+      >
+        support
+        <span
+          class="MuiTouchRipple-root emotion-6"
+        />
+      </a>
     </div>
   </div>
 </DocumentFragment>

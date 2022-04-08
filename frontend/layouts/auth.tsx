@@ -6,6 +6,7 @@ import {styled} from '@mui/material/styles';
 import Layout from './centered';
 
 import {DefaultProps} from './default';
+import Logo from '../components/Logo';
 
 export type AuthProps = React.PropsWithChildren<DefaultProps>;
 
@@ -15,9 +16,7 @@ const Auth = ({children, ...layoutProps}: AuthProps) => {
       <Container maxWidth="xs">
         <Paper elevation={4} sx={{p: 2}}>
           <AuthForm>
-            <Typography variant="h3" align="center">
-              VocaCity
-            </Typography>
+            <Logo height={35} width={160} />
             {children}
           </AuthForm>
         </Paper>

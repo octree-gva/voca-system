@@ -3,7 +3,6 @@ import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import Menu from '@mui/material/Menu';
@@ -13,6 +12,7 @@ import {useSession, signOut} from 'next-auth/react';
 import {useTranslation} from 'react-i18next';
 import {useRouter} from 'next/router';
 import UserPicture from './UserPicture';
+import Logo from '../../components/Logo';
 
 const TopBar = ({children}: {children?: React.ReactNode}) => {
   const session = useSession();
@@ -33,12 +33,16 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
     <Box flexGrow={1}>
       <AppBar
         position="fixed"
-        sx={{zIndex: theme => theme.zIndex.drawer + 1, paddingLeft: '40px'}}
+        sx={{
+          zIndex: theme => theme.zIndex.drawer + 1,
+          paddingLeft: '40px',
+          bgcolor: theme => theme.palette.background.paper,
+        }}
       >
-        <Toolbar disableGutters>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-            Voca.City
-          </Typography>
+        <Toolbar>
+          <Box flexGrow={1}>
+            <Logo height={25} width={100} />
+          </Box>
           {children}
           {session.status === 'authenticated' ? (
             <Fab
@@ -79,7 +83,6 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
               {t('TopBar.notifications')}
               <Chip
                 label={t('generic.coming_soon')}
-                size="small"
                 color="success"
                 sx={{marginLeft: '2em'}}
               />

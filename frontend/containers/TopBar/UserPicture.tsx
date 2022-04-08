@@ -15,7 +15,7 @@ const UserPicture = () => {
   const lastNameLetter = lastName ? getFirstLetter(lastName) : '';
 
   return (
-    <Avatar>
+    <Avatar sx={{backgroundColor: theme => theme.palette.primary.main}}>
       {firstNameLetter}
       {lastNameLetter}
     </Avatar>

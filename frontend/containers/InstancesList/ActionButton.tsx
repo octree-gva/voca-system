@@ -5,11 +5,6 @@ const ActionButton: React.FC = ({children}) => (
     sx={{
       fontWeight: 'bold',
       textTransform: 'initial',
-      color: ({
-        palette: {
-          primary: {light},
-        },
-      }) => light,
     }}
     component="a"
   >

@@ -3,12 +3,31 @@ import {createTheme, ThemeOptions} from '@mui/material/styles';
 export const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#243551',
-      light: '#2c88d9',
+      dark: '#192538',
+      main: '#253550',
+      light: '#505d73',
     },
     secondary: {
-      main: '#f8f894',
+      dark: '#1c4741',
+      main: '#28665D',
+      light: '#53847d',
     },
+    accent: {
+      dark: '#934400',
+      main: '#D26200',
+      light: '#db8133',
+    },
+    altAccent: {
+      dark: '#938300',
+      main: '#D2BC00',
+      light: '#dbc933',
+    },
+    background: {
+      paper: '#ffffff',
+      default: '#ffffff',
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
   },
   typography: {
     fontFamily: 'Inter',
@@ -33,37 +52,26 @@ export const themeOptions: ThemeOptions = {
   },
   spacing: 8,
   shape: {
-    borderRadius: 2,
+    borderRadius: 4,
   },
   components: {
-    MuiAppBar: {
+    MuiToolbar: {
       defaultProps: {
-        color: 'primary',
+        disableGutters: true,
       },
     },
     MuiButton: {
       defaultProps: {
-        size: 'large',
-      },
-    },
-    MuiButtonGroup: {
-      defaultProps: {
-        size: 'large',
-      },
-    },
-    MuiCheckbox: {
-      defaultProps: {
         size: 'small',
+        variant: 'outlined',
+        color: 'primary',
       },
     },
     MuiFab: {
       defaultProps: {
         size: 'small',
-      },
-    },
-    MuiFormControl: {
-      defaultProps: {
-        size: 'small',
+        variant: 'circular',
+        color: 'primary',
       },
     },
     MuiIconButton: {
@@ -71,24 +79,21 @@ export const themeOptions: ThemeOptions = {
         size: 'small',
       },
     },
-    MuiRadio: {
+    MuiChip: {
       defaultProps: {
         size: 'small',
-      },
-    },
-    MuiSwitch: {
-      defaultProps: {
-        size: 'small',
+        variant: 'outlined',
       },
     },
     MuiTextField: {
       defaultProps: {
         size: 'small',
+        variant: 'outlined',
       },
     },
   },
 };
-// Create a theme instance.
+
 const theme = createTheme(themeOptions);
 
 export default theme;

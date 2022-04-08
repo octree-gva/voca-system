@@ -18,7 +18,7 @@ const Logo = (props: Props) => {
         <Image
           width={width}
           height={height}
-          src="/logo.png"
+          src={`/logo.png`}
           alt={t`metas.title`}
           unoptimized
           priority

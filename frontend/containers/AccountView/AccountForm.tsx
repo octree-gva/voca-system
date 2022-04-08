@@ -99,24 +99,27 @@ const UserFields = ({setEditing}: Props) => {
                 p: 1.5,
               }}
             >
-              <Button
-                disabled={props.isSubmitting}
-                size="small"
-                color="info"
-                type="submit"
-              >
-                {t('account.save')}
-              </Button>
-              <Button
-                disabled={props.isSubmitting}
-                size="small"
-                onClick={e => {
-                  setEditing(false);
-                  props.handleReset(e);
-                }}
-              >
-                {t('account.cancel')}
-              </Button>
+              <Box p={0.5} component='span'>
+                <Button
+                  disabled={props.isSubmitting}
+                  color="info"
+                  type="submit"
+                >
+                  {t('account.save')}
+                </Button>
+              </Box>
+              <Box p={0.5} component='span'>
+                <Button
+                  disabled={props.isSubmitting}
+                  size="small"
+                  onClick={e => {
+                    setEditing(false);
+                    props.handleReset(e);
+                  }}
+                >
+                  {t('account.cancel')}
+                </Button>
+              </Box>
             </Box>
           </Form>
         )}
