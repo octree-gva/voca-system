@@ -67,19 +67,6 @@ build:frontend:
     - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
     - /kaniko/executor --context $CI_PROJECT_DIR/frontend --dockerfile $CI_PROJECT_DIR/frontend/Dockerfile --destination $CI_REGISTRY_IMAGE/frontend:$VERSION --build-arg VERSION=$VERSION
 
-build:nginx:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-    - if: "$CI_COMMIT_TAG =~ /v.*$/"
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - "[[ -f VERSION.txt ]] && VERSION=$(cat VERSION.txt) || VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}"
-    - /kaniko/executor --context $CI_PROJECT_DIR/nginx --dockerfile $CI_PROJECT_DIR/nginx/Dockerfile --destination $CI_REGISTRY_IMAGE/nginx:$VERSION --build-arg JELASTIC_HOST=${JELASTIC_HOST:-jcloud-ver-jpc.ik-server.com}
-
 deploy:backend:
   extends: .deployHidora
   needs: ["build:backend"]
@@ -100,15 +87,6 @@ deploy:frontend:
     name: Prod Frontend
     url: "https://app.voca.city"
 
-deploy:nginx:
-  extends: .deployHidora
-  needs: ["build:nginx", "deploy:frontend"]
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-    - if: "$CI_COMMIT_TAG =~ /v.*$/"
-  environment:
-    name: Prod NGINX
-    url: "https://wildcard.voca.city"
 
 version:
   extends: .release
