@@ -48,6 +48,8 @@ export const themeOptions: ThemeOptions = {
     },
     h6: {
       fontFamily: 'Inter',
+      fontSize: '.875rem',
+      fontWeight: 'bold',
     },
   },
   spacing: 8,
@@ -89,6 +91,7 @@ export const themeOptions: ThemeOptions = {
       defaultProps: {
         size: 'small',
         variant: 'outlined',
+        color: 'primary',
       },
     },
   },
