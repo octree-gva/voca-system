@@ -24,7 +24,7 @@ const AccountView = () => {
       }}
     >
       <Grid item sx={{pl: '0 !important'}} xs={6} sm={4}>
-        <Button onClick={router.back} variant="outlined" color="info">
+        <Button onClick={router.back} variant="outlined">
           <ArrowBackRoundedIcon sx={{mr: 1}} />
           {t('account.back')}
         </Button>
@@ -32,12 +32,12 @@ const AccountView = () => {
       <Grid item sx={{pl: '0 !important'}} xs={6} sm={8}>
         <Typography
           variant="h4"
-          sx={{pl: 7, [theme.breakpoints.down('md')]: {pl: '0 !important'}}}
+          sx={{lineHeight: .9, pl: 7, [theme.breakpoints.down('md')]: {pl: '0 !important'}}}
         >
           {t('account.title')}
         </Typography>
       </Grid>
-      <Grid item sx={{pl: '0 !important'}} xs={12}>
+      <Grid item sx={{mt: 3, pl: '0 !important'}} xs={12}>
         <AccountInfo />
       </Grid>
     </Grid>

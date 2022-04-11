@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import useTheme from '@mui/system/useTheme';
 import * as Yup from 'yup';
 import {Field, Form, Formik} from 'formik';
 import {useTranslation} from 'react-i18next';
@@ -17,6 +18,7 @@ interface Props {
 
 const UserFields = ({setEditing}: Props) => {
   const {t} = useTranslation();
+  const theme = useTheme();
   const {data} = useProfileQuery();
   const [updateUser] = useUpdateUserMutation();
   const addToast = useToastStore(s => s.addToast);
@@ -51,15 +53,26 @@ const UserFields = ({setEditing}: Props) => {
     });
 
   return (
-    <Box sx={{justifyContent: 'space-between', p: 1.5}}>
-      <Formik
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={AccountSchema}
-      >
-        {props => (
-          <Form onSubmit={props.handleSubmit}>
-            <Box sx={{width: '50%', display: 'inline-block'}}>
+    <Formik
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validationSchema={AccountSchema}
+    >
+      {props => (
+        <Form onSubmit={props.handleSubmit}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              p: 1.5,
+              [theme.breakpoints.down(800)]: {
+                flexDirection: 'column',
+              },
+            }}
+          >
+            <Box
+              sx={{display: 'inline-block', width: '360px', maxWidth: '100%'}}
+            >
               <Box sx={{p: 1.5}}>
                 <Field
                   component={TextField}
@@ -92,26 +105,19 @@ const UserFields = ({setEditing}: Props) => {
             </Box>
             <Box
               sx={{
-                width: '50%',
                 display: 'inline-block',
-                textAlign: 'right',
                 verticalAlign: 'top',
                 p: 1.5,
               }}
             >
-              <Box p={0.5} component='span'>
-                <Button
-                  disabled={props.isSubmitting}
-                  color="info"
-                  type="submit"
-                >
+              <Box p={0.5} component="span">
+                <Button disabled={props.isSubmitting} type="submit">
                   {t('account.save')}
                 </Button>
               </Box>
-              <Box p={0.5} component='span'>
+              <Box p={0.5} component="span">
                 <Button
                   disabled={props.isSubmitting}
-                  size="small"
                   onClick={e => {
                     setEditing(false);
                     props.handleReset(e);
@@ -121,10 +127,10 @@ const UserFields = ({setEditing}: Props) => {
                 </Button>
               </Box>
             </Box>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+          </Box>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
