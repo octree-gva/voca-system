@@ -29,7 +29,7 @@ module.exports = createCoreController(
       try {
         await strapi
           .service("api::instance.instance")
-          .createInstance(instance, account?.creator);
+          .createInstance(instance, account);
         return { ok: true };
       } catch (error) {
         strapi.log.error(error);

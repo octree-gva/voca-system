@@ -72,11 +72,11 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "administrator_accounts": {
+    "administratorAccounts": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::account.account",
-      "inversedBy": "administrators"
+      "mappedBy": "administrators"
     }
   }
 }

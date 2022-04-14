@@ -15,7 +15,7 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
     return matchCount === 0;
   },
 
-  async createInstance(instance, creator) {
+  async createInstance(instance, account) {
     const instanceEntity = await strapi.query("api::instance.instance").create({
       data: {
         title: instance.title,
@@ -23,11 +23,11 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
         envName: instance.subdomain,
         default_locale: instance.default_locale,
         available_locales: instance.available_locales,
-        creator: creator?.id,
         instanceUUID: uuid(),
+        creator: account.creator,
         status: "pending",
+        account: account.id,
       },
-      populate: ["creator"],
     });
     await strapi.query("api::notification.notification").create({
       data: {
@@ -44,7 +44,7 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
       title: instanceEntity.title,
       acronym: instanceEntity.acronym,
       subdomain: instanceEntity.envName,
-      current_user: creator,
+      current_user: account.creator,
       instanceUUID: instanceEntity.instanceUUID,
       available_locales: instanceEntity.available_locales,
       default_locale: instanceEntity.default_locale,

@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "creator": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
-    },
     "account": {
       "type": "relation",
       "relation": "oneToOne",
@@ -39,7 +34,11 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["pending", "started", "stopped"]
+      "enum": [
+        "pending",
+        "started",
+        "stopped"
+      ]
     },
     "webhooks": {
       "type": "relation",
@@ -72,6 +71,11 @@
       "type": "string",
       "default": "€",
       "minLength": 1
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
