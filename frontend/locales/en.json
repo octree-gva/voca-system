@@ -46,7 +46,11 @@
       "heading": "About your platform",
       "title": "Platform title",
       "subdomain": "subdomain",
-      "acronym": "Platform acronym"
+      "acronym": "Platform acronym",
+      "currency": "Currency",
+      "timezone": "Timezone",
+      "default_locale": "Main Language",
+      "available_locales": "Additional Languages"
     },
     "errors": {
       "decidim.title.required": "A title for your decidim instance is required",

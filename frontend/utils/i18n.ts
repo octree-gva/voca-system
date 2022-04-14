@@ -1,10 +1,12 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import translationEn from '../locales/en.json';
+import timezonesEn from '../locales/timezones-en.json';
+import localesEn from '../locales/locales-en.json';
 
 const resources = {
   en: {
-    translation: translationEn,
+    translation: {...translationEn, ...localesEn, ...timezonesEn},
   },
 };
 

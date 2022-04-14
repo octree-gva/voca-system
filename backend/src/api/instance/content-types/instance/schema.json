@@ -39,11 +39,7 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "started",
-        "stopped"
-      ]
+      "enum": ["pending", "started", "stopped"]
     },
     "webhooks": {
       "type": "relation",
@@ -56,6 +52,26 @@
       "relation": "oneToMany",
       "target": "api::notification.notification",
       "mappedBy": "instance"
+    },
+    "default_locale": {
+      "type": "string",
+      "minLength": 2,
+      "default": "en"
+    },
+    "available_locales": {
+      "type": "string",
+      "default": "en,fr,pt-BR",
+      "minLength": 2
+    },
+    "timezone": {
+      "type": "string",
+      "default": "UTC",
+      "minLength": 3
+    },
+    "currency": {
+      "type": "string",
+      "default": "€",
+      "minLength": 1
     }
   }
 }
