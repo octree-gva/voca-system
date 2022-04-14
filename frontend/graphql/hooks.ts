@@ -234,12 +234,16 @@ export type Instance = {
   __typename?: 'Instance';
   account?: Maybe<AccountEntityResponse>;
   acronym?: Maybe<Scalars['String']>;
+  available_locales?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<UsersPermissionsUserEntityResponse>;
+  currency?: Maybe<Scalars['String']>;
+  default_locale?: Maybe<Scalars['String']>;
   envName?: Maybe<Scalars['String']>;
   instanceUUID?: Maybe<Scalars['String']>;
   notifications?: Maybe<NotificationRelationResponseCollection>;
   status?: Maybe<Enum_Instance_Status>;
+  timezone?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   webhooks?: Maybe<WebhookRelationResponseCollection>;
@@ -280,8 +284,11 @@ export type InstanceFiltersInput = {
   account?: InputMaybe<AccountFiltersInput>;
   acronym?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
+  available_locales?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  currency?: InputMaybe<StringFilterInput>;
+  default_locale?: InputMaybe<StringFilterInput>;
   envName?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   instanceUUID?: InputMaybe<StringFilterInput>;
@@ -289,6 +296,7 @@ export type InstanceFiltersInput = {
   notifications?: InputMaybe<NotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
   status?: InputMaybe<StringFilterInput>;
+  timezone?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   webhooks?: InputMaybe<WebhookFiltersInput>;
@@ -297,18 +305,26 @@ export type InstanceFiltersInput = {
 export type InstanceInput = {
   account?: InputMaybe<Scalars['ID']>;
   acronym?: InputMaybe<Scalars['String']>;
+  available_locales?: InputMaybe<Scalars['String']>;
   creator?: InputMaybe<Scalars['ID']>;
+  currency?: InputMaybe<Scalars['String']>;
+  default_locale?: InputMaybe<Scalars['String']>;
   envName?: InputMaybe<Scalars['String']>;
   instanceUUID?: InputMaybe<Scalars['String']>;
   notifications?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   status?: InputMaybe<Enum_Instance_Status>;
+  timezone?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   webhooks?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
 export type InstanceInstallInput = {
   acronym: Scalars['String'];
+  available_locales: Scalars['String'];
+  currency: Scalars['String'];
+  default_locale: Scalars['String'];
   subdomain: Scalars['String'];
+  timezone: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -384,9 +400,7 @@ export type JelasticConfig = {
   smtpUsername?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   webhookHMAC?: Maybe<Scalars['String']>;
-  webhookPassword?: Maybe<Scalars['String']>;
   webhookUrl?: Maybe<Scalars['String']>;
-  webhookUsername?: Maybe<Scalars['String']>;
 };
 
 export type JelasticConfigEntity = {
@@ -423,9 +437,7 @@ export type JelasticConfigInput = {
   smtpReadTimeout?: InputMaybe<Scalars['String']>;
   smtpUsername?: InputMaybe<Scalars['String']>;
   webhookHMAC?: InputMaybe<Scalars['String']>;
-  webhookPassword?: InputMaybe<Scalars['String']>;
   webhookUrl?: InputMaybe<Scalars['String']>;
-  webhookUsername?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {

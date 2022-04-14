@@ -10,6 +10,21 @@ module.exports = () => ({
       .findOne();
     if (!conf) throw new Error("No config found");
     const namePrefix = conf?.jelasticInstancePrefix || "v--";
+    const defaultLocale = options.default_locale;
+    // If available locales does not contains default one,
+    // add the default to the availables.
+    const availableLocales = options.available_locales
+      .split(",")
+      .map((s) => s.trim())
+      .reduce(
+        (acc, locale) => {
+          if (!acc.includes(locale)) acc.push(locale);
+          return acc;
+        },
+        [defaultLocale]
+      )
+      .join(",");
+
     const ok = await strapi.jelasticClient.manifest.install(
       conf?.manifestUrl,
       {
@@ -27,7 +42,7 @@ module.exports = () => ({
           IMAGE_USERNAME: conf.registeryUsername,
           IMAGE_PASSWORD: conf.registeryPassword,
           INSTANCE_UUID: options.instanceUUID,
-          TIMEZONE: conf.decidimTimezone,
+          TIMEZONE: options.timezone,
           WEBHOOK_URL: conf.webhookUrl,
           WEBHOOK_HMAC: conf.webhookHMAC,
           SMTP_HOST: conf.smtpHost,
@@ -42,8 +57,9 @@ module.exports = () => ({
           DECIDIM_DEFAULT_SYSTEM_EMAIL: "sysadmin@voca.city",
           DECIDIM_NAME: options.title,
           DECIDIM_SHORTNAME: options.acronym,
-          DECIDIM_DEFAULT_LOCALE: "fr",
-          DECIDIM_AVAILABLE_LOCALES: "en,fr,es,pt",
+          DECIDIM_CURRENCY_UNIT: options.currency,
+          DECIDIM_DEFAULT_LOCALE: defaultLocale,
+          DECIDIM_AVAILABLE_LOCALES: availableLocales,
         },
       },
       false

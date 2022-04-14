@@ -30,7 +30,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
   };
 
   return (
-    <Box flexGrow={1}>
+    <Box flexGrow={1} pt="64px">
       <AppBar
         position="fixed"
         sx={{

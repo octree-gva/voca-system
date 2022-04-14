@@ -11,7 +11,7 @@ type ConnectedLayoutProps = React.PropsWithChildren<
 const ConnectedLayout = ({children, headerActions}: ConnectedLayoutProps) => {
   return (
     <Default>
-      <Box pt="64px">
+      <Box>
         <TopBar>
           {headerActions}
         </TopBar>

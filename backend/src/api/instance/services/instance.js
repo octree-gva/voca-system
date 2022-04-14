@@ -21,6 +21,8 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
         title: instance.title,
         acronym: instance.acronym,
         envName: instance.subdomain,
+        default_locale: instance.default_locale,
+        available_locales: instance.available_locales,
         creator: creator?.id,
         instanceUUID: uuid(),
         status: "pending",
@@ -44,6 +46,10 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
       subdomain: instanceEntity.envName,
       current_user: creator,
       instanceUUID: instanceEntity.instanceUUID,
+      available_locales: instanceEntity.available_locales,
+      default_locale: instanceEntity.default_locale,
+      timezone: instanceEntity.timezone,
+      currency: instanceEntity.currency,
     });
     return instanceEntity;
   },

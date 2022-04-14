@@ -14,6 +14,10 @@ module.exports = ({ nexus, strapi }) => ({
         t.nonNull.string("title");
         t.nonNull.string("acronym");
         t.nonNull.string("subdomain");
+        t.nonNull.string("available_locales");
+        t.nonNull.string("default_locale");
+        t.nonNull.string("timezone");
+        t.nonNull.string("currency");
       },
     }),
     nexus.objectType({

@@ -26,7 +26,10 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["waiting", "completed"]
+      "enum": [
+        "waiting",
+        "completed"
+      ]
     }
   }
 }

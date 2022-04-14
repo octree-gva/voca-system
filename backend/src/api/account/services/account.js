@@ -39,10 +39,7 @@ module.exports = createCoreService("api::account.account", ({ strapi }) => ({
         options || {}
       );
       const { email, password } = validationResult;
-      console.log(
-        "roles",
-        await strapi.plugins["users-permissions"].services.role.getRoles()
-      );
+
       const authenticatedRole = await strapi
         .query("plugin::users-permissions.role")
         .findOne({ where: { type: "authenticated" }, populate: [] });

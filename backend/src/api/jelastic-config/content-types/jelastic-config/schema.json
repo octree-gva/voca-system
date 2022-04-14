@@ -48,9 +48,6 @@
     "defaultSystemPassword": {
       "type": "string"
     },
-    "decidimTimezone": {
-      "type": "string"
-    },
     "webhookUrl": {
       "type": "string"
     },
