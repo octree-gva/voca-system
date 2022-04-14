@@ -1,3 +1,11 @@
+const onlyAdmin = {
+  name: "api::account.account-team",
+  config: {
+    model: "api::instance.instance",
+    foreignKey: "account",
+    scope: "administrators",
+  },
+};
 module.exports = ({ nexus, strapi }) => ({
   types: [
     nexus.extendType({
@@ -29,6 +37,18 @@ module.exports = ({ nexus, strapi }) => ({
       auth: {
         scope: ["api::instance.instance.firstInstall"],
       },
+    },
+    "Mutation.createInstance": {
+      policies: [onlyAdmin],
+    },
+    "Mutation.updateInstance": {
+      policies: [onlyAdmin],
+    },
+    "Query.instances": {
+      policies: [onlyAdmin],
+    },
+    "Query.instance": {
+      policies: [onlyAdmin],
     },
   },
 });
