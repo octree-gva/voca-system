@@ -7,7 +7,7 @@ module.exports = () => {
       }
       const instance = await strapi
         .query("api::instance.instance")
-        .findOne({ where: { id: inst.id }, populate: ["creator"] });
+        .findOne({ where: { id: inst.id } });
       // Add a notification
       await strapi.query("api::notification.notification").create({
         type: "install",

@@ -55,17 +55,16 @@ module.exports = createCoreService("api::account.account", ({ strapi }) => ({
         role: authenticatedRole.id,
       });
       // Create and associate a new account
-      const account = await super.create({
+      return await super.create({
         data: {
           title: `Workspace`,
           creator: newUser,
           administrators: [newUser],
         },
+        populate: ["creator"],
       });
-      return { ...account, creator: newUser, administrators: [newUser] };
     } catch (e) {
       throw e;
     }
-    throw new Error("Server error");
   },
 }));

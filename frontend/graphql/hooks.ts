@@ -377,7 +377,6 @@ export type JsonFilterInput = {
 export type JelasticConfig = {
   __typename?: 'JelasticConfig';
   createdAt?: Maybe<Scalars['DateTime']>;
-  decidimTimezone?: Maybe<Scalars['String']>;
   defaultFromEmail?: Maybe<Scalars['String']>;
   defaultSystemPassword?: Maybe<Scalars['String']>;
   jelasticHost?: Maybe<Scalars['String']>;
@@ -415,7 +414,6 @@ export type JelasticConfigEntityResponse = {
 };
 
 export type JelasticConfigInput = {
-  decidimTimezone?: InputMaybe<Scalars['String']>;
   defaultFromEmail?: InputMaybe<Scalars['String']>;
   defaultSystemPassword?: InputMaybe<Scalars['String']>;
   jelasticHost?: InputMaybe<Scalars['String']>;
@@ -1123,7 +1121,7 @@ export type UsersPermissionsUpdateRolePayload = {
 
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
-  administrator_accounts?: Maybe<AccountRelationResponseCollection>;
+  administratorAccounts?: Maybe<AccountRelationResponseCollection>;
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1137,7 +1135,7 @@ export type UsersPermissionsUser = {
 };
 
 
-export type UsersPermissionsUserAdministrator_AccountsArgs = {
+export type UsersPermissionsUserAdministratorAccountsArgs = {
   filters?: InputMaybe<AccountFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1161,7 +1159,7 @@ export type UsersPermissionsUserEntityResponseCollection = {
 };
 
 export type UsersPermissionsUserFiltersInput = {
-  administrator_accounts?: InputMaybe<AccountFiltersInput>;
+  administratorAccounts?: InputMaybe<AccountFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   blocked?: InputMaybe<BooleanFilterInput>;
   confirmationToken?: InputMaybe<StringFilterInput>;
@@ -1182,7 +1180,7 @@ export type UsersPermissionsUserFiltersInput = {
 };
 
 export type UsersPermissionsUserInput = {
-  administrator_accounts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  administratorAccounts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   blocked?: InputMaybe<Scalars['Boolean']>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
