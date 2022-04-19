@@ -63,7 +63,7 @@ const ALLOWED_LOCALES = [
 const createEnvSchema = Yup.object().shape({
   subdomain: subdomainSchema,
   title: Yup.string().required("title is required"),
-  acronym: Yup.string().required("acronym is required"),
+  acronym: Yup.string().nullable(),
   instanceUUID: Yup.string().required("instanceUUID is required"),
   currency: Yup.string().required("currency is required").min(1),
   timezone: Yup.string().required("timezone is required").min(3),
@@ -71,11 +71,12 @@ const createEnvSchema = Yup.object().shape({
     .required("default_locale is required")
     .oneOf(ALLOWED_LOCALES, "locale not allowed"),
   available_locales: Yup.string()
-    .required("available_locales is required")
+    .nullable()
     .test(
       "valid-locales",
       "Locales ${value} contains invalid locale.",
       async (value) => {
+        if (!value) return true;
         const locales = `${value}`.split(",").map((s) => s.trim());
         return !locales.some((l) => !ALLOWED_LOCALES.includes(l));
       }
