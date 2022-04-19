@@ -39,7 +39,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
           bgcolor: theme => theme.palette.background.paper,
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{px: 1}}>
           <Box flexGrow={1}>
             <Logo height={25} width={100} />
           </Box>
@@ -58,7 +58,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
             </Fab>
           ) : (
             <Link href="/auth/login" passHref>
-              <Button color="inherit">{t('TopBar.login')}</Button>
+              <Button color="primary">{t('TopBar.login')}</Button>
             </Link>
           )}
           <Menu
@@ -89,7 +89,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                signOut();
+                signOut({callbackUrl: '/'});
                 handleClose();
               }}
             >

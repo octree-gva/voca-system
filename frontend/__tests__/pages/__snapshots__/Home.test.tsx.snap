@@ -72,6 +72,8 @@ exports[`Home page as disconnected screenshots match 1`] = `
   -ms-flex-align: center;
   align-items: center;
   min-height: 56px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 @media (min-width:0px) and (orientation: landscape) {
@@ -199,9 +201,8 @@ exports[`Home page as disconnected screenshots match 1`] = `
   border-radius: 4px;
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  color: inherit;
-  border-color: currentColor;
+  border: 1px solid rgba(37, 53, 80, 0.5);
+  color: #253550;
 }
 
 .emotion-7::-moz-focus-inner {
@@ -223,7 +224,8 @@ exports[`Home page as disconnected screenshots match 1`] = `
 .emotion-7:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(37, 53, 80, 0.04);
+  border: 1px solid #253550;
 }
 
 @media (hover: none) {
@@ -466,7 +468,7 @@ exports[`Home page as disconnected screenshots match 1`] = `
             </a>
           </div>
           <a
-            class="MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButton-colorInherit MuiButtonBase-root  emotion-7"
+            class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root  emotion-7"
             href="/auth/login"
             tabindex="0"
           >
