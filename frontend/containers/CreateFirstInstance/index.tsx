@@ -9,6 +9,7 @@ import {Autocomplete, TextField} from 'formik-mui';
 import SubdomainField from './SubdomainField';
 import useValidationSchema from './useValidationSchema';
 import {useFirstInstallMutation} from '../../graphql/hooks';
+import {signIn} from 'next-auth/react';
 
 type Option = {
   id: string;
@@ -67,15 +68,20 @@ const CreateFirstInstanceForm = ({children}: CreateFirstInstanceFormProps) => {
         default_locale: default_locale.id,
         timezone: timezone.id,
       };
-      const {data: firstInstallData} = await createFirstInstall({
-        variables: {user, instance},
+      try {
+        await createFirstInstall({
+          variables: {user, instance},
+        });
+      } catch (err) {
+        // pass
+        console.log(err);
+      }
+      // Sign in
+      await signIn('credentials', {
+        identifier: email,
+        password,
+        callbackUrl: '/dashboard',
       });
-      const response = firstInstallData?.firstInstall || {
-        ok: false,
-        errCode: 'SERVER_ERROR',
-      };
-      if (response.ok) router.push('/auth/login');
-      else setErrCode(response.errCode);
     } catch (error) {
       console.error(error);
     }

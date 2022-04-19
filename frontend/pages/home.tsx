@@ -1,11 +1,12 @@
 import {Button, Card, CardContent, CardHeader} from '@mui/material';
 import Link from 'next/link';
 import Layout from '../layouts/centered';
-import {useSession} from 'next-auth/react';
+import {getSession, useSession} from 'next-auth/react';
 import {useMemo} from 'react';
 import CreateFirstInstanceForm from '../containers/CreateFirstInstance';
 import TopBar from '../containers/TopBar';
 import SupportButton from '../containers/SupportButton';
+import {GetServerSideProps} from 'next';
 
 const Home = () => {
   const session = useSession();
@@ -28,9 +29,22 @@ const Home = () => {
           </CreateFirstInstanceForm>
         </CardContent>
       </Card>
-      <SupportButton/>
+      <SupportButton />
     </Layout>
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async context => {
+  const session = await getSession({req: context.req});
+  if (!!session?.user)
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    };
+  return {
+    props: {session},
+  };
+};
 export default Home;
