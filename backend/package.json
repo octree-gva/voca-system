@@ -30,6 +30,7 @@
     "qs": "^6.10.3",
     "slugify": "^1.6.5",
     "sqlite3": "5.0.2",
+    "strapi-plugin-email-designer": "^2.1.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },

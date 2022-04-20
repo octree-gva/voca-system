@@ -1,0 +1,15 @@
+query Notifications($instance: ID!) {
+  notifications(
+    filters: { instance: { id: { eq: $instance } } }
+    sort: "createdAt:desc"
+  ) {
+    data {
+      id
+      attributes {
+        saga
+        level
+        content
+      }
+    }
+  }
+}

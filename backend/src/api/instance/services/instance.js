@@ -31,11 +31,11 @@ module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
     });
     await strapi.query("api::notification.notification").create({
       data: {
-        type: "first_install",
+        saga: "install",
         instance: instanceEntity.id,
         content: {
           domain: `${instance.subdomain}.${DEFAULT_HOSTNAME}`,
-          status: "pending",
+          status: "triggered",
         },
         level: "info",
       },

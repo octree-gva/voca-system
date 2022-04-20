@@ -1,58 +1,61 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { useTranslation } from 'react-i18next';
-import {Instance} from '../../graphql/hooks';
+import {Trans, useTranslation} from 'react-i18next';
+import {
+  InstanceEntity,
+  useNotificationsQuery,
+  Enum_Notification_Level,
+} from '../../graphql/hooks';
 
-const InstanceStatus = ({status, envName}: Instance) => {
+const InstanceStatus = ({attributes, id}: InstanceEntity) => {
+  const {status, envName} = attributes || {};
+  const {data: notificationData, loading} = useNotificationsQuery({
+    variables: {instance: '' + id},
+    pollInterval: 10000,
+  });
   const {t} = useTranslation();
-  if (!status)
+  const notifications = notificationData?.notifications?.data || [];
+
+  if (!status || loading || notifications.length === 0)
     return (
       <Typography component="span" variant="overline">
         <br />
       </Typography>
     );
-  switch (status) {
-    case 'started':
-      const url = envName + '.voca.city';
-      return (
-        <Link
-          href={'https://' + url}
-          target="_blank"
-          rel="noopener"
-          sx={{
-            textTransform: 'initial',
-            textDecoration: 'none',
-            color: ({palette: {info}}) => info.main,
-            fontWeight: 'bold'
-          }}
-          variant="overline"
-        >
-          {url}
-        </Link>
-      );
-    case 'stopped':
-      return (
-        <Typography
-          component="span"
-          sx={{textTransform: 'initial'}}
-          variant="overline"
-          color="error"
-        >
-          {t('instance.stopped')}
-        </Typography>
-      );
-
-    default:
-      return (
-        <Typography
-          component="span"
-          sx={{textTransform: 'initial'}}
-          variant="overline"
-        >
-          {t(`instance.${status}`)}
-        </Typography>
-      );
-  }
+  const [lastNotification] = notifications;
+  return (
+    <Typography
+      component="span"
+      sx={{textTransform: 'initial'}}
+      variant="overline"
+      color={
+        lastNotification?.attributes?.level === Enum_Notification_Level.Error
+          ? 'error'
+          : undefined
+      }
+    >
+      <Trans
+        t={t}
+        i18nKey={`instance.${lastNotification?.attributes?.saga}.${lastNotification?.attributes?.content.status}`}
+        components={{
+          env_link: (
+            <Link
+              href={'https://' + envName + '.voca.city'}
+              target="_blank"
+              rel="noopener"
+              sx={{
+                textTransform: 'initial',
+                textDecoration: 'none',
+                color: ({palette: {info}}) => info.main,
+                fontWeight: 'bold',
+              }}
+              variant="overline"
+            />
+          ),
+        }}
+      />
+    </Typography>
+  );
 };
 
 export default InstanceStatus;
