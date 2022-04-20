@@ -9,6 +9,7 @@ const authenticated = [
   ...publicPerms,
   "plugin::users-permissions.user.me",
   "plugin::users-permissions.user.update",
+  "api::notification.notification.find",
 ];
 
 module.exports = {

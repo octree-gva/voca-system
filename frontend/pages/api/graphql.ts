@@ -9,7 +9,7 @@ const GraphqlRoute: NextApiHandler = async (req, res) => {
     let headers = {};
     if (token && !!token?.accessToken)
       headers = {...headers, Authorization: 'Bearer ' + token.accessToken};
-
+    console.log(headers);
     const response = await axios.post(
       `${process.env.STRAPI_URL}/graphql`,
       req.body,

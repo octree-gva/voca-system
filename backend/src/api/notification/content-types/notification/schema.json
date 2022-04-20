@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "type": {
+    "saga": {
       "type": "string"
     },
     "content": {

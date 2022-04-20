@@ -8,12 +8,12 @@ import Typography from '@mui/material/Typography';
 import CheckIcon from '@mui/icons-material/Check';
 import {useTranslation} from 'react-i18next';
 import ActionButton from './ActionButton';
-import {Instance} from '../../graphql/hooks';
+import {InstanceEntity} from '../../graphql/hooks';
 import InstanceStatus from './InstanceStatus';
 
-const InstanceCard = (instance: Instance) => {
+const InstanceCard = (instance: InstanceEntity) => {
   const {t} = useTranslation();
-  const {title} = instance;
+  const {title} = instance.attributes || {};
 
   return (
     <Card sx={{m: 1}}>
@@ -22,11 +22,7 @@ const InstanceCard = (instance: Instance) => {
           <Typography component="span" variant="h5">
             {title}
           </Typography>
-          <Chip
-            color="success"
-            icon={<CheckIcon />}
-            label="0.24"
-          />
+          <Chip color="success" icon={<CheckIcon />} label="0.24" />
         </Box>
         <InstanceStatus {...instance} />
       </CardContent>

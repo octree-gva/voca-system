@@ -26,8 +26,16 @@ const InstancesList = () => {
       }}
     >
       {data.map(instance => (
-        <Grid item sx={{pl: '0 !important'}} xs={12} sm={12} md={6} lg={4}>
-          <InstanceCard {...instance.attributes} />
+        <Grid
+          key={instance.id}
+          item
+          sx={{pl: '0 !important'}}
+          xs={12}
+          sm={12}
+          md={6}
+          lg={4}
+        >
+          <InstanceCard {...instance} />
         </Grid>
       ))}
     </Grid>

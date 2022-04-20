@@ -140,6 +140,65 @@ export enum Enum_Webhook_Status {
   Waiting = 'waiting'
 }
 
+export type EmailDesignerEmailTemplate = {
+  __typename?: 'EmailDesignerEmailTemplate';
+  bodyHtml?: Maybe<Scalars['String']>;
+  bodyText?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  design?: Maybe<Scalars['JSON']>;
+  enabled?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  subject?: Maybe<Scalars['String']>;
+  tags?: Maybe<Scalars['JSON']>;
+  templateReferenceId?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type EmailDesignerEmailTemplateEntity = {
+  __typename?: 'EmailDesignerEmailTemplateEntity';
+  attributes?: Maybe<EmailDesignerEmailTemplate>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type EmailDesignerEmailTemplateEntityResponse = {
+  __typename?: 'EmailDesignerEmailTemplateEntityResponse';
+  data?: Maybe<EmailDesignerEmailTemplateEntity>;
+};
+
+export type EmailDesignerEmailTemplateEntityResponseCollection = {
+  __typename?: 'EmailDesignerEmailTemplateEntityResponseCollection';
+  data: Array<EmailDesignerEmailTemplateEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type EmailDesignerEmailTemplateFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<EmailDesignerEmailTemplateFiltersInput>>>;
+  bodyHtml?: InputMaybe<StringFilterInput>;
+  bodyText?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  design?: InputMaybe<JsonFilterInput>;
+  enabled?: InputMaybe<BooleanFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<EmailDesignerEmailTemplateFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<EmailDesignerEmailTemplateFiltersInput>>>;
+  subject?: InputMaybe<StringFilterInput>;
+  tags?: InputMaybe<JsonFilterInput>;
+  templateReferenceId?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type EmailDesignerEmailTemplateInput = {
+  bodyHtml?: InputMaybe<Scalars['String']>;
+  bodyText?: InputMaybe<Scalars['String']>;
+  design?: InputMaybe<Scalars['JSON']>;
+  enabled?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  subject?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Scalars['JSON']>;
+  templateReferenceId?: InputMaybe<Scalars['Int']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -169,7 +228,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = Account | I18NLocale | Instance | JelasticConfig | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
+export type GenericMorph = Account | EmailDesignerEmailTemplate | I18NLocale | Instance | JelasticConfig | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -441,6 +500,7 @@ export type JelasticConfigInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount?: Maybe<AccountEntityResponse>;
+  createEmailDesignerEmailTemplate?: Maybe<EmailDesignerEmailTemplateEntityResponse>;
   createInstance?: Maybe<InstanceEntityResponse>;
   createNotification?: Maybe<NotificationEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -450,6 +510,7 @@ export type Mutation = {
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   createWebhook?: Maybe<WebhookEntityResponse>;
   deleteAccount?: Maybe<AccountEntityResponse>;
+  deleteEmailDesignerEmailTemplate?: Maybe<EmailDesignerEmailTemplateEntityResponse>;
   deleteInstance?: Maybe<InstanceEntityResponse>;
   deleteJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
   deleteNotification?: Maybe<NotificationEntityResponse>;
@@ -473,6 +534,7 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateAccount?: Maybe<AccountEntityResponse>;
+  updateEmailDesignerEmailTemplate?: Maybe<EmailDesignerEmailTemplateEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateInstance?: Maybe<InstanceEntityResponse>;
   updateJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
@@ -489,6 +551,11 @@ export type Mutation = {
 
 export type MutationCreateAccountArgs = {
   data: AccountInput;
+};
+
+
+export type MutationCreateEmailDesignerEmailTemplateArgs = {
+  data: EmailDesignerEmailTemplateInput;
 };
 
 
@@ -523,6 +590,11 @@ export type MutationCreateWebhookArgs = {
 
 
 export type MutationDeleteAccountArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteEmailDesignerEmailTemplateArgs = {
   id: Scalars['ID'];
 };
 
@@ -609,6 +681,12 @@ export type MutationUpdateAccountArgs = {
 };
 
 
+export type MutationUpdateEmailDesignerEmailTemplateArgs = {
+  data: EmailDesignerEmailTemplateInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -670,7 +748,7 @@ export type Notification = {
   createdAt?: Maybe<Scalars['DateTime']>;
   instance?: Maybe<InstanceEntityResponse>;
   level?: Maybe<Enum_Notification_Level>;
-  type?: Maybe<Scalars['String']>;
+  saga?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -700,7 +778,7 @@ export type NotificationFiltersInput = {
   level?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<NotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<NotificationFiltersInput>>>;
-  type?: InputMaybe<StringFilterInput>;
+  saga?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -708,7 +786,7 @@ export type NotificationInput = {
   content?: InputMaybe<Scalars['JSON']>;
   instance?: InputMaybe<Scalars['ID']>;
   level?: InputMaybe<Enum_Notification_Level>;
-  type?: InputMaybe<Scalars['String']>;
+  saga?: InputMaybe<Scalars['String']>;
 };
 
 export type NotificationRelationResponseCollection = {
@@ -741,6 +819,8 @@ export type Query = {
   __typename?: 'Query';
   account?: Maybe<AccountEntityResponse>;
   accounts?: Maybe<AccountEntityResponseCollection>;
+  emailDesignerEmailTemplate?: Maybe<EmailDesignerEmailTemplateEntityResponse>;
+  emailDesignerEmailTemplates?: Maybe<EmailDesignerEmailTemplateEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   instance?: Maybe<InstanceEntityResponse>;
@@ -767,6 +847,18 @@ export type QueryAccountArgs = {
 
 export type QueryAccountsArgs = {
   filters?: InputMaybe<AccountFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryEmailDesignerEmailTemplateArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryEmailDesignerEmailTemplatesArgs = {
+  filters?: InputMaybe<EmailDesignerEmailTemplateFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -1299,6 +1391,13 @@ export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title?: string | null, envName?: string | null, status?: Enum_Instance_Status | null } | null }> } | null };
 
+export type NotificationsQueryVariables = Exact<{
+  instance: Scalars['ID'];
+}>;
+
+
+export type NotificationsQuery = { __typename?: 'Query', notifications?: { __typename?: 'NotificationEntityResponseCollection', data: Array<{ __typename?: 'NotificationEntity', id?: string | null, attributes?: { __typename?: 'Notification', saga?: string | null, level?: Enum_Notification_Level | null, content?: any | null } | null }> } | null };
+
 export type ProfileFieldsFragment = { __typename?: 'UsersPermissionsMe', id: string, username: string, email?: string | null, lastName?: string | null, firstName?: string | null };
 
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1556,6 +1655,51 @@ export function useInstancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type InstancesQueryHookResult = ReturnType<typeof useInstancesQuery>;
 export type InstancesLazyQueryHookResult = ReturnType<typeof useInstancesLazyQuery>;
 export type InstancesQueryResult = Apollo.QueryResult<InstancesQuery, InstancesQueryVariables>;
+export const NotificationsDocument = gql`
+    query Notifications($instance: ID!) {
+  notifications(
+    filters: {instance: {id: {eq: $instance}}}
+    sort: "createdAt:desc"
+  ) {
+    data {
+      id
+      attributes {
+        saga
+        level
+        content
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useNotificationsQuery__
+ *
+ * To run a query within a React component, call `useNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationsQuery({
+ *   variables: {
+ *      instance: // value for 'instance'
+ *   },
+ * });
+ */
+export function useNotificationsQuery(baseOptions: Apollo.QueryHookOptions<NotificationsQuery, NotificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
+      }
+export function useNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NotificationsQuery, NotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
+        }
+export type NotificationsQueryHookResult = ReturnType<typeof useNotificationsQuery>;
+export type NotificationsLazyQueryHookResult = ReturnType<typeof useNotificationsLazyQuery>;
+export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, NotificationsQueryVariables>;
 export const ProfileDocument = gql`
     query profile {
   me {

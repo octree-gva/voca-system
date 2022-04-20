@@ -68,7 +68,13 @@
   "support": "Need support ?",
   "instance": {
     "stopped": "Stopped",
-    "pending": "Ongoing operation..."
+    "install": {
+      "triggered": "Ongoing operation... <br>Can take up to one hour",
+      "assets_compiled": "Ongoing operation... <br>Theme and layout are compiled",
+      "seed": "Ongoing operation... <br>Basic data is populated",
+      "admin_created": "Ongoing operation... <br>Administrator account is created",
+      "ready": "Decidim <env_link>is running</env_link>"
+    }
   },
   "TopBar": {
     "login": "Log in",
