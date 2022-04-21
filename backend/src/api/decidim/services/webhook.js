@@ -6,7 +6,7 @@ module.exports = () => {
         instance,
         content: {
           status: "fails",
-          msg: msg,
+          msg: "Server error",
         },
         logLevel: "info",
       });

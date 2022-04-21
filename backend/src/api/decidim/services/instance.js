@@ -1,6 +1,13 @@
 "use strict";
 
 const { createEnvSchema } = require("../schemas");
+const { v4: uuid } = require("uuid");
+
+const randomEnvName = (instanceUUID = undefined) => {
+  if (!instanceUUID) instanceUUID = uuid();
+  const rand = instanceUUID.replace(/-/g, "");
+  return rand.substring(0, 24);
+};
 
 module.exports = () => ({
   create: async (options) => {
@@ -9,7 +16,6 @@ module.exports = () => ({
       .query("api::jelastic-config.jelastic-config")
       .findOne();
     if (!conf) throw new Error("No config found");
-    const namePrefix = conf?.jelasticInstancePrefix || "v--";
     const defaultLocale = options.default_locale;
     // If available locales does not contains default one,
     // add the default to the availables.
@@ -28,12 +34,11 @@ module.exports = () => ({
     const ok = await strapi.jelasticClient.manifest.install(
       conf?.manifestUrl,
       {
-        envName: `${namePrefix}-${options.subdomain}`,
         displayName: `${options.subdomain}.voca.city`,
         nodeGroup: conf.nodeGroup,
+        envName: randomEnvName(options.instanceUUID),
         manifestSettings: {
-          // TODO: setup PUBLIC_DOMAIN to voca.city subdomain
-          PUBLIC_DOMAIN: `v---${options.subdomain}.jcloud-ver-jpc.ik-server.com`,
+          PUBLIC_DOMAIN: `${options.subdomain}.voca.city`,
           PUBLIC_URL: `https://${options.subdomain}.voca.city`,
           JOB_IMAGE_REGISTRY: conf.jobImageRegistry,
           JOB_IMAGE_PAGE: conf.jobImagePath,
