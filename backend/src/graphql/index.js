@@ -1,4 +1,4 @@
-const instance = require("../api/instance/graphql");
+const instance = require("../api/decidim/graphql");
 const notification = require("../api/notification/graphql");
 const usersPermissions = require("../extensions/users-permissions/graphql");
 

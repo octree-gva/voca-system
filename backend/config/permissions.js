@@ -1,15 +1,16 @@
 "use stric";
 
 const publicPerms = [
-  "api::instance.instance.firstInstall",
-  "api::instance.instance.find",
+  "api::decidim.instance.firstInstall",
+  "api::decidim.instance.find",
+  "api::notification.webhook.handleOne",
+  "api::notification.notification.find",
 ];
 
 const authenticated = [
   ...publicPerms,
   "plugin::users-permissions.user.me",
   "plugin::users-permissions.user.update",
-  "api::notification.notification.find",
 ];
 
 module.exports = {

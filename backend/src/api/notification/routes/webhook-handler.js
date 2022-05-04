@@ -3,8 +3,9 @@ module.exports = {
     {
       method: "POST",
       path: "/decidim/webhooks/:instanceUUID",
-      handler: "decidim.webhook",
+      handler: "api::notification.webhook.handleOne",
       config: {
+        auth: false,
         policies: [],
         middlewares: [],
       },

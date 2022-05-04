@@ -1,7 +1,7 @@
 const onlyAdmin = {
   name: "api::account.account-team",
   config: {
-    model: "api::instance.instance",
+    model: "api::decidim.instance",
     foreignKey: "account",
     scope: "administrators",
   },
@@ -27,7 +27,7 @@ module.exports = ({ nexus, strapi }) => ({
       firstInstall: {
         description: "Create user account and install first instance",
         async resolve(root, args) {
-          return strapi.controller("api::instance.instance").firstInstall(args);
+          return strapi.controller("api::decidim.instance").firstInstall(args);
         },
       },
     },
@@ -35,7 +35,7 @@ module.exports = ({ nexus, strapi }) => ({
   resolversConfig: {
     "Mutation.firstInstall": {
       auth: {
-        scope: ["api::instance.instance.firstInstall"],
+        scope: ["api::decidim.instance.firstInstall"],
       },
     },
     "Mutation.createInstance": {

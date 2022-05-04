@@ -11,10 +11,11 @@ module.exports = () => {
         logLevel: "info",
       });
     },
+
     async onDecidimReady(instance, payload) {
       const { url } = payload;
       const previousHooks = await strapi
-        .query("api::webhook.webhook")
+        .query("api::notification.webhook")
         .findMany({
           where: { instance },
         });
@@ -60,14 +61,11 @@ module.exports = () => {
       });
     },
 
-    async handleWebhook(inst, eventType, payload) {
-      if (!inst) {
+    async handleWebhook(instance, eventType, payload) {
+      if (!instance) {
         strapi.log.warn("webhook fired without instances.");
         return;
       }
-      const instance = await strapi
-        .query("api::instance.instance")
-        .findOne({ where: { id: inst } });
       switch (eventType) {
         case "decidim.assets_compiled":
           await service.logInstallSaga(instance, "assets_compiled");

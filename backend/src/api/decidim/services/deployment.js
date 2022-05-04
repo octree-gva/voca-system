@@ -5,18 +5,18 @@ const { createCoreService } = require("@strapi/strapi").factories;
 
 const DEFAULT_HOSTNAME = "voca.city";
 
-module.exports = createCoreService("api::instance.instance", ({ strapi }) => ({
+module.exports = createCoreService("api::decidim.deployment", ({ strapi }) => ({
   async isEnvNameAvailable(envName) {
     const [_result, matchCount] = await strapi
-      .query("api::instance.instance")
+      .query("api::decidim.instance")
       .findWithCount({
         where: { envName },
       });
     return matchCount === 0;
   },
 
-  async createInstance(instance, account) {
-    const instanceEntity = await strapi.query("api::instance.instance").create({
+  async deployNew(instance, account) {
+    const instanceEntity = await strapi.query("api::decidim.instance").create({
       data: {
         title: instance.title,
         acronym: instance.acronym,

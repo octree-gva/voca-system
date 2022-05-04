@@ -1,8 +1,10 @@
 const request = require("supertest");
 require("../../../helpers/useStrapi");
+const { create: createUser } = require("../../../factories/userPermission");
+
 let i = 0;
 
-describe("service.account.account)", () => {
+describe("service/api::account.account", () => {
   let jelastic;
   let createAccount;
   const goodParams = () => ({
@@ -11,18 +13,7 @@ describe("service.account.account)", () => {
     email: `tester${++i}@voca.city`,
   });
   beforeAll(async () => {
-    await strapi.plugins["users-permissions"].services.user.add({
-      username: "tester",
-      email: "tester@voca.city",
-      provider: "local",
-      password: "1234abc",
-      confirmed: true,
-      blocked: null,
-    });
-    strapi.plugins["users-permissions"].services.user.add = jest.fn((x) => ({
-      ...x,
-      id: 1,
-    }));
+    await createUser();
   });
   beforeEach(async () => {
     jelastic = strapi?.service("api::account.account");
@@ -90,6 +81,7 @@ describe("service.account.account)", () => {
   });
 
   it("requires a uniq email", async () => {
+    await createUser("authenticated", { email: "tester@voca.city" });
     expect(
       createAccount({ ...goodParams(), email: "tester@voca.city" })
     ).rejects.toBeTruthy();
@@ -97,7 +89,12 @@ describe("service.account.account)", () => {
 
   it("create a non-confirmed user", async () => {
     const payload = goodParams();
+    strapi.plugins["users-permissions"].services.user.add = jest.fn((x) => ({
+      ...x,
+      id: 1,
+    }));
     const createdUser = await createAccount(payload);
+
     expect(
       strapi.plugins["users-permissions"].services.user.add
     ).toHaveBeenCalledWith({

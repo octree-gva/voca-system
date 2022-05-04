@@ -2,7 +2,6 @@
 
 const graphqlExtends = require("./graphql");
 const bootstrapActions = require("./bootstrap");
-const { NODE_ENV } = process.env;
 
 module.exports = {
   /**
@@ -25,15 +24,14 @@ module.exports = {
   async bootstrap(context) {
     const { strapi } = context;
     strapi
-      .service("api::webhook.webhook")
+      .service("api::notification.webhook")
       .register(
         /^decidim\.[.]*/,
-        strapi.service("api::decidim.webhook").handleWebhook
+        strapi.service("api::decidim.listener").handleWebhook
       );
 
-    if (NODE_ENV !== "test")
-      for (let action of bootstrapActions) {
-        await action(context);
-      }
+    for (let action of bootstrapActions) {
+      await action(context);
+    }
   },
 };

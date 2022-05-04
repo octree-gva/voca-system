@@ -12,6 +12,7 @@ module.exports = ({ env }) => {
     transports: [
       new winston.transports.Console({
         level: "http",
+        stderrLevels: ["error", "debug", "info"],
         format: winston.format.combine(
           prettyPrint({ timestamps: "YYYY-MM-DD hh:mm:ss.SSS" })
         ),

@@ -2,7 +2,7 @@
 const onlyAdmins = {
   name: "api::account.account-team",
   config: {
-    model: "api::instance.instance",
+    model: "api::decidim.instance",
   },
 };
 /**
@@ -11,7 +11,7 @@ const onlyAdmins = {
 
 const { createCoreRouter } = require("@strapi/strapi").factories;
 
-module.exports = createCoreRouter("api::instance.instance", {
+module.exports = createCoreRouter("api::decidim.instance", {
   config: {
     find: { policies: [onlyAdmins] },
     findOne: { policies: [onlyAdmins] },

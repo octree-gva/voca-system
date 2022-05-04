@@ -17,7 +17,6 @@ async function setupStrapi() {
   }
   await Strapi({ dirs: [path.join(__dirname, "..", "..", "src")] }).load();
   instance = strapi;
-
   await instance.server.mount();
   return instance;
 }
@@ -43,6 +42,7 @@ async function cleanupStrapi() {
       throw new Error(`${dbFile} does not exists`);
     }
   }
+  instance = undefined;
   return Promise.resolve();
 }
 

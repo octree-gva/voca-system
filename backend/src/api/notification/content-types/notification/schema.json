@@ -5,7 +5,7 @@
     "singularName": "notification",
     "pluralName": "notifications",
     "displayName": "Notification",
-    "description": ""
+    "description": "Notification for end-users. No sensitive data here."
   },
   "options": {
     "draftAndPublish": false
@@ -21,16 +21,12 @@
     "instance": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::instance.instance",
+      "target": "api::decidim.instance",
       "inversedBy": "notifications"
     },
     "level": {
       "type": "enumeration",
-      "enum": [
-        "info",
-        "warn",
-        "error"
-      ]
+      "enum": ["info", "warn", "error"]
     }
   }
 }

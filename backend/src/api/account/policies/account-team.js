@@ -10,16 +10,16 @@
  *
  * - scope: the field name of Account we need to look at (optional, default: administrators)
  *          the designed field should be a relationship to user-permissions.
- * - model: the strapi uid for the model to query. For example: "api::instance.instance" (required, default: undefined)
+ * - model: the strapi uid for the model to query. For example: "api::decidim.instance" (required, default: undefined)
  * - foreignKey: the model's foreignKey to link to account. support one-to-one relationship only. (optional, default: "account")
  *
  * # Example: restrict update
  * ```
- * # /src/api/instance/graphql/resolvers.js
+ * # /src/api/decidim/graphql/resolvers.js
  * const onlyAdmins = {
  *   name: "api::account.account-team",
  *   config: {
- *     model: "api::instance.instance",
+ *     model: "api::decidim.instance",
  *     foreignKey: "account",
  *     scope: "administrators",
  *   },
