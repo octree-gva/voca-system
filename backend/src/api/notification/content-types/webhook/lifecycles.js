@@ -5,7 +5,7 @@ module.exports = {
     let { instance } = params.data;
     if (!instance) {
       // Find the instance
-      const webhook = await strapi.query("api::webhook.webhook").findOne({
+      const webhook = await strapi.query("api::notification.webhook").findOne({
         where: {
           id,
         },
@@ -14,7 +14,7 @@ module.exports = {
       instance = webhook.instance;
     }
     return strapi
-      .service("api::webhook.webhook")
+      .service("api::notification.webhook")
       .fire(instance, eventType, content);
   },
 };

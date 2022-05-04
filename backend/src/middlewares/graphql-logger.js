@@ -11,6 +11,13 @@ module.exports = (_, { strapi }) => {
     if (ctx.url === "/graphql") {
       const { operationName, variables, query } = ctx.request.body || {};
       const status = graphqlStatus(ctx.body);
+      if (process.env.NODE_ENV !== "production") {
+        const response = JSON.parse(ctx.body || {});
+        if (response?.errors)
+          strapi.log.error(
+            JSON.stringify({ state: ctx.state, err: response?.errors })
+          );
+      }
 
       if (operationName)
         strapi.log.http(

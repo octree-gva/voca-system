@@ -1,16 +1,15 @@
 "use strict";
 
 /**
- * notification router.
+ * webhook router.
  */
 
 const { createCoreRouter } = require("@strapi/strapi").factories;
 
-module.exports = createCoreRouter("api::notification.notification", {
+module.exports = createCoreRouter("api::notification.webhook", {
   only: ["find"],
   config: {
     find: {
-      auth: { scope: ["admin"] },
       policies: ["api::notification.only-instance"],
       middlewares: [],
     },

@@ -34,16 +34,12 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "started",
-        "stopped"
-      ]
+      "enum": ["pending", "started", "stopped"]
     },
     "webhooks": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::webhook.webhook",
+      "target": "api::notification.webhook",
       "mappedBy": "instance"
     },
     "notifications": {

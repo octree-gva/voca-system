@@ -439,7 +439,6 @@ export type JelasticConfig = {
   defaultFromEmail?: Maybe<Scalars['String']>;
   defaultSystemPassword?: Maybe<Scalars['String']>;
   jelasticHost?: Maybe<Scalars['String']>;
-  jelasticInstancePrefix?: Maybe<Scalars['String']>;
   jelasticToken?: Maybe<Scalars['String']>;
   jobImagePath?: Maybe<Scalars['String']>;
   jobImageRegistry?: Maybe<Scalars['String']>;
@@ -476,7 +475,6 @@ export type JelasticConfigInput = {
   defaultFromEmail?: InputMaybe<Scalars['String']>;
   defaultSystemPassword?: InputMaybe<Scalars['String']>;
   jelasticHost?: InputMaybe<Scalars['String']>;
-  jelasticInstancePrefix?: InputMaybe<Scalars['String']>;
   jelasticToken?: InputMaybe<Scalars['String']>;
   jobImagePath?: InputMaybe<Scalars['String']>;
   jobImageRegistry?: InputMaybe<Scalars['String']>;

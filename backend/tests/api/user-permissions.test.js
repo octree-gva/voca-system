@@ -1,28 +1,21 @@
 const request = require("supertest");
 require("../helpers/useStrapi");
-// user mock data
-const mockUserData = {
-  username: "tester",
-  email: "tester@voca.city",
-  provider: "local",
-  password: "1234abc",
-  confirmed: true,
-  blocked: null,
-};
+const {
+  create: createUser,
+  build: buildUser,
+} = require("../factories/userPermission");
 
 it("should login user and return jwt token", async () => {
   /** Creates a new user and save it to the database */
-  await strapi.plugins["users-permissions"].services.user.add({
-    ...mockUserData,
-  });
+  const user = await createUser("authenticated", { password: "123123" });
 
   await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
     .post("/api/auth/local")
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .send({
-      identifier: mockUserData.email,
-      password: mockUserData.password,
+      identifier: user.email,
+      password: "123123",
     })
     .expect("Content-Type", /json/)
     .expect(200)
@@ -32,26 +25,11 @@ it("should login user and return jwt token", async () => {
 });
 
 it("should return users data for authenticated user", async () => {
-  /** Gets the default user role */
-  const defaultRole = await strapi
-    .query("plugin::users-permissions.role")
-    .findOne({}, []);
-
-  const role = defaultRole ? defaultRole.id : null;
-  expect(role).toBeDefined();
-
-  const user = await strapi.plugins["users-permissions"].services.user.add({
-    ...mockUserData,
-    username: "tester2",
-    email: "tester2@voc.city",
-    role,
-  });
-
+  const user = await createUser();
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: user.id,
   });
-
-  await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
+  await request(strapi.server.httpServer)
     .get("/api/users/me")
     .set("accept", "application/json")
     .set("Content-Type", "application/json")

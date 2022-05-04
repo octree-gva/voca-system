@@ -3,10 +3,8 @@
 module.exports = async ({ strapi }) => {
   const { permissions = [] } = strapi.config;
   const roles = await strapi.query("plugin::users-permissions.role").findMany();
-
   for (const role of roles) {
     const rolePermissions = permissions.roles[role.type];
-
     if (!rolePermissions) continue;
 
     await Promise.all(
@@ -23,6 +21,10 @@ module.exports = async ({ strapi }) => {
               role: role.id,
             },
           });
+        } else {
+          strapi.log.debug(
+            `Permission exists: ${action} for role ${role.type}`
+          );
         }
       })
     );

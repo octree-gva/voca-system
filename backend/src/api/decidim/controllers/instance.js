@@ -7,13 +7,13 @@
 const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController(
-  "api::instance.instance",
+  "api::decidim.instance",
   ({ strapi }) => ({
     async firstInstall(args) {
       const { user, instance } = args;
 
       const isEnvNameAvailable = await strapi
-        .service("api::instance.instance")
+        .service("api::decidim.instance")
         .isEnvNameAvailable(instance.subdomain);
       if (!isEnvNameAvailable)
         return { ok: false, errCode: "ENV_NAME_UNAVAILABLE" };
@@ -28,8 +28,8 @@ module.exports = createCoreController(
 
       try {
         await strapi
-          .service("api::instance.instance")
-          .createInstance(instance, account);
+          .service("api::decidim.deployment")
+          .deployNew(instance, account);
         return { ok: true };
       } catch (error) {
         strapi.log.error(error);

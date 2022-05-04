@@ -5,7 +5,7 @@
     "singularName": "webhook",
     "pluralName": "webhooks",
     "displayName": "Webhook",
-    "description": "Webhook call from decidim instances"
+    "description": "Calls from decidim instance. Sensitive data may be there"
   },
   "options": {
     "draftAndPublish": false
@@ -21,15 +21,12 @@
     "instance": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::instance.instance",
+      "target": "api::decidim.instance",
       "inversedBy": "webhooks"
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "waiting",
-        "completed"
-      ]
+      "enum": ["waiting", "completed"]
     }
   }
 }
