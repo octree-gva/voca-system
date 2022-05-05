@@ -21,6 +21,13 @@ module.exports = {
       params.data.acronym = defaultAcronym(title);
     }
   },
+  async afterCreate(event) {
+    const { result: instanceCreated } = event;
+    const { account } = instanceCreated;
+    if (!account) throw new ValidationError("Account not found for instance.");
+    // Deploy the instance in the account
+    await strapi.service("api::decidim.deployment").deployNew(instanceCreated);
+  },
   async beforeUpdate(event) {
     delete event.params.data.account;
   },

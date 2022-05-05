@@ -7,6 +7,8 @@ declare module 'next-auth' {
   interface Session {
     user: {
       username: string;
+      role: string;
+      administratorAccounts: Array<{id: number; title: string}>;
     };
   }
 }

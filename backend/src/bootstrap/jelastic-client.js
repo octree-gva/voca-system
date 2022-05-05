@@ -4,11 +4,14 @@ const jelasticRequestFactory = require("../factories/jelastic/request");
 const jelasticClientFactory = require("../factories/jelastic/client");
 
 module.exports = async ({ strapi }) => {
-  if (process.env.NODE_ENV === "test") return;
   const config = await strapi
     .query("api::jelastic-config.jelastic-config")
     .findOne();
   const { jelasticHost, jelasticToken } = config || {};
+  if (process.env.NODE_ENV === "test") {
+    strapi.jelasticClient = { manifest: { install: (x) => x } };
+    return;
+  }
 
   if (jelasticHost && jelasticToken) {
     const jelasticRequest = jelasticRequestFactory(strapi, {

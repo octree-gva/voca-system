@@ -24,7 +24,7 @@ export default NextAuth({
         }
 
         try {
-          // Login in strapi, with our machine-to-machine token.
+          // Login in strapi
           const {data: userData} = await axios.post(
             `${API_URL}/api/auth/local`,
             {
@@ -33,10 +33,24 @@ export default NextAuth({
             }
           );
           if (!!userData?.user?.blocked) return null;
+          // Fetch the me endpoint (role and accountAdministrators are not fetched)
+          const {data: userMe} = await axios.get(`${API_URL}/api/users/me`, {
+            headers: {
+              Authorization: `Bearer ${userData.jwt}`,
+            },
+          });
+
           return {
             sub: userData.user.id,
             name: userData.user.username,
             email: userData.user.email,
+            role: userMe.role?.type,
+            administratorAccounts: (userMe.administratorAccounts || []).map(
+              ({id, title}: {id: number; title: string}) => ({
+                id,
+                title,
+              })
+            ),
             image: null,
             accessToken: userData.jwt,
           };
@@ -58,12 +72,26 @@ export default NextAuth({
       if (user) {
         token.id = user.id;
         token.accessToken = user.accessToken;
+        token.role = user.role;
+        token.administratorAccounts = JSON.stringify(
+          user.administratorAccounts
+        );
       }
       return token;
     },
-    async session({session}) {
+    async session({session, token}) {
       // Send properties to the client.
       // The client doesn't need any token, as he will pass through our APIs first.
+      if (token && session?.user) {
+        session.user = {
+          ...session.user,
+          role: '' + token.role,
+          administratorAccounts: JSON.parse(
+            '' + token.administratorAccounts
+          ) as any,
+        };
+      }
+
       return session;
     },
   },

@@ -23,6 +23,9 @@
     "acronym": {
       "type": "string"
     },
+    "subdomain": {
+      "type": "string"
+    },
     "instanceUUID": {
       "type": "string"
     },

@@ -7,6 +7,7 @@ const instanceFactory = {
       title: chance.string({ alpha: true }),
       acronym: chance.string({ alpha: true }),
       envName: chance.string({ alpha: true, length: 24, numeric: true }),
+      subdomain: chance.string({ alpha: true, length: 8 }),
       default_locale: chance.string({
         alpha: true,
         length: 2,
@@ -36,7 +37,7 @@ const instanceFactory = {
     });
     return strapi
       .query("api::decidim.instance")
-      .create({ data: entity, populate: ["creator"] });
+      .create({ data: entity, populate: ["creator", "account"] });
   },
 };
 module.exports = instanceFactory;
