@@ -3,8 +3,10 @@ import {useInstancesQuery} from '../../graphql/hooks';
 import Loader from '../../components/Loader';
 import useToastStore from '../../stores/useToastStore';
 import InstanceCard from './InstanceCard';
+import {useSession} from 'next-auth/react';
 
 const InstancesList = () => {
+  const me = useSession();
   const {data: {instances} = {}, loading, error} = useInstancesQuery();
   const addToast = useToastStore(s => s.addToast);
 

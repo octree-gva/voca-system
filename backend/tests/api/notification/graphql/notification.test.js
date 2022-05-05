@@ -4,6 +4,7 @@ const {
   create: createNotification,
 } = require("../../../factories/notifications");
 const { create: createUser } = require("../../../factories/userPermission");
+const { create: createConfig } = require("../../../factories/jelastic-config");
 const NOTIFICATION_QUERY = `
 query Notifications($filters: NotificationFiltersInput!) {
   notifications(filters: $filters, sort: "createdAt:desc") {

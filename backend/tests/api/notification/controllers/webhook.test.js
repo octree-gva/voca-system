@@ -1,11 +1,16 @@
 const request = require("supertest");
 require("../../../helpers/useStrapi");
 const { create: createInstance } = require("../../../factories/instances");
+const { create: createConfig } = require("../../../factories/jelastic-config");
 const {
   create: createUser,
   createAdmin,
 } = require("../../../factories/userPermission");
 describe("controller/api::notification.webhook", () => {
+  beforeEach(async () => {
+    await createConfig();
+  });
+
   describe("find", () => {
     it("forbids non-administrators to find", async () => {
       const user = await createUser();

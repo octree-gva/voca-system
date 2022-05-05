@@ -1,6 +1,7 @@
 const Strapi = require("@strapi/strapi");
 const fs = require("fs");
 const path = require("path");
+const { create: createConfig } = require("../factories/jelastic-config");
 let instance;
 async function setupStrapi() {
   process.env = {
@@ -16,6 +17,7 @@ async function setupStrapi() {
     return instance;
   }
   await Strapi({ dirs: [path.join(__dirname, "..", "..", "src")] }).load();
+  await createConfig();
   instance = strapi;
   await instance.server.mount();
   return instance;

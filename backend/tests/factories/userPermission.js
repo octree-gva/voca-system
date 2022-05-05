@@ -9,6 +9,8 @@ const userPermissionFactory = {
       password: chance.string({ length: 12 }),
       confirmed: true,
       blocked: false,
+      lastName: chance.string({ alpha: true, length: 12 }),
+      firstName: chance.string({ alpha: true, length: 8 }),
       ...overwrites,
     };
   },
