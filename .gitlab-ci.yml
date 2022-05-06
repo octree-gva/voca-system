@@ -19,6 +19,12 @@ tests:backend:
     - yarn
     - yarn test:cov
     - yarn test:ci
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - backend/junit.xml
+
 
 tests:frontend:
   stage: test
@@ -38,6 +44,12 @@ tests:frontend:
     - yarn lint
     - yarn test:ci
     - yarn test:cov
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - frontend/junit.xml
+
 
 build:backend:
   stage: build
