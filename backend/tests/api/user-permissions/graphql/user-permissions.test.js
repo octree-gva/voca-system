@@ -17,11 +17,9 @@ query Me {
       type
     }
     administratorAccounts {
-      data {
-        id
-        attributes {
-          title
-        }
+      id
+      attributes {
+        title
       }
     }
     lastName
@@ -68,7 +66,11 @@ query Me {
       });
       it("gives administratorAccounts", () => {
         expect(subject).toMatchObject({
-          administratorAccounts: expect.any(Array),
+          administratorAccounts: expect.arrayContaining([
+            expect.objectContaining({
+              id: expect.any(String),
+            }),
+          ]),
         });
       });
     });
@@ -76,20 +78,26 @@ query Me {
   describe("register mutation", () => {
     const REGISTER_QUERY = `
 mutation RegisterUser($email: String!, $password: String!) {
-  register(input: {username: $email, email: $email, password: $password}) {
+  register(input: { username: $email, email: $email, password: $password }) {
     jwt
     user {
+      id
+      firstName
+      lastName
+      email
+      confirmed
+      blocked
+      role {
         id
-        firstName
-        lastName
-        email
-        confirmed
-        blocked
-        role {
-          id
-          name
-          description
+        name
+        description
+      }
+      administratorAccounts {
+        id
+        attributes {
+          title
         }
+      }
     }
   }
 }
@@ -114,6 +122,19 @@ mutation RegisterUser($email: String!, $password: String!) {
       it("gives back email", () => {
         expect(subject).toMatchObject({
           register: { user: { email: "hello@voca.city" } },
+        });
+      });
+      it("gives back administratorAccounts", () => {
+        expect(subject).toMatchObject({
+          register: {
+            user: {
+              administratorAccounts: expect.arrayContaining([
+                expect.objectContaining({
+                  id: expect.any(String),
+                }),
+              ]),
+            },
+          },
         });
       });
       it("does NOT gives back role (bug)", () => {
