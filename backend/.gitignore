@@ -114,3 +114,4 @@ exports
 build
 .strapi-updater.json
 localhost*.pem
+junit.xml
