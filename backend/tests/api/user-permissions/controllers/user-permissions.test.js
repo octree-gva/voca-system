@@ -49,7 +49,7 @@ describe("controller/plugin::users-permissions", () => {
         }),
       });
     });
-    describe("return value of user registration", () => {
+    describe("return value", () => {
       let subject;
       beforeAll(async () => {
         const { body } = await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
@@ -66,19 +66,18 @@ describe("controller/plugin::users-permissions", () => {
         subject = body;
       });
 
-      it("return a jwt", () =>
+      it("contains a jwt", () =>
         expect(subject).toMatchObject({ jwt: expect.any(String) }));
-      it("return the user's first and lastname", () =>
+      it("contains the user's first and lastname", () =>
         expect(subject).toMatchObject({
           user: expect.objectContaining({
             firstName: "jane",
             lastName: "doe",
           }),
         }));
-      it("does not return the user's admin_accounts or role", () =>
+      it("does not contains user's role", () =>
         expect(subject).toMatchObject({
           user: expect.not.objectContaining({
-            admin_accounts: expect.anything(),
             role: expect.anything(),
           }),
         }));
