@@ -47,7 +47,10 @@ module.exports = createCoreController(
           data: {
             title: instance.title,
             acronym: instance.acronym,
+            // envName will be updated as soon as the environmnent
+            // is ready.
             envName: instance.subdomain,
+            subdomain: instance.subdomain,
             default_locale: instance.default_locale,
             available_locales: instance.available_locales,
             instanceUUID: uuid(),
