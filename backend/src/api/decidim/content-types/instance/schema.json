@@ -15,25 +15,25 @@
     "account": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::account.account"
+      "target": "api::account.account",
+      "required": true
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "acronym": {
       "type": "string"
     },
     "subdomain": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 200,
+      "unique": true
     },
     "instanceUUID": {
       "type": "string"
-    },
-    "envName": {
-      "type": "uid",
-      "targetField": "title",
-      "minLength": 3,
-      "maxLength": 200
     },
     "status": {
       "type": "enumeration",
@@ -75,6 +75,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "envName": {
+      "type": "string",
+      "maxLength": 25,
+      "unique": true
     }
   }
 }

@@ -1,5 +1,7 @@
 const { ValidationError } = require("@strapi/utils").errors;
 const slugify = require("slugify");
+const { v4: uuid } = require("uuid");
+
 const defaultAcronym = (title) =>
   slugify(title, { replacement: "_", strict: true })
     .split("_")
@@ -13,9 +15,18 @@ module.exports = {
   async beforeCreate(event) {
     const { params } = event;
     const {
-      data: { account = null, acronym, title },
+      data: { account = null, acronym, title, creator },
     } = params;
-    if (!account) throw new ValidationError("Account is required");
+
+    if (!account) {
+      throw new ValidationError("Account is required");
+    }
+    if (!creator) {
+      throw new ValidationError("Creator is required");
+    }
+    const instanceUUID = uuid();
+    params.data.instanceUUID = instanceUUID;
+    params.data.envName = instanceUUID.replace(/-/g, "").substring(0, 24);
     if (!acronym) {
       // Default acronym
       params.data.acronym = defaultAcronym(title);
@@ -23,10 +34,22 @@ module.exports = {
   },
   async afterCreate(event) {
     const { result: instanceCreated } = event;
-    const { account } = instanceCreated;
+    const instancePopulated = await strapi.entityService.findOne(
+      "api::decidim.instance",
+      instanceCreated.id,
+      { populate: ["creator", "account"] }
+    );
+    const { account } = instancePopulated;
     if (!account) throw new ValidationError("Account not found for instance.");
     // Deploy the instance in the account
-    await strapi.service("api::decidim.deployment").deployNew(instanceCreated);
+    try {
+      await strapi
+        .service("api::decidim.deployment")
+        .deployNew(instancePopulated);
+    } catch (err) {
+      // pass, request will <timeout> </timeout>
+    }
+    return instanceCreated;
   },
   async beforeUpdate(event) {
     delete event.params.data.account;

@@ -31,7 +31,7 @@ describe("controller/api::notification.webhook", () => {
       });
       await request(strapi.server.httpServer)
         .get("/api/webhooks")
-        .set("accept", "application/json")
+        .set("Accept", "application/json")
         .set("Content-Type", "application/json")
         .set("Authorization", "Bearer " + jwt)
         .expect(403);
@@ -39,7 +39,7 @@ describe("controller/api::notification.webhook", () => {
     it("forbids public to find", async () => {
       await request(strapi.server.httpServer)
         .get("/api/webhooks")
-        .set("accept", "application/json")
+        .set("Accept", "application/json")
         .set("Content-Type", "application/json")
         .expect(403);
     });
@@ -48,8 +48,8 @@ describe("controller/api::notification.webhook", () => {
     it("returns 404 if the instance don't exists", async () => {
       await createInstance({ instanceUUID: "1234-1234-1234-1234" });
       await request(strapi.server.httpServer)
-        .post("/api/decidim/webhooks/0000-0000-0000-0000")
-        .set("accept", "application/json")
+        .post("/api/notifications/webhooks/0000-0000-0000-0000")
+        .set("Accept", "application/json")
         .set("Content-Type", "application/json")
         .send({
           event_type: "decidim.install",
@@ -59,10 +59,10 @@ describe("controller/api::notification.webhook", () => {
         .expect(404);
     });
     it("creates a webhook entity for the given instance uuid", async () => {
-      await createInstance({ instanceUUID: "1234-1234-1234-1234" });
+      const instance = await createInstance();
       await request(strapi.server.httpServer)
-        .post("/api/decidim/webhooks/1234-1234-1234-1234")
-        .set("accept", "application/json")
+        .post(`/api/notifications/webhooks/${instance.instanceUUID}`)
+        .set("Accept", "application/json")
         .set("Content-Type", "application/json")
         .send({
           event_type: "decidim.install",

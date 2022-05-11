@@ -22,7 +22,6 @@ module.exports = ({ nexus, strapi }) => ({
     }),
   ],
   resolvers: {
-    Query: {},
     Mutation: {
       firstInstall: {
         description: "Create user account and install first instance",

@@ -1,22 +1,13 @@
 "use strict";
 
-const { createEnvSchema } = require("../schemas");
-const { v4: uuid } = require("uuid");
-
 const DEFAULT_HOSTNAME = "voca.city";
 
-const randomEnvName = (instanceUUID = undefined) => {
-  if (!instanceUUID) instanceUUID = uuid();
-  const rand = instanceUUID.replace(/-/g, "");
-  return rand.substring(0, 24);
-};
-
 module.exports = ({ strapi }) => ({
-  async isEnvNameAvailable(envName) {
+  async isSubdomainAvailable(subdomain) {
     const [_result, matchCount] = await strapi
       .query("api::decidim.instance")
       .findWithCount({
-        where: { envName },
+        where: { subdomain },
       });
     return matchCount === 0;
   },
@@ -59,7 +50,7 @@ module.exports = ({ strapi }) => ({
       {
         displayName: `${instanceEntity.subdomain}.voca.city`,
         nodeGroup: conf.nodeGroup,
-        envName: randomEnvName(instanceEntity.instanceUUID),
+        envName: instanceEntity.envName,
         manifestSettings: {
           PUBLIC_DOMAIN: `${instanceEntity.subdomain}.voca.city`,
           PUBLIC_URL: `https://${instanceEntity.subdomain}.voca.city`,
