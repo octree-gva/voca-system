@@ -8,10 +8,10 @@ module.exports = (_, { strapi }) => {
     await next();
     const delta = Math.ceil(Date.now() - start);
 
-    if (ctx.url === "/api/graphql") {
+    if (ctx.url === "/graphql") {
       const { operationName, variables, query } = ctx.request.body || {};
       const status = graphqlStatus(ctx.body);
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV === "development") {
         try {
           const response = JSON.parse(ctx.body || {});
           if (response?.errors)

@@ -6,7 +6,6 @@ const instanceFactory = {
     return {
       title: chance.string({ alpha: true }),
       acronym: chance.string({ alpha: true }),
-      envName: chance.string({ alpha: true, length: 24, numeric: true }),
       subdomain: chance.string({ alpha: true, length: 8 }),
       default_locale: chance.string({
         alpha: true,
@@ -20,7 +19,6 @@ const instanceFactory = {
           casing: "upper",
         })
         .join(","),
-      instanceUUID: chance.guid(),
       status: "pending",
       ...overwrites,
     };
