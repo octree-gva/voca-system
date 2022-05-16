@@ -3,10 +3,8 @@ import {useInstancesQuery} from '../../graphql/hooks';
 import Loader from '../../components/Loader';
 import useToastStore from '../../stores/useToastStore';
 import InstanceCard from './InstanceCard';
-import {useSession} from 'next-auth/react';
 
 const InstancesList = () => {
-  const me = useSession();
   const {data: {instances} = {}, loading, error} = useInstancesQuery();
   const addToast = useToastStore(s => s.addToast);
 
@@ -15,6 +13,7 @@ const InstancesList = () => {
     addToast(error.message);
   }
   const {data} = instances ?? {data: []};
+  console.log(data.length)
 
   return (
     <Grid
@@ -25,6 +24,7 @@ const InstancesList = () => {
         width: '100%',
         maxWidth: 1080,
         margin: {xs: '0', md: '28px auto'},
+        pb: 16,
       }}
     >
       {data.map(instance => (

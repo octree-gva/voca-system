@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "manifestUrl": {
-      "type": "string"
-    },
     "jelasticHost": {
       "type": "string"
     },

@@ -27,8 +27,14 @@ module.exports = ({ strapi }) => ({
     const conf = await strapi
       .query("api::jelastic-config.jelastic-config")
       .findOne();
+    const manifests = await strapi
+      .query("api::jelastic-config.jelastic-manifest")
+      .findOne();
     if (!conf && process.env.NODE_ENV !== "test") {
       throw new Error("No config found");
+    }
+    if (!manifests && process.env.NODE_ENV !== "test") {
+      throw new Error("No manifests urls found");
     }
     const defaultLocale = instanceEntity.default_locale;
     // If available locales does not contains default one,
@@ -46,7 +52,7 @@ module.exports = ({ strapi }) => ({
       .join(",");
 
     const ok = await strapi.jelasticClient.manifest.install(
-      conf?.manifestUrl,
+      manifests?.installJps,
       {
         displayName: `${instanceEntity.subdomain}.voca.city`,
         nodeGroup: conf.nodeGroup,

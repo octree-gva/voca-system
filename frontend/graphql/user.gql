@@ -27,3 +27,28 @@ mutation updateUser($userUpdate: UsersPermissionsUserInput!, $id: ID!) {
     }
   }
 }
+
+mutation RegisterUser($email: String!, $password: String!) {
+  register(input: { username: $email, email: $email, password: $password }) {
+    jwt
+    user {
+      id
+      firstName
+      lastName
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+      }
+      administratorAccounts {
+        id
+        attributes {
+          title
+        }
+      }
+    }
+  }
+}

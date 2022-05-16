@@ -5,14 +5,48 @@ mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
   }
 }
 
+mutation CreateInstance($data: InstanceInput!) {
+  createInstance(data: $data) {
+    data {
+      id
+      attributes {
+        title
+        subdomain
+        envName
+        instanceUUID
+        status
+        default_locale
+        available_locales
+        currency
+        account {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+
+
 query Instances {
   instances {
     data {
       id
       attributes {
         title
+        subdomain
         envName
+        instanceUUID
         status
+        default_locale
+        available_locales
+        currency
+        account {
+          data {
+            id
+          }
+        }
       }
     }
   }

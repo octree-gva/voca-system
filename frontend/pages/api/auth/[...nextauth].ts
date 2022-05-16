@@ -42,6 +42,7 @@ export default NextAuth({
 
           return {
             sub: userData.user.id,
+            id: userData.user.id,
             name: userData.user.username,
             email: userData.user.email,
             role: userMe.role?.type,
@@ -89,6 +90,7 @@ export default NextAuth({
           administratorAccounts: JSON.parse(
             '' + token.administratorAccounts
           ) as any,
+          id: '' + token.id,
         };
       }
 

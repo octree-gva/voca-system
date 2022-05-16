@@ -31,7 +31,7 @@ const AccountView = () => {
       </Grid>
       <Grid item sx={{pl: '0 !important'}} xs={6} sm={8}>
         <Typography
-          variant="h4"
+          variant="h2"
           sx={{lineHeight: .9, pl: 7, [theme.breakpoints.down('md')]: {pl: '0 !important'}}}
         >
           {t('account.title')}

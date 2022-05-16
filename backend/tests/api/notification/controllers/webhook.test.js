@@ -1,6 +1,9 @@
 const request = require("supertest");
 require("../../../helpers/useStrapi");
 const { create: createInstance } = require("../../../factories/instances");
+const {
+  create: createManifest,
+} = require("../../../factories/jelastic-manifest");
 const { create: createConfig } = require("../../../factories/jelastic-config");
 const {
   create: createUser,
@@ -9,6 +12,7 @@ const {
 describe("controller/api::notification.webhook", () => {
   beforeEach(async () => {
     await createConfig();
+    await createManifest();
   });
 
   describe("find", () => {

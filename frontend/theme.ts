@@ -36,12 +36,19 @@ export const themeOptions: ThemeOptions = {
     },
     h2: {
       fontFamily: 'Inter',
+      fontSize: '26px',
+      fontWeight: 'bold',
+      margin: '10px 0'
     },
     h3: {
       fontFamily: 'Inter',
+      fontSize: '22px',
+      fontWeight: 'bold',
+      margin: '10px 0'
     },
     h4: {
       fontFamily: 'Inter',
+      fontSize: '22px',
     },
     h5: {
       fontFamily: 'Inter',
@@ -51,6 +58,10 @@ export const themeOptions: ThemeOptions = {
       fontSize: '.875rem',
       fontWeight: 'bold',
     },
+  },
+  zIndex: {
+    drawer: 1200,
+    modal: 1300,
   },
   spacing: 8,
   shape: {

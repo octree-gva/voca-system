@@ -19,7 +19,7 @@ const InstanceCard = (instance: InstanceEntity) => {
     <Card sx={{m: 1}}>
       <CardContent>
         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-          <Typography component="span" variant="h5">
+          <Typography component="span" variant="h4">
             {title}
           </Typography>
           <Chip color="success" icon={<CheckIcon />} label="0.24" />

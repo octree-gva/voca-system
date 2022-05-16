@@ -291,7 +291,7 @@ export type IdFilterInput = {
 
 export type Instance = {
   __typename?: 'Instance';
-  account?: Maybe<AccountEntityResponse>;
+  account: AccountEntityResponse;
   acronym?: Maybe<Scalars['String']>;
   available_locales?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -302,8 +302,9 @@ export type Instance = {
   instanceUUID?: Maybe<Scalars['String']>;
   notifications?: Maybe<NotificationRelationResponseCollection>;
   status?: Maybe<Enum_Instance_Status>;
+  subdomain: Scalars['String'];
   timezone?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   webhooks?: Maybe<WebhookRelationResponseCollection>;
 };
@@ -355,6 +356,7 @@ export type InstanceFiltersInput = {
   notifications?: InputMaybe<NotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<InstanceFiltersInput>>>;
   status?: InputMaybe<StringFilterInput>;
+  subdomain?: InputMaybe<StringFilterInput>;
   timezone?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -372,6 +374,7 @@ export type InstanceInput = {
   instanceUUID?: InputMaybe<Scalars['String']>;
   notifications?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   status?: InputMaybe<Enum_Instance_Status>;
+  subdomain?: InputMaybe<Scalars['String']>;
   timezone?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   webhooks?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -1075,12 +1078,14 @@ export type UsersPermissionsLoginInput = {
 
 export type UsersPermissionsLoginPayload = {
   __typename?: 'UsersPermissionsLoginPayload';
+  administratorAccounts?: Maybe<Array<Maybe<AccountEntityResponse>>>;
   jwt?: Maybe<Scalars['String']>;
   user: UsersPermissionsMe;
 };
 
 export type UsersPermissionsMe = {
   __typename?: 'UsersPermissionsMe';
+  administratorAccounts?: Maybe<Array<Maybe<AccountEntity>>>;
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   email?: Maybe<Scalars['String']>;
@@ -1384,10 +1389,17 @@ export type FirstInstallMutationVariables = Exact<{
 
 export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: boolean, errCode?: string | null } | null };
 
+export type CreateInstanceMutationVariables = Exact<{
+  data: InstanceInput;
+}>;
+
+
+export type CreateInstanceMutation = { __typename?: 'Mutation', createInstance?: { __typename?: 'InstanceEntityResponse', data?: { __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title: string, subdomain: string, envName?: string | null, instanceUUID?: string | null, status?: Enum_Instance_Status | null, default_locale?: string | null, available_locales?: string | null, currency?: string | null, account: { __typename?: 'AccountEntityResponse', data?: { __typename?: 'AccountEntity', id?: string | null } | null } } | null } | null } | null };
+
 export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title?: string | null, envName?: string | null, status?: Enum_Instance_Status | null } | null }> } | null };
+export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title: string, subdomain: string, envName?: string | null, instanceUUID?: string | null, status?: Enum_Instance_Status | null, default_locale?: string | null, available_locales?: string | null, currency?: string | null, account: { __typename?: 'AccountEntityResponse', data?: { __typename?: 'AccountEntity', id?: string | null } | null } } | null }> } | null };
 
 export type NotificationsQueryVariables = Exact<{
   instance: Scalars['ID'];
@@ -1410,6 +1422,14 @@ export type UpdateUserMutationVariables = Exact<{
 
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUsersPermissionsUser: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, email: string, lastName?: string | null, firstName?: string | null } | null } | null } };
+
+export type RegisterUserMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type RegisterUserMutation = { __typename?: 'Mutation', register: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, confirmed?: boolean | null, blocked?: boolean | null, role?: { __typename?: 'UsersPermissionsMeRole', id: string, name: string, description?: string | null } | null, administratorAccounts?: Array<{ __typename?: 'AccountEntity', id?: string | null, attributes?: { __typename?: 'Account', title?: string | null } | null } | null> | null } } };
 
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UsersPermissionsMe {
@@ -1612,6 +1632,56 @@ export function useFirstInstallMutation(baseOptions?: Apollo.MutationHookOptions
 export type FirstInstallMutationHookResult = ReturnType<typeof useFirstInstallMutation>;
 export type FirstInstallMutationResult = Apollo.MutationResult<FirstInstallMutation>;
 export type FirstInstallMutationOptions = Apollo.BaseMutationOptions<FirstInstallMutation, FirstInstallMutationVariables>;
+export const CreateInstanceDocument = gql`
+    mutation CreateInstance($data: InstanceInput!) {
+  createInstance(data: $data) {
+    data {
+      id
+      attributes {
+        title
+        subdomain
+        envName
+        instanceUUID
+        status
+        default_locale
+        available_locales
+        currency
+        account {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateInstanceMutationFn = Apollo.MutationFunction<CreateInstanceMutation, CreateInstanceMutationVariables>;
+
+/**
+ * __useCreateInstanceMutation__
+ *
+ * To run a mutation, you first call `useCreateInstanceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateInstanceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createInstanceMutation, { data, loading, error }] = useCreateInstanceMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateInstanceMutation(baseOptions?: Apollo.MutationHookOptions<CreateInstanceMutation, CreateInstanceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateInstanceMutation, CreateInstanceMutationVariables>(CreateInstanceDocument, options);
+      }
+export type CreateInstanceMutationHookResult = ReturnType<typeof useCreateInstanceMutation>;
+export type CreateInstanceMutationResult = Apollo.MutationResult<CreateInstanceMutation>;
+export type CreateInstanceMutationOptions = Apollo.BaseMutationOptions<CreateInstanceMutation, CreateInstanceMutationVariables>;
 export const InstancesDocument = gql`
     query Instances {
   instances {
@@ -1619,8 +1689,18 @@ export const InstancesDocument = gql`
       id
       attributes {
         title
+        subdomain
         envName
+        instanceUUID
         status
+        default_locale
+        available_locales
+        currency
+        account {
+          data {
+            id
+          }
+        }
       }
     }
   }
@@ -1773,3 +1853,56 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const RegisterUserDocument = gql`
+    mutation RegisterUser($email: String!, $password: String!) {
+  register(input: {username: $email, email: $email, password: $password}) {
+    jwt
+    user {
+      id
+      firstName
+      lastName
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+      }
+      administratorAccounts {
+        id
+        attributes {
+          title
+        }
+      }
+    }
+  }
+}
+    `;
+export type RegisterUserMutationFn = Apollo.MutationFunction<RegisterUserMutation, RegisterUserMutationVariables>;
+
+/**
+ * __useRegisterUserMutation__
+ *
+ * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useRegisterUserMutation(baseOptions?: Apollo.MutationHookOptions<RegisterUserMutation, RegisterUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RegisterUserMutation, RegisterUserMutationVariables>(RegisterUserDocument, options);
+      }
+export type RegisterUserMutationHookResult = ReturnType<typeof useRegisterUserMutation>;
+export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>;
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<RegisterUserMutation, RegisterUserMutationVariables>;

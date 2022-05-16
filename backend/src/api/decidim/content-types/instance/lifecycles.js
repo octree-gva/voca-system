@@ -32,6 +32,19 @@ module.exports = {
       params.data.acronym = defaultAcronym(title);
     }
   },
+  async afterUpdate(event) {
+    const { result: instance } = event;
+    const controlService = strapi.service("api::decidim.control");
+    // Control the environment.
+    switch (instance.status) {
+      case "stopped":
+        await controlService.stop(instance);
+        break;
+      case "started":
+        await controlService.start(instance);
+        break;
+    }
+  },
   async afterCreate(event) {
     const { result: instanceCreated } = event;
     const instancePopulated = await strapi.entityService.findOne(

@@ -1,7 +1,6 @@
 const configFactory = {
   build: (overwrites = {}) => {
     return {
-      manifestUrl: "MANIFESTURL",
       jelasticHost: "JELASTICHOST",
       jelasticToken: "JELASTICTOKEN",
       jobImageRegistry: "JOBIMAGEREGISTRY",
