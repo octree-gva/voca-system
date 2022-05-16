@@ -1,6 +1,9 @@
 const request = require("supertest");
 require("../../../helpers/useStrapi");
 const { create: createInstance } = require("../../../factories/instances");
+const {
+  create: createManifest,
+} = require("../../../factories/jelastic-manifest");
 const { create: createConfig } = require("../../../factories/jelastic-config");
 
 describe("service/api::decidim.deployment", () => {
@@ -9,8 +12,9 @@ describe("service/api::decidim.deployment", () => {
   });
 
   it("install the manifest with the current config", async () => {
-    const config = await createConfig({
-      manifestUrl: "https://myconfig.url/hello?world=bar",
+    const config = await createConfig();
+    await createManifest({
+      installJps: "https://myconfig.url/hello?world=bar",
     });
     await createInstance();
     expect(strapi.jelasticClient.manifest.install).toHaveBeenCalledWith(

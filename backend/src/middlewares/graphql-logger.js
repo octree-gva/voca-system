@@ -8,18 +8,18 @@ module.exports = (_, { strapi }) => {
     await next();
     const delta = Math.ceil(Date.now() - start);
 
-    if (ctx.url === "/graphql") {
+    if (ctx.url === "/graphql" && ctx.request.method === "POST") {
       const { operationName, variables, query } = ctx.request.body || {};
       const status = graphqlStatus(ctx.body);
       if (process.env.NODE_ENV === "development") {
         try {
-          const response = JSON.parse(ctx.body || {});
+          const response = ctx.request.body;
           if (response?.errors)
             strapi.log.error(
               JSON.stringify({ state: ctx.state, err: response?.errors })
             );
         } catch (e) {
-          strapi.log.error(ctx.body);
+          console.error("ERROR", ctx.request.body || ctx.body);
           throw e;
         }
       }

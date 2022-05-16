@@ -1,5 +1,5 @@
 import {Typography, Button, FormHelperText} from '@mui/material';
-import {signIn} from 'next-auth/react';
+import {signIn, useSession} from 'next-auth/react';
 import {useTranslation} from 'react-i18next';
 import {styled} from '@mui/material/styles';
 import {useCallback, useMemo} from 'react';
@@ -17,6 +17,7 @@ export type SignInPayload = {
 const LoginForm = () => {
   const {t} = useTranslation(undefined, {keyPrefix: 'auth'});
   const {query = {}} = useRouter();
+  const session = useSession();
 
   const LoginSchema = useMemo(
     () =>
@@ -37,11 +38,12 @@ const LoginForm = () => {
     [signIn]
   );
   const hasServerError = useMemo(() => !!query?.error, [query]);
+  const accountId = session?.data?.user?.administratorAccounts[0].id;
   const initialValues = useMemo<SignInPayload>(
     () => ({
       identifier: '',
       password: '',
-      callbackUrl: '',
+      callbackUrl: `/${accountId}/dashboard`,
     }),
     []
   );

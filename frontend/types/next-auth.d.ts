@@ -9,6 +9,7 @@ declare module 'next-auth' {
       username: string;
       role: string;
       administratorAccounts: Array<{id: number; title: string}>;
+      id: string;
     };
   }
 }

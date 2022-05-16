@@ -29,6 +29,9 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
     setAnchorEl(null);
   };
 
+  const {data: {user} = {}} = session;
+  const account = user.administratorAccounts[0];
+
   return (
     <Box flexGrow={1} pt="64px">
       <AppBar
@@ -76,7 +79,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
               horizontal: 'left',
             }}
           >
-            <MenuItem onClick={() => router.push('/account')}>
+            <MenuItem onClick={() => router.push(`/${account.id}/account`)}>
               {t('TopBar.account')}
             </MenuItem>
             <MenuItem onClick={handleClose}>
@@ -89,7 +92,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                signOut({callbackUrl: '/'});
+                signOut({callbackUrl: '/auth/login'});
                 handleClose();
               }}
             >

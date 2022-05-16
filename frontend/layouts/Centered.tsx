@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import {styled} from '@mui/material/styles';
-import Layout, {DefaultProps} from './default';
+import Layout, {DefaultProps} from './Common';
 
 export type CenteredProps = React.PropsWithChildren<
   DefaultProps & {header?: React.ReactNode}
@@ -12,7 +12,6 @@ const Centered = ({
 }: CenteredProps) => {
   return (
     <Layout {...useProtectedAccessProps}>
-      {header}
       <Wrapper>{children}</Wrapper>
     </Layout>
   );

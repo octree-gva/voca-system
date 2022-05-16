@@ -13,7 +13,7 @@ const useValidationSchema = () => {
           .email(et`errors.email.format`)
           .required(et`errors.email.required`),
         password: Yup.string()
-          .min(10, et`errors.email.min_length`)
+          .min(10, et`errors.password.min_length`)
           .required(et`errors.password.required`)
           .matches(
             new RegExp(
@@ -24,22 +24,6 @@ const useValidationSchema = () => {
         password_confirmation: Yup.string()
           .required(et`errors.password_confirmation.required`)
           .oneOf([Yup.ref('password')], et`errors.password_confirmation.match`),
-        title: Yup.string()
-          .required(t`errors.decidim.title.required`)
-          .max(200, t`errors.decidim.title.max_length`)
-          .min(3, t`errors.decidim.title.min_length`),
-        subdomain: Yup.string()
-          .required(t`errors.decidim.subdomain.required`)
-          .min(3, t`errors.decidim.subdomain.min_length`)
-          .matches(
-            /^[a-z0-9\-\.\_]+[a-z0-9]+$/,
-            t`errors.decidim.subdomain.format`
-          )
-          .test(
-            'punycode',
-            t`errors.decidim.subdomain.punycode`,
-            value => !`${value}`.startsWith('xn--')
-          ),
       }),
     [t, et]
   );

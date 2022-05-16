@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import {useTranslation} from 'react-i18next';
-import Centered from '../layouts/centered';
+import Centered from '../layouts/Centered';
 
 const ErrorPage = () => {
   const {t} = useTranslation(undefined, {
