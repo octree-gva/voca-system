@@ -1,6 +1,7 @@
 const configFactory = {
   build: (overwrites = {}) => {
     return {
+      traefikEnvName: "TRAEFIK_ENVNAME",
       jelasticHost: "JELASTICHOST",
       jelasticToken: "JELASTICTOKEN",
       jobImageRegistry: "JOBIMAGEREGISTRY",

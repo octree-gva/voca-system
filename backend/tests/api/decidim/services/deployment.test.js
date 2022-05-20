@@ -24,6 +24,7 @@ describe("service/api::decidim.deployment", () => {
         nodeGroup: config.nodeGroup,
         envName: expect.any(String),
         manifestSettings: expect.objectContaining({
+          TRAEFIK_ENVNAME: config.traefikEnvName,
           JOB_IMAGE_REGISTRY: config.jobImageRegistry,
           JOB_IMAGE_PAGE: config.jobImagePath,
           PROD_IMAGE_REGISTRY: config.prodImageRegistry,

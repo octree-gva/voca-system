@@ -71,6 +71,11 @@
     },
     "nodeGroup": {
       "type": "string"
+    },
+    "traefikEnvName": {
+      "type": "string",
+      "default": "vocacity-traefik",
+      "required": false
     }
   }
 }
