@@ -1,9 +1,4 @@
-mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
-  firstInstall(user: $user, instance: $instance) {
-    ok
-    errCode
-  }
-}
+
 
 mutation CreateInstance($data: InstanceInput!) {
   createInstance(data: $data) {

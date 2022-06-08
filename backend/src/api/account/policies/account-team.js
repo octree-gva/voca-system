@@ -60,11 +60,14 @@ module.exports = async (ctx, config, { strapi }) => {
       .query("api::account.account")
       .findMany({ where: { [`${scope}`]: { id: userId } } }, { populate: [] })
   ).map(({ id }) => id);
-  if (allowedAccountIds.length === 0) return false;
+  if (allowedAccountIds.length === 0) {
+    return false;
+  }
 
   // Check variables given over allowed accounts while querying Rest/Graphql endpoints
   const isGraphql = ctx.type === "graphql";
   const { id } = isGraphql ? ctx.args : ctx.params;
+
   if (!!id) {
     // Will fall in a findOne that don't pass filters.
     // => we need to check manually if we are allowed to access the

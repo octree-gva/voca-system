@@ -228,7 +228,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = Account | EmailDesignerEmailTemplate | I18NLocale | Instance | JelasticConfig | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
+export type GenericMorph = Account | EmailDesignerEmailTemplate | I18NLocale | Instance | JelasticConfig | JelasticManifest | Notification | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Webhook;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -297,6 +297,7 @@ export type Instance = {
   createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<UsersPermissionsUserEntityResponse>;
   currency?: Maybe<Scalars['String']>;
+  customDomain?: Maybe<Scalars['String']>;
   default_locale?: Maybe<Scalars['String']>;
   envName?: Maybe<Scalars['String']>;
   instanceUUID?: Maybe<Scalars['String']>;
@@ -348,6 +349,7 @@ export type InstanceFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
   currency?: InputMaybe<StringFilterInput>;
+  customDomain?: InputMaybe<StringFilterInput>;
   default_locale?: InputMaybe<StringFilterInput>;
   envName?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -369,6 +371,7 @@ export type InstanceInput = {
   available_locales?: InputMaybe<Scalars['String']>;
   creator?: InputMaybe<Scalars['ID']>;
   currency?: InputMaybe<Scalars['String']>;
+  customDomain?: InputMaybe<Scalars['String']>;
   default_locale?: InputMaybe<Scalars['String']>;
   envName?: InputMaybe<Scalars['String']>;
   instanceUUID?: InputMaybe<Scalars['String']>;
@@ -445,7 +448,6 @@ export type JelasticConfig = {
   jelasticToken?: Maybe<Scalars['String']>;
   jobImagePath?: Maybe<Scalars['String']>;
   jobImageRegistry?: Maybe<Scalars['String']>;
-  manifestUrl?: Maybe<Scalars['String']>;
   nodeGroup?: Maybe<Scalars['String']>;
   prodImagePath?: Maybe<Scalars['String']>;
   prodImageRegistry?: Maybe<Scalars['String']>;
@@ -458,6 +460,7 @@ export type JelasticConfig = {
   smtpPort?: Maybe<Scalars['String']>;
   smtpReadTimeout?: Maybe<Scalars['String']>;
   smtpUsername?: Maybe<Scalars['String']>;
+  traefikEnvName?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   webhookHMAC?: Maybe<Scalars['String']>;
   webhookUrl?: Maybe<Scalars['String']>;
@@ -481,7 +484,6 @@ export type JelasticConfigInput = {
   jelasticToken?: InputMaybe<Scalars['String']>;
   jobImagePath?: InputMaybe<Scalars['String']>;
   jobImageRegistry?: InputMaybe<Scalars['String']>;
-  manifestUrl?: InputMaybe<Scalars['String']>;
   nodeGroup?: InputMaybe<Scalars['String']>;
   prodImagePath?: InputMaybe<Scalars['String']>;
   prodImageRegistry?: InputMaybe<Scalars['String']>;
@@ -494,8 +496,33 @@ export type JelasticConfigInput = {
   smtpPort?: InputMaybe<Scalars['String']>;
   smtpReadTimeout?: InputMaybe<Scalars['String']>;
   smtpUsername?: InputMaybe<Scalars['String']>;
+  traefikEnvName?: InputMaybe<Scalars['String']>;
   webhookHMAC?: InputMaybe<Scalars['String']>;
   webhookUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type JelasticManifest = {
+  __typename?: 'JelasticManifest';
+  controlJps: Scalars['String'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  installJps: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type JelasticManifestEntity = {
+  __typename?: 'JelasticManifestEntity';
+  attributes?: Maybe<JelasticManifest>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type JelasticManifestEntityResponse = {
+  __typename?: 'JelasticManifestEntityResponse';
+  data?: Maybe<JelasticManifestEntity>;
+};
+
+export type JelasticManifestInput = {
+  controlJps?: InputMaybe<Scalars['String']>;
+  installJps?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -514,6 +541,7 @@ export type Mutation = {
   deleteEmailDesignerEmailTemplate?: Maybe<EmailDesignerEmailTemplateEntityResponse>;
   deleteInstance?: Maybe<InstanceEntityResponse>;
   deleteJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
+  deleteJelasticManifest?: Maybe<JelasticManifestEntityResponse>;
   deleteNotification?: Maybe<NotificationEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Delete an existing role */
@@ -539,6 +567,7 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateInstance?: Maybe<InstanceEntityResponse>;
   updateJelasticConfig?: Maybe<JelasticConfigEntityResponse>;
+  updateJelasticManifest?: Maybe<JelasticManifestEntityResponse>;
   updateNotification?: Maybe<NotificationEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Update an existing role */
@@ -705,6 +734,11 @@ export type MutationUpdateJelasticConfigArgs = {
 };
 
 
+export type MutationUpdateJelasticManifestArgs = {
+  data: JelasticManifestInput;
+};
+
+
 export type MutationUpdateNotificationArgs = {
   data: NotificationInput;
   id: Scalars['ID'];
@@ -827,6 +861,7 @@ export type Query = {
   instance?: Maybe<InstanceEntityResponse>;
   instances?: Maybe<InstanceEntityResponseCollection>;
   jelasticConfig?: Maybe<JelasticConfigEntityResponse>;
+  jelasticManifest?: Maybe<JelasticManifestEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
   notification?: Maybe<NotificationEntityResponse>;
   notifications?: Maybe<NotificationEntityResponseCollection>;
@@ -1381,14 +1416,6 @@ export type ResetMutationVariables = Exact<{
 
 export type ResetMutation = { __typename?: 'Mutation', resetPassword?: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', confirmed?: boolean | null } } | null };
 
-export type FirstInstallMutationVariables = Exact<{
-  user: UserInput;
-  instance: InstanceInstallInput;
-}>;
-
-
-export type FirstInstallMutation = { __typename?: 'Mutation', firstInstall?: { __typename?: 'OkayResponse', ok: boolean, errCode?: string | null } | null };
-
 export type CreateInstanceMutationVariables = Exact<{
   data: InstanceInput;
 }>;
@@ -1597,41 +1624,6 @@ export function useResetMutation(baseOptions?: Apollo.MutationHookOptions<ResetM
 export type ResetMutationHookResult = ReturnType<typeof useResetMutation>;
 export type ResetMutationResult = Apollo.MutationResult<ResetMutation>;
 export type ResetMutationOptions = Apollo.BaseMutationOptions<ResetMutation, ResetMutationVariables>;
-export const FirstInstallDocument = gql`
-    mutation firstInstall($user: UserInput!, $instance: InstanceInstallInput!) {
-  firstInstall(user: $user, instance: $instance) {
-    ok
-    errCode
-  }
-}
-    `;
-export type FirstInstallMutationFn = Apollo.MutationFunction<FirstInstallMutation, FirstInstallMutationVariables>;
-
-/**
- * __useFirstInstallMutation__
- *
- * To run a mutation, you first call `useFirstInstallMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useFirstInstallMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [firstInstallMutation, { data, loading, error }] = useFirstInstallMutation({
- *   variables: {
- *      user: // value for 'user'
- *      instance: // value for 'instance'
- *   },
- * });
- */
-export function useFirstInstallMutation(baseOptions?: Apollo.MutationHookOptions<FirstInstallMutation, FirstInstallMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<FirstInstallMutation, FirstInstallMutationVariables>(FirstInstallDocument, options);
-      }
-export type FirstInstallMutationHookResult = ReturnType<typeof useFirstInstallMutation>;
-export type FirstInstallMutationResult = Apollo.MutationResult<FirstInstallMutation>;
-export type FirstInstallMutationOptions = Apollo.BaseMutationOptions<FirstInstallMutation, FirstInstallMutationVariables>;
 export const CreateInstanceDocument = gql`
     mutation CreateInstance($data: InstanceInput!) {
   createInstance(data: $data) {
