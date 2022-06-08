@@ -5,10 +5,12 @@ import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import {useTranslation} from 'react-i18next';
 import useStyles from './styles';
 import ToolTip from './ToolTip';
+import useBannerStore from '../../stores/useBannerStore';
 
-const Dashboard = () => {
+const LeftBar = () => {
   const {t} = useTranslation();
-  const classes = useStyles();
+  const bannerOffset = useBannerStore(s => s.offset);
+  const classes = useStyles({bannerOffset});
   return (
     <Drawer variant="permanent" className={classes.drawer}>
       <ToolTip
@@ -33,4 +35,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default LeftBar;

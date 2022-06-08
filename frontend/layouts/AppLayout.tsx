@@ -5,18 +5,25 @@ import SupportButton from '../containers/SupportButton';
 import LeftBar from '../containers/LeftBar';
 import TopBar from '../containers/TopBar';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/system';
+import {useTheme} from '@mui/system';
+import Banner, {BannerProps} from '../components/Banner';
 
 type MainLayoutProps = React.PropsWithChildren<{
   headerActions?: React.ReactNode;
+  banner: BannerProps;
 }>;
 
-const MainLayout = ({children, headerActions}: MainLayoutProps) => {
+const MainLayout = ({children, headerActions, banner}: MainLayoutProps) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
-  const offset = matches ? 7 : 0;
+  const supportOffset = matches ? 7 : 0;
   return (
     <Default>
+      <Banner
+        message={banner.message}
+        open={banner.open}
+        onClear={banner.onClear}
+      />
       <Box>
         <TopBar>{headerActions}</TopBar>
         <Box
@@ -28,7 +35,7 @@ const MainLayout = ({children, headerActions}: MainLayoutProps) => {
           <LeftBar />
           {children}
         </Box>
-        <SupportButton offset={offset} />
+        <SupportButton offset={supportOffset} />
       </Box>
     </Default>
   );

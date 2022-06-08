@@ -1,20 +1,12 @@
 import Grid from '@mui/material/Grid';
-import {useInstancesQuery} from '../../graphql/hooks';
-import Loader from '../../components/Loader';
-import useToastStore from '../../stores/useToastStore';
+import {InstanceEntity} from '../../graphql/hooks';
 import InstanceCard from './InstanceCard';
 
-const InstancesList = () => {
-  const {data: {instances} = {}, loading, error} = useInstancesQuery();
-  const addToast = useToastStore(s => s.addToast);
+interface Props {
+  instances: Array<InstanceEntity>;
+}
 
-  if (loading) return <Loader />;
-  if (error) {
-    addToast(error.message);
-  }
-  const {data} = instances ?? {data: []};
-  console.log(data.length)
-
+const InstancesList = ({instances}: Props) => {
   return (
     <Grid
       container
@@ -27,7 +19,7 @@ const InstancesList = () => {
         pb: 16,
       }}
     >
-      {data.map(instance => (
+      {instances.map(instance => (
         <Grid
           key={instance.id}
           item
