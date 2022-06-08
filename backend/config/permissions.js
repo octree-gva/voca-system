@@ -1,9 +1,6 @@
 "use stric";
 
-const publicPerms = [
-  "api::decidim.instance.firstInstall",
-  "api::notification.webhook.handleOne",
-];
+const publicPerms = ["api::notification.webhook.handleOne"];
 
 const authenticated = [
   ...publicPerms,

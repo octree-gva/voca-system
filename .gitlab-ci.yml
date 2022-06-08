@@ -14,7 +14,6 @@ tests:backend:
     paths:
       - backend/node_modules
   script:
-    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
     - cd backend
     - yarn
     - yarn test:cov
@@ -38,7 +37,6 @@ tests:frontend:
     paths:
       - frontend/node_modules
   script:
-    - echo "45.66.221.1 npm-8ee.hidora.com" >> /etc/hosts
     - cd frontend
     - yarn
     - yarn lint

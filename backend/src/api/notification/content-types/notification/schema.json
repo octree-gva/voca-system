@@ -26,7 +26,11 @@
     },
     "level": {
       "type": "enumeration",
-      "enum": ["info", "warn", "error"]
+      "enum": [
+        "info",
+        "warn",
+        "error"
+      ]
     }
   }
 }

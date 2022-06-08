@@ -37,7 +37,11 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["pending", "started", "stopped"]
+      "enum": [
+        "pending",
+        "started",
+        "stopped"
+      ]
     },
     "webhooks": {
       "type": "relation",
@@ -80,6 +84,9 @@
       "type": "string",
       "maxLength": 25,
       "unique": true
+    },
+    "customDomain": {
+      "type": "string"
     }
   }
 }
