@@ -68,6 +68,7 @@
   "CreateInstance.default_locale": "Main Language",
   "CreateInstance.available_locales": "Additional Languages",
   "Dashboard.createInstance": "create new",
+  "Dashboard.createInstance.limit": "The number of instances is currently limited to 5 per account. ",
   "auth.login.heading": "Log in",
   "auth.login.email": "Email",
   "auth.login.password": "Password",

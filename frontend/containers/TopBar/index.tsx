@@ -13,11 +13,13 @@ import {useTranslation} from 'react-i18next';
 import {useRouter} from 'next/router';
 import UserPicture from './UserPicture';
 import Logo from '../../components/Logo';
+import useBannerStore from '../../stores/useBannerStore';
 
 const TopBar = ({children}: {children?: React.ReactNode}) => {
   const session = useSession();
   const {t} = useTranslation();
   const router = useRouter();
+  const bannerOffset = useBannerStore(s => s.offset);
   const [anchorEl, setAnchorEl] = React.useState<HTMLAnchorElement | null>(
     null
   );
@@ -37,6 +39,7 @@ const TopBar = ({children}: {children?: React.ReactNode}) => {
       <AppBar
         position="fixed"
         sx={{
+          top: `${bannerOffset}px`,
           zIndex: theme => theme.zIndex.drawer + 1,
           paddingLeft: '40px',
           bgcolor: theme => theme.palette.background.paper,
