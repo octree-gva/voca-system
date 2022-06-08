@@ -25,9 +25,15 @@ const UserFields = ({setEditing}: Props) => {
 
   const onSubmit = async (userUpdate: UsersPermissionsUserInput) => {
     if (data?.me?.id) {
-      await updateUser({variables: {userUpdate, id: data?.me?.id}});
-      addToast(t('account.updated'));
-      setEditing(false);
+      try {
+        await updateUser({variables: {userUpdate, id: data?.me?.id}});
+
+        addToast(t('account.updated'));
+
+        setEditing(false);
+      } catch (e) {
+        addToast(e.message);
+      }
     } else {
       addToast(t('account.errors.submit'));
     }
@@ -64,9 +70,12 @@ const UserFields = ({setEditing}: Props) => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              p: 1.5,
+              p: 4.5,
               [theme.breakpoints.down(800)]: {
                 flexDirection: 'column',
+              },
+              [theme.breakpoints.down(420)]: {
+                p: 1.5,
               },
             }}
           >

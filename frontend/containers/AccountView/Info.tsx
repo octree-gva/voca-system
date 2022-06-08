@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/system/useTheme';
@@ -16,9 +17,17 @@ const AccountInfo = () => {
   const UserSection = isEditing ? UserFields : UserInfo;
 
   return (
-    <Paper sx={{p: 3, [theme.breakpoints.down(420)]: {p: 0}}}>
+    <Paper sx={{p: 0}}>
       <UserSection setEditing={setEditing} />
-      <Box sx={{display: 'flex', justifyContent: 'space-between', p: 3}}>
+      <Divider />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          p: 6,
+          [theme.breakpoints.down(420)]: {p: 0},
+        }}
+      >
         <Box sx={{display: 'inline-block'}}>
           <Typography variant="h6">{t('account.plan')}</Typography>
           <Typography

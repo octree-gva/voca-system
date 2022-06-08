@@ -11,7 +11,7 @@ const UserInfo = ({setEditing}) => {
   const {data} = useProfileQuery();
 
   return (
-    <>
+    <Box sx={{p: 3, [theme.breakpoints.down(420)]: {p: 0}}}>
       <Box
         sx={{
           display: 'flex',
@@ -78,7 +78,7 @@ const UserInfo = ({setEditing}) => {
           </Button>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 
