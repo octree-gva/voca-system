@@ -1,13 +1,14 @@
 import {useState} from 'react';
-import Typography from '@mui/material/Typography';
-import {styled} from '@mui/material/styles';
+import {Formik} from 'formik';
 import {useTranslation} from 'react-i18next';
-import {Formik, Form, Field} from 'formik';
-import {TextField} from 'formik-mui';
-import useValidationSchema from './useValidationSchema';
 import {signIn} from 'next-auth/react';
-import {Box, Button, Dialog} from '@mui/material';
+import {Box, Dialog, Typography} from '@mui/material';
+import useValidationSchema from './useValidationSchema';
+import SignupStep1Inputs from './step1Inputs';
+import Step2Inputs from './step2Inputs';
+import StepsForm from '../StepsForm';
 import {useRegisterUserMutation} from '../../graphql/hooks';
+import SubmitAction from './SubmitAction';
 
 const INITIAL_VALUES = {
   email: '',
@@ -15,15 +16,14 @@ const INITIAL_VALUES = {
   password_confirmation: '',
 };
 
-export type SignupProps = React.PropsWithChildren<{}>;
-
-const Signup = ({children}: SignupProps) => {
-  const {t} = useTranslation(undefined);
+const Signup = () => {
+  const {t} = useTranslation();
   const [errCode, setErrCode] = useState<null | string>();
   const RegisterSchema = useValidationSchema();
   const [registerUser] = useRegisterUserMutation();
 
   const onSubmit = async (values: typeof INITIAL_VALUES) => {
+    console.log(values);
     setErrCode(null);
     try {
       const {email, password, password_confirmation} = values;
@@ -32,7 +32,7 @@ const Signup = ({children}: SignupProps) => {
         return;
       }
       const {
-        data: {register: {user: {administratorAccounts}}={}},
+        data: {register: {user: {administratorAccounts}} = {}},
       } = await registerUser({variables: {email, password}});
       const accountId = administratorAccounts[0].id;
 
@@ -63,56 +63,24 @@ const Signup = ({children}: SignupProps) => {
           validationSchema={RegisterSchema}
           onSubmit={onSubmit}
         >
-          {() => (
-            <Form>
-              <FieldSet>
-                <Typography
-                  variant="h6"
-                  color="textSecondary"
-                >{t`register.account.heading`}</Typography>
-                <Field
-                  component={TextField}
-                  name="email"
-                  type="email"
-                  label={t`register.account.email`}
-                  required
-                />
-                <Field
-                  component={TextField}
-                  name="password"
-                  type="password"
-                  label={t`register.account.password`}
-                  required
-                />
-                <Field
-                  component={TextField}
-                  name="password_confirmation"
-                  type="password"
-                  label={t`register.account.password_confirmation`}
-                  required
-                />
-              </FieldSet>
-              {errCode && (
-                <Typography color="error" sx={{mb: 2}}>
-                  {t(`errors.${errCode}`)}
-                </Typography>
-              )}
-              {children}
-            </Form>
+          {({...formik}) => (
+            <StepsForm
+              steps={{
+                1: {Inputs: SignupStep1Inputs},
+                2: {Inputs: Step2Inputs, Action: SubmitAction},
+              }}
+              {...formik}
+            />
           )}
         </Formik>
+        {errCode && (
+          <Typography color="error" sx={{mb: 2}}>
+            {t(`errors.${errCode}`)}
+          </Typography>
+        )}
       </Box>
     </Dialog>
   );
 };
-
-const FieldSet = styled('fieldset')(({theme}) => ({
-  padding: theme.spacing(1, 0),
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  margin: theme.spacing(1, 0),
-  border: 'none',
-}));
 
 export default Signup;

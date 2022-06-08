@@ -1,34 +1,38 @@
 import {useState} from 'react';
 import Dialog from '@mui/material/Dialog';
-import MuiTextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
 import {useTranslation} from 'react-i18next';
-import {Field, Form, Formik} from 'formik';
-import {Autocomplete, TextField} from 'formik-mui';
-import Logo from '../../components/Logo';
+import {Formik} from 'formik';
 import useValidationSchema from './useValidationSchema';
-import {InstancesDocument, useCreateInstanceMutation} from '../../graphql/hooks';
-import SubdomainField from './SubdomainField';
-import {styled} from '@mui/system';
-import Button from '@mui/material/Button';
+import {
+  InstancesDocument,
+  useCreateInstanceMutation,
+} from '../../graphql/hooks';
 import {useSession} from 'next-auth/react';
+import StepsForm from '../StepsForm';
+import Step1Input from './step1Inputs';
+import Step2Input from './step2Inputs';
+import MakeStep3Input from './step3Inputs';
+import MakeStep4Input from './step4Inputs';
+import MakeStep5Input from './step5Inputs';
+import {Option} from './types';
+import SubmitAction from './SubmitAction';
+
+type TranslatedOption = {
+  value: string;
+  label: string;
+};
+const valueToId = ({label, value}: TranslatedOption): Option => ({
+  label,
+  id: value,
+});
 
 interface Props {
   open: boolean;
   onClose: () => void;
   submitCallback?: () => void;
 }
-
-type Option = {
-  id: string;
-  label: string;
-};
-
-type TranslatedOption = {
-  value: string;
-  label: string;
-};
 
 const INITIAL_VALUES = {
   title: '',
@@ -49,6 +53,18 @@ const CreateInstance = (props: Props) => {
   const {open, onClose, submitCallback = props.onClose} = props;
   const account = user.administratorAccounts[0];
 
+  const timezoneOptions = (
+    t('available_timezones', {
+      returnObjects: true,
+    }) as Array<TranslatedOption>
+  ).map(valueToId);
+
+  const localeOptions = (
+    t('available_locales', {
+      returnObjects: true,
+    }) as Array<TranslatedOption>
+  ).map(valueToId);
+
   const onSubmit = async (values: typeof INITIAL_VALUES) => {
     setErrCode(null);
     try {
@@ -57,7 +73,9 @@ const CreateInstance = (props: Props) => {
         variables: {
           data: {
             ...values,
-            available_locales: [default_locale, ...available_locales].map(({id}) => id).join(','),
+            available_locales: [default_locale, ...available_locales]
+              .map(({id}) => id)
+              .join(','),
             default_locale: default_locale.id,
             timezone: timezone.id,
             creator: user.id,
@@ -76,23 +94,6 @@ const CreateInstance = (props: Props) => {
     }
   };
 
-  const valueToId = ({label, value}: TranslatedOption): Option => ({
-    label,
-    id: value,
-  });
-
-  const timezoneOptions = (
-    t('available_timezones', {
-      returnObjects: true,
-    }) as Array<TranslatedOption>
-  ).map(valueToId);
-
-  const localeOptions = (
-    t('available_locales', {
-      returnObjects: true,
-    }) as Array<TranslatedOption>
-  ).map(valueToId);
-
   return (
     <Dialog
       open={open}
@@ -103,114 +104,59 @@ const CreateInstance = (props: Props) => {
       transitionDuration={1}
     >
       <Box width={440} maxWidth="100%" p={3}>
-        <Box textAlign="center" py={3}>
-          <Logo height={30} width={120} />
-        </Box>
-        <Box py={4}>
-          <Typography variant="h3" id="create-instance">
-            {t('CreateInstance.title')}
+        <Formik
+          initialValues={{
+            ...INITIAL_VALUES,
+            timezone:
+              timezoneOptions.find(
+                ({id}) => id === INITIAL_VALUES.timezone.id
+              ) || INITIAL_VALUES.timezone,
+            default_locale:
+              localeOptions.find(
+                ({id}) => id === INITIAL_VALUES.default_locale.id
+              ) || INITIAL_VALUES.default_locale,
+          }}
+          validationSchema={RegisterSchema}
+          onSubmit={onSubmit}
+        >
+          {({...formik}) => (
+            <StepsForm
+              steps={{
+                1: {
+                  Inputs: Step1Input,
+                },
+                2: {
+                  Inputs: Step2Input,
+                },
+                3: {
+                  Inputs: MakeStep3Input({
+                    localeOptions,
+                  }),
+                },
+                4: {
+                  Inputs: MakeStep4Input({
+                    localeOptions,
+                  }),
+                },
+                5: {
+                  Inputs: MakeStep5Input({
+                    timezoneOptions,
+                  }),
+                  Action: SubmitAction,
+                },
+              }}
+              {...formik}
+            />
+          )}
+        </Formik>
+        {errCode && (
+          <Typography color="error" sx={{mb: 2}}>
+            {t(`errors.${errCode}`)}
           </Typography>
-          <Formik
-            initialValues={{
-              ...INITIAL_VALUES,
-              timezone:
-                timezoneOptions.find(
-                  ({id}) => id === INITIAL_VALUES.timezone.id
-                ) || INITIAL_VALUES.timezone,
-              default_locale:
-                localeOptions.find(
-                  ({id}) => id === INITIAL_VALUES.default_locale.id
-                ) || INITIAL_VALUES.default_locale,
-            }}
-            validationSchema={RegisterSchema}
-            onSubmit={onSubmit}
-          >
-            {() => (
-              <Form>
-                <FieldSet>
-                  <Field
-                    component={TextField}
-                    name="title"
-                    label={t`CreateInstance.platform_title`}
-                    required
-                  />
-                  <Field
-                    component={TextField}
-                    name="acronym"
-                    label={t`CreateInstance.acronym`}
-                  />
-                  <Field
-                    component={TextField}
-                    name="currency"
-                    label={t`CreateInstance.currency`}
-                    required
-                  />
-                  <Field
-                    component={Autocomplete}
-                    renderInput={({...params}) => (
-                      <MuiTextField
-                        {...params}
-                        label={t`CreateInstance.timezone`}
-                      />
-                    )}
-                    options={timezoneOptions}
-                    name="timezone"
-                    required
-                  />
-                  <Field
-                    component={Autocomplete}
-                    renderInput={({...params}) => (
-                      <MuiTextField
-                        {...params}
-                        label={t`CreateInstance.default_locale`}
-                      />
-                    )}
-                    name="default_locale"
-                    options={localeOptions}
-                    required
-                  />
-                  <Field
-                    component={Autocomplete}
-                    name="available_locales"
-                    renderInput={({...params}) => (
-                      <MuiTextField
-                        {...params}
-                        label={t`CreateInstance.available_locales`}
-                      />
-                    )}
-                    multiple
-                    options={localeOptions}
-                    required
-                  />
-                  <Field
-                    component={SubdomainField}
-                    name="subdomain"
-                    label={t`CreateInstance.subdomain`}
-                    required
-                  />
-                </FieldSet>
-                {errCode && (
-                  <Typography color="error" sx={{mb: 2}}>
-                    {t(`errors.${errCode}`)}
-                  </Typography>
-                )}
-                <Button type="submit">Register</Button>
-              </Form>
-            )}
-          </Formik>
-        </Box>
+        )}
       </Box>
     </Dialog>
   );
 };
-
-const FieldSet = styled('fieldset')(({theme}) => ({
-  padding: theme.spacing(1, 0),
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  margin: theme.spacing(1, 0),
-  border: 'none',
-}));
 
 export default CreateInstance;
