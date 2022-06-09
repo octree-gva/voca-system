@@ -1,6 +1,6 @@
 const { setupStrapi, cleanupStrapi } = require("./strapi");
 
-jest.setTimeout(15000);
+jest.setTimeout(22000);
 beforeAll(async () => {
   await setupStrapi();
 });
