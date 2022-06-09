@@ -29,7 +29,7 @@ ENV VERSION=${VERSION:-dev} \
 
 WORKDIR $ROOT
 
-RUN apk add --upgrade --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash
+RUN apk add --upgrade --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash python3
 RUN echo " {\"version\":\"$VERSION\"}" > $ROOT/VERSION.json
 
 VOLUME $ROOT/node_modules
