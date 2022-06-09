@@ -1,6 +1,17 @@
 include:
   - project: o/infra/templates
     file: /gitlab-ci/includes/jobs.yaml
+cache:
+  - key:
+      files:
+        - backend/yarn.lock
+    paths:
+      - backend/.yarn-cache/
+  - key:
+      files:
+        - frontend/yarn.lock
+    paths:
+      - frontend/.yarn-cache/
 
 tests:backend:
   stage: test
@@ -9,17 +20,9 @@ tests:backend:
   only:
     - merge_requests
     - main
-  cache:
-    key:
-      files:
-        - backend/yarn.lock
-    paths:
-      - backend/.yarn-cache/
   script:
     - cd backend
-    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
-    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
-    - yarn install --frozen-lockfile --no-progress
+    - yarn install --frozen-lockfile --no-progress --cache-folder .yarn-cache
     - yarn test:ci
   artifacts:
     when: always
@@ -33,17 +36,9 @@ tests:frontend-swc:
   only:
     - merge_requests
     - main
-  cache:
-    key:
-      files:
-        - frontend/yarn.lock
-    paths:
-      - frontend/.yarn-cache/
   script:
     - cd frontend
-    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
-    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
-    - yarn install --frozen-lockfile --no-progress
+    - yarn install --frozen-lockfile --no-progress --cache-folder .yarn-cache
     - rm .babelrc && yarn build
 
 tests:frontend:
@@ -53,17 +48,9 @@ tests:frontend:
   only:
     - merge_requests
     - main
-  cache:
-    key:
-      files:
-        - frontend/yarn.lock
-    paths:
-      - frontend/.yarn-cache/
   script:
     - cd frontend
-    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
-    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
-    - yarn install --frozen-lockfile --no-progress
+    - yarn install --frozen-lockfile --no-progress --cache-folder .yarn-cache
     - yarn lint
     - yarn test:ci
   artifacts:
