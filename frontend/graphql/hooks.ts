@@ -100,6 +100,12 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type DnsLookup = {
+  __typename?: 'DNSLookup';
+  ip?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -298,6 +304,8 @@ export type Instance = {
   creator?: Maybe<UsersPermissionsUserEntityResponse>;
   currency?: Maybe<Scalars['String']>;
   customDomain?: Maybe<Scalars['String']>;
+  /** IP after a DNS check over the customDomain field. Return null if no customDomain is present. */
+  customDomainLookup?: Maybe<DnsLookup>;
   default_locale?: Maybe<Scalars['String']>;
   envName?: Maybe<Scalars['String']>;
   instanceUUID?: Maybe<Scalars['String']>;
@@ -383,16 +391,6 @@ export type InstanceInput = {
   webhooks?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
-export type InstanceInstallInput = {
-  acronym: Scalars['String'];
-  available_locales: Scalars['String'];
-  currency: Scalars['String'];
-  default_locale: Scalars['String'];
-  subdomain: Scalars['String'];
-  timezone: Scalars['String'];
-  title: Scalars['String'];
-};
-
 export type IntFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -444,6 +442,7 @@ export type JelasticConfig = {
   createdAt?: Maybe<Scalars['DateTime']>;
   defaultFromEmail?: Maybe<Scalars['String']>;
   defaultSystemPassword?: Maybe<Scalars['String']>;
+  errorUrl?: Maybe<Scalars['String']>;
   jelasticHost?: Maybe<Scalars['String']>;
   jelasticToken?: Maybe<Scalars['String']>;
   jobImagePath?: Maybe<Scalars['String']>;
@@ -480,6 +479,7 @@ export type JelasticConfigEntityResponse = {
 export type JelasticConfigInput = {
   defaultFromEmail?: InputMaybe<Scalars['String']>;
   defaultSystemPassword?: InputMaybe<Scalars['String']>;
+  errorUrl?: InputMaybe<Scalars['String']>;
   jelasticHost?: InputMaybe<Scalars['String']>;
   jelasticToken?: InputMaybe<Scalars['String']>;
   jobImagePath?: InputMaybe<Scalars['String']>;
@@ -551,8 +551,6 @@ export type Mutation = {
   deleteWebhook?: Maybe<WebhookEntityResponse>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
-  /** Create user account and install first instance */
-  firstInstall?: Maybe<OkayResponse>;
   /** Request a reset password token */
   forgotPassword?: Maybe<UsersPermissionsPasswordPayload>;
   login: UsersPermissionsLoginPayload;
@@ -661,12 +659,6 @@ export type MutationDeleteWebhookArgs = {
 
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String'];
-};
-
-
-export type MutationFirstInstallArgs = {
-  instance: InstanceInstallInput;
-  user: UserInput;
 };
 
 
@@ -827,12 +819,6 @@ export type NotificationInput = {
 export type NotificationRelationResponseCollection = {
   __typename?: 'NotificationRelationResponseCollection';
   data: Array<NotificationEntity>;
-};
-
-export type OkayResponse = {
-  __typename?: 'OkayResponse';
-  errCode?: Maybe<Scalars['String']>;
-  ok: Scalars['Boolean'];
 };
 
 export type Pagination = {
@@ -1087,12 +1073,6 @@ export type UploadFileInput = {
   size?: InputMaybe<Scalars['Float']>;
   url?: InputMaybe<Scalars['String']>;
   width?: InputMaybe<Scalars['Int']>;
-};
-
-export type UserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-  password_confirmation: Scalars['String'];
 };
 
 export type UsersPermissionsCreateRolePayload = {

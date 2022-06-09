@@ -42,6 +42,9 @@
     "defaultSystemPassword": {
       "type": "string"
     },
+    "errorUrl": {
+      "type": "string"
+    },
     "webhookUrl": {
       "type": "string"
     },

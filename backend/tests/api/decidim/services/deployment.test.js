@@ -31,6 +31,7 @@ describe("service/api::decidim.deployment", () => {
           PROD_IMAGE_PATH: config.prodImagePath,
           IMAGE_USERNAME: config.registeryUsername,
           IMAGE_PASSWORD: config.registeryPassword,
+          ERROR_URL: config.errorUrl,
           WEBHOOK_URL: config.webhookUrl,
           WEBHOOK_HMAC: config.webhookHMAC,
           SMTP_HOST: config.smtpHost,
