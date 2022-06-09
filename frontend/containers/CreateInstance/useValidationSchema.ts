@@ -40,9 +40,8 @@ const useValidationSchema = () => {
                   body: JSON.stringify({subdomain: value}),
                 })
                   .then(async response => {
-                    const body = await response.json()
-                    const result = JSON.parse(body)
-                    console.log(result);
+                    const body = await response.json();
+                    const result = JSON.parse(body);
                     resolve(result.ok);
                   })
                   .catch(() => {

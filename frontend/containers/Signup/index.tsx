@@ -23,7 +23,6 @@ const Signup = () => {
   const [registerUser] = useRegisterUserMutation();
 
   const onSubmit = async (values: typeof INITIAL_VALUES) => {
-    console.log(values);
     setErrCode(null);
     try {
       const {email, password, password_confirmation} = values;
