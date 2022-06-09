@@ -65,7 +65,7 @@
   "LeftBar.roadmap": "Roadmap",
   "InstanceCard.upgrade": "upgrade",
   "InstanceCard.settings": "settings",
-  "CreateInstance.heading": "Setup your Decidim",
+  "CreateInstance.heading": "About your Decidim",
   "CreateInstance.about": "About your platform",
   "CreateInstance.options": "Choose your options",
   "CreateInstance.platform_title": "Platform title",
@@ -114,5 +114,6 @@
   "auth.errors.code.provide": "This new password link is not valid.",
   "auth.unauthorized.title": "Sorry",
   "auth.unauthorized.content": "You are not allowed to see this page.",
-  "auth.unauthorized.loginAction": "Log in"
+  "auth.unauthorized.loginAction": "Log in",
+  "signup.next": "Next"
 }
