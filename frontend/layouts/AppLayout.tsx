@@ -8,22 +8,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/system';
 import Banner, {BannerProps} from '../components/Banner';
 
-type MainLayoutProps = React.PropsWithChildren<{
+type AppLayoutProps = React.PropsWithChildren<{
   headerActions?: React.ReactNode;
   banner: BannerProps;
 }>;
 
-const MainLayout = ({children, headerActions, banner}: MainLayoutProps) => {
+const AppLayout = ({children, headerActions, banner}: AppLayoutProps) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const supportOffset = matches ? 7 : 0;
   return (
     <Default>
-      <Banner
-        message={banner.message}
-        open={banner.open}
-        onClear={banner.onClear}
-      />
+      {banner && (
+        <Banner
+          message={banner.message}
+          open={banner.open}
+          onClear={banner.onClear}
+        />
+      )}
       <Box>
         <TopBar>{headerActions}</TopBar>
         <Box
@@ -41,4 +43,4 @@ const MainLayout = ({children, headerActions, banner}: MainLayoutProps) => {
   );
 };
 
-export default MainLayout;
+export default AppLayout;

@@ -1,3 +1,4 @@
 .next
 .husky
 node_modules
+.babelrc
