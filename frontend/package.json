@@ -41,8 +41,7 @@
     "pre_commit": "NODE_ENV=test  yarn lint && yarn jest --onlyChanged",
     "lint": "next lint",
     "test": "NODE_ENV=test jest --watch",
-    "test:ci": "NODE_ENV=test jest --ci --reporters=default --reporters=jest-junit",
-    "test:cov": "jest --ci --coverage --reporters=jest-junit",
+    "test:ci": "NODE_ENV=test jest --ci --coverage --reporters=default --reporters=jest-junit",
     "gql": "graphql-codegen --config codegen.yml",
     "prepare": "cd .. && husky install frontend/.husky | true",
     "next": "next"
@@ -58,6 +57,7 @@
     "@graphql-codegen/typescript": "^2.3.0",
     "@graphql-codegen/typescript-operations": "^2.2.0",
     "@graphql-codegen/typescript-react-apollo": "^3.2.0",
+    "@jest/types": "^28.1.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",

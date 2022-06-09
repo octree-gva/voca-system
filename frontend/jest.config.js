@@ -1,3 +1,5 @@
+const {defaults} = require('jest-config');
+
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   // Add more setup options before each test is run
@@ -5,6 +7,7 @@ const customJestConfig = {
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   moduleDirectories: ['node_modules', '<rootDir>/', 'utils'],
   snapshotSerializers: ['@emotion/jest/serializer'],
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
 
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {

@@ -12,8 +12,7 @@
     "console": "PORT=1336 yarn strapi console",
     "pre_commit": "yarn test:ci --onlyChanged",
     "test": "NODE_ENV=test jest --watch --detectOpenHandles",
-    "test:cov": "NODE_ENV=test jest --ci --coverage --forceExit --runInBand || true",
-    "test:ci": "NODE_ENV=test jest --ci --runInBand --forceExit --detectOpenHandles --reporters=default --reporters=jest-junit"
+    "test:ci": "NODE_ENV=test jest --ci  --coverage --runInBand --forceExit --detectOpenHandles --reporters=default --reporters=jest-junit"
   },
   "devDependencies": {
     "chance": "^1.1.8",

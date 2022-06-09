@@ -10,13 +10,16 @@ tests:backend:
     - merge_requests
     - main
   cache:
-    key: node_modules
+    key:
+      files:
+        - backend/yarn.lock
     paths:
-      - backend/node_modules
+      - backend/.yarn-cache/
   script:
     - cd backend
-    - yarn
-    - yarn test:cov
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
     - yarn test:ci
   artifacts:
     when: always
@@ -24,6 +27,24 @@ tests:backend:
       junit:
         - backend/junit.xml
 
+tests:frontend-swc:
+  stage: test
+  image: node:16.13.0-alpine3.14
+  only:
+    - merge_requests
+    - main
+  cache:
+    key:
+      files:
+        - frontend/yarn.lock
+    paths:
+      - frontend/.yarn-cache/
+  script:
+    - cd frontend
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
+    - rm .babelrc && yarn build
 
 tests:frontend:
   stage: test
@@ -33,21 +54,23 @@ tests:frontend:
     - merge_requests
     - main
   cache:
-    key: front_node_modules
+    key:
+      files:
+        - frontend/yarn.lock
     paths:
-      - frontend/node_modules
+      - frontend/.yarn-cache/
   script:
     - cd frontend
-    - yarn
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
     - yarn lint
     - yarn test:ci
-    - yarn test:cov
   artifacts:
     when: always
     reports:
       junit:
         - frontend/junit.xml
-
 
 build:backend:
   stage: build
