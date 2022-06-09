@@ -69,6 +69,7 @@ module.exports = ({ strapi }) => ({
           IMAGE_PASSWORD: conf.registeryPassword,
           INSTANCE_UUID: instanceEntity.instanceUUID,
           TIMEZONE: instanceEntity.timezone,
+          ERROR_URL: conf.errorUrl,
           WEBHOOK_URL: conf.webhookUrl,
           WEBHOOK_HMAC: conf.webhookHMAC,
           SMTP_HOST: conf.smtpHost,

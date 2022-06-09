@@ -12,6 +12,7 @@ const configFactory = {
       registeryPassword: "REGISTERYPASSWORD",
       defaultFromEmail: "DEFAULTFROMEMAIL",
       defaultSystemPassword: "DEFAULTSYSTEMPASSWORD",
+      errorUrl: "ERROR_URL",
       webhookUrl: "WEBHOOKURL",
       webhookHMAC: "WEBHOOKHMAC",
       smtpHost: "SMTPHOST",
