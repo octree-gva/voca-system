@@ -1403,10 +1403,32 @@ export type CreateInstanceMutationVariables = Exact<{
 
 export type CreateInstanceMutation = { __typename?: 'Mutation', createInstance?: { __typename?: 'InstanceEntityResponse', data?: { __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title: string, subdomain: string, envName?: string | null, instanceUUID?: string | null, status?: Enum_Instance_Status | null, default_locale?: string | null, available_locales?: string | null, currency?: string | null, account: { __typename?: 'AccountEntityResponse', data?: { __typename?: 'AccountEntity', id?: string | null } | null } } | null } | null } | null };
 
+export type UpdateInstanceMutationVariables = Exact<{
+  instanceUpdate: InstanceInput;
+  id: Scalars['ID'];
+}>;
+
+
+export type UpdateInstanceMutation = { __typename?: 'Mutation', updateInstance?: { __typename?: 'InstanceEntityResponse', data?: { __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', instanceUUID?: string | null } | null } | null } | null };
+
 export type InstancesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type InstancesQuery = { __typename?: 'Query', instances?: { __typename?: 'InstanceEntityResponseCollection', data: Array<{ __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title: string, subdomain: string, envName?: string | null, instanceUUID?: string | null, status?: Enum_Instance_Status | null, default_locale?: string | null, available_locales?: string | null, currency?: string | null, account: { __typename?: 'AccountEntityResponse', data?: { __typename?: 'AccountEntity', id?: string | null } | null } } | null }> } | null };
+
+export type InstanceQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type InstanceQuery = { __typename?: 'Query', instance?: { __typename?: 'InstanceEntityResponse', data?: { __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', title: string, subdomain: string, envName?: string | null, instanceUUID?: string | null, status?: Enum_Instance_Status | null, default_locale?: string | null, available_locales?: string | null, customDomain?: string | null, currency?: string | null, account: { __typename?: 'AccountEntityResponse', data?: { __typename?: 'AccountEntity', id?: string | null } | null } } | null } | null } | null };
+
+export type InstanceCustomDomainLookupQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type InstanceCustomDomainLookupQuery = { __typename?: 'Query', instance?: { __typename?: 'InstanceEntityResponse', data?: { __typename?: 'InstanceEntity', id?: string | null, attributes?: { __typename?: 'Instance', customDomainLookup?: { __typename?: 'DNSLookup', ip?: string | null, version?: string | null } | null } | null } | null } | null };
 
 export type NotificationsQueryVariables = Exact<{
   instance: Scalars['ID'];
@@ -1654,6 +1676,45 @@ export function useCreateInstanceMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateInstanceMutationHookResult = ReturnType<typeof useCreateInstanceMutation>;
 export type CreateInstanceMutationResult = Apollo.MutationResult<CreateInstanceMutation>;
 export type CreateInstanceMutationOptions = Apollo.BaseMutationOptions<CreateInstanceMutation, CreateInstanceMutationVariables>;
+export const UpdateInstanceDocument = gql`
+    mutation updateInstance($instanceUpdate: InstanceInput!, $id: ID!) {
+  updateInstance(id: $id, data: $instanceUpdate) {
+    data {
+      id
+      attributes {
+        instanceUUID
+      }
+    }
+  }
+}
+    `;
+export type UpdateInstanceMutationFn = Apollo.MutationFunction<UpdateInstanceMutation, UpdateInstanceMutationVariables>;
+
+/**
+ * __useUpdateInstanceMutation__
+ *
+ * To run a mutation, you first call `useUpdateInstanceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInstanceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInstanceMutation, { data, loading, error }] = useUpdateInstanceMutation({
+ *   variables: {
+ *      instanceUpdate: // value for 'instanceUpdate'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateInstanceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateInstanceMutation, UpdateInstanceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateInstanceMutation, UpdateInstanceMutationVariables>(UpdateInstanceDocument, options);
+      }
+export type UpdateInstanceMutationHookResult = ReturnType<typeof useUpdateInstanceMutation>;
+export type UpdateInstanceMutationResult = Apollo.MutationResult<UpdateInstanceMutation>;
+export type UpdateInstanceMutationOptions = Apollo.BaseMutationOptions<UpdateInstanceMutation, UpdateInstanceMutationVariables>;
 export const InstancesDocument = gql`
     query Instances {
   instances {
@@ -1705,6 +1766,102 @@ export function useInstancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type InstancesQueryHookResult = ReturnType<typeof useInstancesQuery>;
 export type InstancesLazyQueryHookResult = ReturnType<typeof useInstancesLazyQuery>;
 export type InstancesQueryResult = Apollo.QueryResult<InstancesQuery, InstancesQueryVariables>;
+export const InstanceDocument = gql`
+    query Instance($id: ID!) {
+  instance(id: $id) {
+    data {
+      id
+      attributes {
+        title
+        subdomain
+        envName
+        instanceUUID
+        status
+        default_locale
+        available_locales
+        customDomain
+        currency
+        account {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useInstanceQuery__
+ *
+ * To run a query within a React component, call `useInstanceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInstanceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInstanceQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useInstanceQuery(baseOptions: Apollo.QueryHookOptions<InstanceQuery, InstanceQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InstanceQuery, InstanceQueryVariables>(InstanceDocument, options);
+      }
+export function useInstanceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InstanceQuery, InstanceQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InstanceQuery, InstanceQueryVariables>(InstanceDocument, options);
+        }
+export type InstanceQueryHookResult = ReturnType<typeof useInstanceQuery>;
+export type InstanceLazyQueryHookResult = ReturnType<typeof useInstanceLazyQuery>;
+export type InstanceQueryResult = Apollo.QueryResult<InstanceQuery, InstanceQueryVariables>;
+export const InstanceCustomDomainLookupDocument = gql`
+    query InstanceCustomDomainLookup($id: ID!) {
+  instance(id: $id) {
+    data {
+      id
+      attributes {
+        customDomainLookup {
+          ip
+          version
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useInstanceCustomDomainLookupQuery__
+ *
+ * To run a query within a React component, call `useInstanceCustomDomainLookupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInstanceCustomDomainLookupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInstanceCustomDomainLookupQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useInstanceCustomDomainLookupQuery(baseOptions: Apollo.QueryHookOptions<InstanceCustomDomainLookupQuery, InstanceCustomDomainLookupQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InstanceCustomDomainLookupQuery, InstanceCustomDomainLookupQueryVariables>(InstanceCustomDomainLookupDocument, options);
+      }
+export function useInstanceCustomDomainLookupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InstanceCustomDomainLookupQuery, InstanceCustomDomainLookupQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InstanceCustomDomainLookupQuery, InstanceCustomDomainLookupQueryVariables>(InstanceCustomDomainLookupDocument, options);
+        }
+export type InstanceCustomDomainLookupQueryHookResult = ReturnType<typeof useInstanceCustomDomainLookupQuery>;
+export type InstanceCustomDomainLookupLazyQueryHookResult = ReturnType<typeof useInstanceCustomDomainLookupLazyQuery>;
+export type InstanceCustomDomainLookupQueryResult = Apollo.QueryResult<InstanceCustomDomainLookupQuery, InstanceCustomDomainLookupQueryVariables>;
 export const NotificationsDocument = gql`
     query Notifications($instance: ID!) {
   notifications(

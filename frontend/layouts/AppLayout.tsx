@@ -10,7 +10,7 @@ import Banner, {BannerProps} from '../components/Banner';
 
 type AppLayoutProps = React.PropsWithChildren<{
   headerActions?: React.ReactNode;
-  banner: BannerProps;
+  banner?: BannerProps;
 }>;
 
 const AppLayout = ({children, headerActions, banner}: AppLayoutProps) => {

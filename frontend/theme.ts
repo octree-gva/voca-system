@@ -48,7 +48,9 @@ export const themeOptions: ThemeOptions = {
     },
     h4: {
       fontFamily: 'Inter',
-      fontSize: '22px',
+      fontSize: '18px',
+      fontWeight: 'bold',
+      margin: '8px 0'
     },
     h5: {
       fontFamily: 'Inter',
