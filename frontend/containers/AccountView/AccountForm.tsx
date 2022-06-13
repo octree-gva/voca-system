@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import {Field, Form, Formik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import {
+  ProfileDocument,
   useProfileQuery,
   UsersPermissionsUserInput,
   useUpdateUserMutation,
@@ -26,7 +27,14 @@ const UserFields = ({setEditing}: Props) => {
   const onSubmit = async (userUpdate: UsersPermissionsUserInput) => {
     if (data?.me?.id) {
       try {
-        await updateUser({variables: {userUpdate, id: data?.me?.id}});
+        await updateUser({
+          variables: {userUpdate, id: data?.me?.id},
+          refetchQueries: [
+            {
+              query: ProfileDocument,
+            },
+          ],
+        });
 
         addToast(t('account.updated'));
 

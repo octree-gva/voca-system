@@ -5,9 +5,11 @@ import {useTranslation} from 'react-i18next';
 import {InstanceSettingsPage} from '../../layouts/InstanceSettings';
 import {useInstanceCustomDomainLookupQuery} from '../../graphql/hooks';
 import useToastStore from '../../stores/useToastStore';
+import {useTheme} from '@mui/system';
 
 const DomainLookup: InstanceSettingsPage = ({instance}) => {
   const {t} = useTranslation();
+  const theme = useTheme();
   const addToast = useToastStore(s => s.addToast);
   const {data, loading, error} = useInstanceCustomDomainLookupQuery({
     variables: {id: instance.id as string},
@@ -30,9 +32,15 @@ const DomainLookup: InstanceSettingsPage = ({instance}) => {
     data?.instance?.data?.attributes?.customDomainLookup?.ip;
 
   const lookupColor =
-    customDomainLookup === t('domains.required_ip') ? 'success' : 'error';
+    customDomainLookup === t('domains.required_ip')
+      ? theme.palette.success.main
+      : 'error';
 
-  return <Typography color={lookupColor}>{customDomainLookup || t('lookup.none')}</Typography>;
+  return (
+    <Typography color={lookupColor}>
+      {customDomainLookup || t('lookup.none')}
+    </Typography>
+  );
 };
 
 export default DomainLookup;
