@@ -65,7 +65,7 @@ const jelasticClientFactory = (jelasticRequest) => {
           jelasticRequest.post("/marketplace/jps/rest/install", "", {
             params: {
               envName,
-              jps: manifest,
+              jps: manifest + `?_r=d${+new Date()}`,
               displayName,
               nodeGroup,
               settings: JSON.stringify(manifestSettings),
