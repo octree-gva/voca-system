@@ -112,9 +112,9 @@ exports[`Errors page renders status=404 matches snapshot 1`] = `
 
 .emotion-5 {
   margin: 10px 0;
-  font-family: Inter;
   font-size: 26px;
   font-weight: bold;
+  font-family: "Inter",sans-serif;
   line-height: 1.2;
   margin-top: 32px;
   margin-bottom: 32px;
@@ -122,9 +122,9 @@ exports[`Errors page renders status=404 matches snapshot 1`] = `
 
 .emotion-6 {
   margin: 0;
-  font-family: Inter;
   font-size: .875rem;
   font-weight: bold;
+  font-family: "Inter",sans-serif;
   line-height: 1.6;
 }
 
@@ -161,7 +161,7 @@ exports[`Errors page renders status=404 matches snapshot 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   color: inherit;
-  font-family: Inter;
+  font-family: "Inter",sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
