@@ -65,6 +65,31 @@ const CreateInstance = (props: Props) => {
     }) as Array<TranslatedOption>
   ).map(valueToId);
 
+  const steps = {
+    1: {
+      Inputs: Step1Input,
+    },
+    2: {
+      Inputs: Step2Input,
+    },
+    3: {
+      Inputs: MakeStep3Input({
+        localeOptions,
+      }),
+    },
+    4: {
+      Inputs: MakeStep4Input({
+        localeOptions,
+      }),
+    },
+    5: {
+      Inputs: MakeStep5Input({
+        timezoneOptions,
+      }),
+      Action: SubmitAction,
+    },
+  }
+
   const onSubmit = async (values: typeof INITIAL_VALUES) => {
     setErrCode(null);
     try {
@@ -121,30 +146,7 @@ const CreateInstance = (props: Props) => {
         >
           {({...formik}) => (
             <StepsForm
-              steps={{
-                1: {
-                  Inputs: Step1Input,
-                },
-                2: {
-                  Inputs: Step2Input,
-                },
-                3: {
-                  Inputs: MakeStep3Input({
-                    localeOptions,
-                  }),
-                },
-                4: {
-                  Inputs: MakeStep4Input({
-                    localeOptions,
-                  }),
-                },
-                5: {
-                  Inputs: MakeStep5Input({
-                    timezoneOptions,
-                  }),
-                  Action: SubmitAction,
-                },
-              }}
+              steps={steps}
               {...formik}
             />
           )}
