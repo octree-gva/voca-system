@@ -62,7 +62,7 @@ module.exports = ({ strapi }) => ({
           PUBLIC_URL: `https://${instanceEntity.subdomain}.voca.city`,
           TRAEFIK_ENVNAME: conf.traefikEnvName,
           JOB_IMAGE_REGISTRY: conf.jobImageRegistry,
-          JOB_IMAGE_PAGE: conf.jobImagePath,
+          JOB_IMAGE_PATH: conf.jobImagePath,
           PROD_IMAGE_REGISTRY: conf.prodImageRegistry,
           PROD_IMAGE_PATH: conf.prodImagePath,
           IMAGE_USERNAME: conf.registeryUsername,
