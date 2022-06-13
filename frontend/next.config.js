@@ -1,4 +1,5 @@
 module.exports = {
+  optimizeFonts: false,
   eslint: {
     ignoreDuringBuilds: true,
   },

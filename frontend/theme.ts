@@ -30,33 +30,23 @@ export const themeOptions: ThemeOptions = {
     tonalOffset: 0.2,
   },
   typography: {
-    fontFamily: 'Inter',
-    h1: {
-      fontFamily: 'Inter',
-    },
+    fontFamily: '"Inter",sans-serif',
     h2: {
-      fontFamily: 'Inter',
       fontSize: '26px',
       fontWeight: 'bold',
-      margin: '10px 0'
+      margin: '10px 0',
     },
     h3: {
-      fontFamily: 'Inter',
       fontSize: '22px',
       fontWeight: 'bold',
-      margin: '10px 0'
+      margin: '10px 0',
     },
     h4: {
-      fontFamily: 'Inter',
       fontSize: '18px',
       fontWeight: 'bold',
-      margin: '8px 0'
-    },
-    h5: {
-      fontFamily: 'Inter',
+      margin: '8px 0',
     },
     h6: {
-      fontFamily: 'Inter',
       fontSize: '.875rem',
       fontWeight: 'bold',
     },
