@@ -65,6 +65,31 @@ module.exports = {
     return instanceCreated;
   },
   async beforeUpdate(event) {
+    const { params } = event;
+    const { where, data: { customDomain = undefined } = {} } = params;
+
     delete event.params.data.account;
+    if (!customDomain) return;
+    const updatedInstance = (
+      await strapi.query("api::decidim.instance").findMany({
+        where,
+      })
+    ).filter((instance) => instance.customDomain !== customDomain);
+
+    if (!updatedInstance || !customDomain) {
+      return;
+    }
+    // Trigger a domain change for updated instances
+    await Promise.all(
+      updatedInstance.map(async (instance) => {
+        try {
+          await strapi
+            .service("api::decidim.deployment")
+            .updateDomain({ ...instance, customDomain });
+        } catch (err) {
+          // pass, request will <timeout> </timeout>
+        }
+      })
+    );
   },
 };

@@ -3,6 +3,7 @@ const configFactory = {
     return {
       installJps: "installJps",
       controlJps: "controlJps",
+      udpateDomainJps: "udpateDomainJps",
       ...overwrites,
     };
   },
