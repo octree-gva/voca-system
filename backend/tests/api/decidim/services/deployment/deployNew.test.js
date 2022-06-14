@@ -1,17 +1,19 @@
 const request = require("supertest");
-require("../../../helpers/useStrapi");
-const { create: createInstance } = require("../../../factories/instances");
+require("../../../../helpers/useStrapi");
+const { create: createInstance } = require("../../../../factories/instances");
 const {
   create: createManifest,
-} = require("../../../factories/jelastic-manifest");
-const { create: createConfig } = require("../../../factories/jelastic-config");
+} = require("../../../../factories/jelastic-manifest");
+const {
+  create: createConfig,
+} = require("../../../../factories/jelastic-config");
 
-describe("service/api::decidim.deployment", () => {
+describe("service/api::decidim.deployment#deployNew", () => {
   beforeEach(() => {
     strapi.jelasticClient.manifest.install = jest.fn();
   });
 
-  it("install the manifest with the current config", async () => {
+  it("uses the api::jelastic-config.jelastic-config for deploying ", async () => {
     const config = await createConfig();
     await createManifest({
       installJps: "https://myconfig.url/hello?world=bar",
@@ -47,7 +49,7 @@ describe("service/api::decidim.deployment", () => {
       false
     );
   });
-  it("install the manifest with the given instance", async () => {
+  it("uses given instance info to deploy the instance", async () => {
     await createConfig();
     const instance = await createInstance({ subdomain: "test" });
     expect(strapi.jelasticClient.manifest.install).toHaveBeenCalledWith(
@@ -69,7 +71,7 @@ describe("service/api::decidim.deployment", () => {
       false
     );
   });
-  it("Add default_locale in available locales and serializes in a uniq csv", async () => {
+  it("manipulate available locales to be sure their are unique before deploying", async () => {
     await createConfig();
     const instance = await createInstance({
       default_locale: "DEF",

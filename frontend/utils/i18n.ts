@@ -18,8 +18,11 @@ i18n
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
-    parseMissingKeyHandler: key => {
+    parseMissingKeyHandler: (key, defaultValue) => {
       console.log(`🌐 Missing translation: ${i18n.language} ${key}`);
+      if (process.env.NODE_ENV !== 'development' && defaultValue) {
+        return defaultValue;
+      }
       return key;
     },
   });

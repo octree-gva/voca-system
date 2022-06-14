@@ -12,6 +12,45 @@ module.exports = ({ strapi }) => ({
     return matchCount === 0;
   },
 
+  async updateDomain(instanceEntity) {
+    await strapi.query("api::notification.notification").create({
+      data: {
+        saga: "update_domain",
+        instance: instanceEntity.id,
+        content: {
+          to: `${instanceEntity.customDomain}`,
+          status: "triggered",
+        },
+        level: "info",
+      },
+    });
+    const conf = await strapi
+      .query("api::jelastic-config.jelastic-config")
+      .findOne();
+    const manifests = await strapi
+      .query("api::jelastic-config.jelastic-manifest")
+      .findOne();
+
+    if (!manifests && process.env.NODE_ENV !== "test") {
+      throw new Error("No manifests urls found");
+    }
+    const ok = await strapi.jelasticClient.manifest.install(
+      manifests?.updateDomainJps,
+      {
+        displayName: `${instanceEntity.customDomain}`,
+        nodeGroup: conf.nodeGroup,
+        envName: instanceEntity.envName,
+        manifestSettings: {
+          PUBLIC_DOMAIN: `${instanceEntity.customDomain}`,
+          PUBLIC_URL: `https://${instanceEntity.customDomain}`,
+          TRAEFIK_ENVNAME: conf.traefikEnvName,
+        },
+      },
+      false
+    );
+    return { ok };
+  },
+
   async deployNew(instanceEntity) {
     await strapi.query("api::notification.notification").create({
       data: {
