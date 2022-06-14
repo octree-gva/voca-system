@@ -45,10 +45,10 @@ const Domains: InstanceSettingsPage = ({instance}) => {
     }
   };
 
-  const builtinDomain = instance.attributes?.envName as string;
+  const builtinDomain = instance.attributes?.subdomain as string;
   const customDomain = instance.attributes?.customDomain
     ? instance.attributes?.customDomain
-    : builtinDomain;
+    : t('domains.no_custom');
 
   return (
     <Box p={3}>
