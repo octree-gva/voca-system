@@ -44,6 +44,7 @@ module.exports = ({ strapi }) => ({
           PUBLIC_DOMAIN: `${instanceEntity.customDomain}`,
           PUBLIC_URL: `https://${instanceEntity.customDomain}`,
           TRAEFIK_ENVNAME: conf.traefikEnvName,
+          INSTANCE_UUID: instanceEntity.instanceUUID,
         },
       },
       false

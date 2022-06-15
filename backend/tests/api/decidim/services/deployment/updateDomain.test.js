@@ -30,7 +30,9 @@ describe("service/api::decidim.deployment#updateDomain", () => {
     await createManifest({
       updateDomainJps: "udpateDomainJps",
     });
-    const instance = await createInstance({ customDomain: undefined });
+    const instance = await createInstance({
+      customDomain: undefined,
+    });
     await strapi.query("api::decidim.instance").update({
       data: { customDomain: "test.ch" },
       where: { id: instance.id },
@@ -47,6 +49,7 @@ describe("service/api::decidim.deployment#updateDomain", () => {
             TRAEFIK_ENVNAME: config.traefikEnvName,
             PUBLIC_URL: `https://test.ch`,
             PUBLIC_DOMAIN: "test.ch",
+            INSTANCE_UUID: instance.instanceUUID,
           }),
         }),
         false,
